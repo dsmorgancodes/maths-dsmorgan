@@ -1,0 +1,154 @@
+/* Pages: home, entry pages, and long-form mathematical prose. */
+
+.intro {
+  max-width: var(--measure);
+}
+
+.intro p {
+  color: var(--ink-soft);
+  font-size: var(--step-1);
+  font-style: italic;
+}
+
+.section-list {
+  display: grid;
+  gap: var(--space-s) var(--space-l);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.section-list a {
+  font-size: var(--step-1);
+}
+
+.section-list p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.entry-head {
+  max-width: var(--measure);
+  margin-bottom: var(--space-m);
+}
+
+.entry-head h1 {
+  margin-bottom: var(--space-xs);
+}
+
+.breadcrumb {
+  margin-bottom: var(--space-xs);
+  font-size: var(--step--1);
+  font-variant-caps: all-small-caps;
+  letter-spacing: var(--tracking-caps);
+}
+
+.abstract {
+  max-width: var(--measure);
+  padding-left: var(--space-s);
+  border-left: 2px solid var(--accent);
+  font-style: italic;
+}
+
+/* Rendered documents: notes, papers, reports, and proofs. */
+.prose {
+  max-width: var(--measure);
+}
+
+.prose h2 {
+  margin-block: var(--space-l) var(--space-s);
+}
+
+.prose h3 {
+  margin-block: var(--space-m) var(--space-xs);
+}
+
+.prose ul,
+.prose ol {
+  padding-left: var(--space-m);
+}
+
+.prose blockquote {
+  margin: var(--space-m) 0;
+  padding-left: var(--space-s);
+  border-left: 2px solid var(--rule);
+  color: var(--ink-soft);
+}
+
+.prose pre {
+  overflow-x: auto;
+  padding: var(--space-s);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--paper-light);
+  line-height: 1.45;
+}
+
+.prose :not(pre) > code {
+  padding: 0 0.2em;
+  background: var(--paper-shade);
+}
+
+.prose table {
+  width: 100%;
+  margin-block: var(--space-m);
+  border-collapse: collapse;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.prose th,
+.prose td {
+  padding: var(--space-2xs) var(--space-xs);
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+}
+
+.prose figure {
+  margin: var(--space-l) 0;
+}
+
+.prose figcaption {
+  margin-top: var(--space-xs);
+  color: var(--ink-soft);
+  font-size: var(--step--1);
+  text-align: center;
+}
+
+/* Wide figures, animations, and interactive graphics may exceed the text measure. */
+.prose .wide {
+  width: min(100vw - 2 * var(--gutter), var(--wide) - 2 * var(--gutter));
+}
+
+.theorem,
+.definition,
+.lemma,
+.proof {
+  margin-block: var(--space-m);
+}
+
+.theorem,
+.definition,
+.lemma {
+  padding: var(--space-s);
+  border-left: 3px solid var(--accent);
+  background: var(--paper-light);
+}
+
+.theorem > :last-child,
+.definition > :last-child,
+.lemma > :last-child,
+.proof > :last-child {
+  margin-bottom: 0;
+}
+
+.proof::after {
+  content: "\220E";
+  display: block;
+  text-align: right;
+}
+
+@media (min-width: 48rem) {
+  .section-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

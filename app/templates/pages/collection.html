@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% from "macros.html" import page_head, entry_row %}
+{% block content %}
+  <section aria-labelledby="page-heading">
+    {{ page_head(section.title, section.description) }}
+
+    <nav class="filters" aria-label="Filter by subject">
+      <a href="{{ url_for('pages.' ~ section.endpoint) }}"{% if not active_subject %} aria-current="page"{% endif %}>All</a>
+      {% for subject, name in subjects.items() %}
+        <a href="{{ url_for('pages.' ~ section.endpoint, subject=subject) }}"{% if active_subject == subject %} aria-current="page"{% endif %}>{{ name }}</a>
+      {% endfor %}
+    </nav>
+
+    {% if entries %}
+      <ol class="entry-list">
+        {% for entry in entries %}{{ entry_row(section, entry) }}{% endfor %}
+      </ol>
+    {% elif active_subject %}
+      <p class="empty-state">Nothing in {{ section.title | lower }} on {{ subjects[active_subject] }} yet.</p>
+    {% else %}
+      <p class="empty-state">Nothing has been published here yet.</p>
+    {% endif %}
+  </section>
+{% endblock %}

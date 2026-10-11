@@ -1,0 +1,140 @@
+/* Base: paper background and typography. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  background: url("../paper-grain.svg"), var(--paper);
+  color: var(--ink);
+  font-family: var(--font-book);
+  font-size: var(--step-0);
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  line-height: var(--leading);
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  flex: 1;
+  padding-block: var(--space-l) var(--space-xl);
+}
+
+.wrap {
+  width: min(100%, var(--wide));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--step-3);
+}
+
+h2 {
+  font-size: var(--step-2);
+}
+
+h3 {
+  font-size: var(--step-1);
+}
+
+p {
+  margin-block: 0 var(--space-s);
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  color: var(--accent-bright);
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+code,
+pre,
+kbd {
+  font-family: var(--font-code);
+  font-size: 0.85em;
+  font-variant-numeric: normal;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin-block: var(--space-l);
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  top: -5rem;
+  left: var(--space-s);
+  z-index: 10;
+  padding: var(--space-xs) var(--space-s);
+  background: var(--paper);
+}
+
+.skip-link:focus {
+  top: var(--space-s);
+}
+
+@media print {
+  body {
+    background: none;
+  }
+
+  .site-header nav,
+  .filters,
+  .skip-link {
+    display: none;
+  }
+
+  a {
+    color: inherit;
+  }
+}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5eedf">
+    <title>{% block title %}{% if current_section %}{{ current_section.title }} | {% endif %}Mathematics | D.S. Morgan{% endblock %}</title>
+    <meta name="description" content="{% block description %}{{ current_section.description if current_section else 'Notes, papers, projects, and graduate proofs by Drew M. Schaffner.' }}{% endblock %}">
+    {% block meta %}
+      <link rel="canonical" href="{{ config.SITE_URL ~ request.path }}">
+    {% endblock %}
+    <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+    <link rel="preload" href="{{ url_for('static', filename='fonts/eb-garamond-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
+    {% for sheet in ("tokens", "base", "components", "pages") %}
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/' ~ sheet ~ '.css') }}">
+    {% endfor %}
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap site-header-inner">
+        <a class="site-name" href="{{ url_for('pages.index') }}">D.S. Morgan <span>Mathematics</span></a>
+        <nav aria-label="Sections">
+          <ul class="site-nav">
+            {% for section in sections %}
+              <li><a href="{{ url_for('pages.' ~ section.endpoint) }}"{% if current_section == section %} aria-current="page"{% endif %}>{{ section.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="wrap">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>Drew M. Schaffner &middot; M.S. Mathematics &middot; <a href="{{ config.MAIN_SITE_URL }}">dsmorgan.com</a></p>
+      </div>
+    </footer>
+  </body>
+</html>

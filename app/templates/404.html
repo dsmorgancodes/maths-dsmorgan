@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% from "macros.html" import page_head %}
+{% block title %}Not Found | Mathematics | D.S. Morgan{% endblock %}
+{% block meta %}<meta name="robots" content="noindex">{% endblock %}
+{% block content %}
+  <section aria-labelledby="page-heading">
+    {{ page_head("Page not found", "This page has been moved, withdrawn, or has not been published yet.") }}
+    <p><a href="{{ url_for('pages.index') }}">Return to the home page</a></p>
+  </section>
+{% endblock %}

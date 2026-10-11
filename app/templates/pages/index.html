@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% from "macros.html" import entry_row %}
+{% block content %}
+  <section class="intro" aria-labelledby="page-heading">
+    <h1 id="page-heading">Mathematics</h1>
+    <p>Notes, papers, projects, and graduate proofs by Drew M. Schaffner, with the
+      Python code and graphics that accompany them.</p>
+  </section>
+
+  <section aria-labelledby="sections-heading">
+    <h2 id="sections-heading" class="section-label">Sections</h2>
+    <ul class="section-list">
+      {% for section in collections %}
+        <li>
+          <a href="{{ url_for('pages.' ~ section.endpoint) }}">{{ section.title }}</a>
+          <p>{{ section.description }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section aria-labelledby="recent-heading">
+    <h2 id="recent-heading" class="section-label">Recently published</h2>
+    {% if recent %}
+      <ol class="entry-list">
+        {% for section, entry in recent %}{{ entry_row(section, entry) }}{% endfor %}
+      </ol>
+    {% else %}
+      <p class="empty-state">Nothing has been published yet.</p>
+    {% endif %}
+  </section>
+{% endblock %}

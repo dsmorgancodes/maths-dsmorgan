@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% from "macros.html" import page_head %}
+{% block content %}
+  <section class="prose" aria-labelledby="page-heading">
+    {{ page_head("About") }}
+    <p>This is the working archive of Drew M. Schaffner, M.S. Mathematics, Northwest
+      Missouri State University. It collects notes, papers, computational projects,
+      and proofs from graduate study, along with the code and graphics behind them.</p>
+    <p>Entries are tagged by subject:</p>
+    <ul>
+      {% for name in subjects.values() %}<li>{{ name }}</li>{% endfor %}
+    </ul>
+    <p>For a curriculum vitae, selected work, and contact details, visit
+      <a href="{{ config.MAIN_SITE_URL }}">dsmorgan.com</a>.</p>
+  </section>
+{% endblock %}

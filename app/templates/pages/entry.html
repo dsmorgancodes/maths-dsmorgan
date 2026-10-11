@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% from "macros.html" import written_date, subject_tags %}
+{% block title %}{{ entry.title }} | {{ section.title }} | Mathematics | D.S. Morgan{% endblock %}
+{% block description %}{{ entry.summary or entry.title }}{% endblock %}
+{% block content %}
+  <article aria-labelledby="page-heading">
+    <header class="entry-head">
+      <p class="breadcrumb"><a href="{{ url_for('pages.' ~ section.endpoint) }}">{{ section.title }}</a></p>
+      <h1 id="page-heading">{{ entry.title }}</h1>
+      <p class="entry-meta">{{ written_date(entry.written) }}</p>
+      {{ subject_tags(entry, section) }}
+    </header>
+    {% if entry.summary %}
+      <p class="abstract">{{ entry.summary }}</p>
+    {% endif %}
+    <div class="prose">
+      {% block body %}{% endblock %}
+    </div>
+  </article>
+{% endblock %}
