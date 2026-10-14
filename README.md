@@ -36,7 +36,9 @@ published = false
 Only `title` is required. Entries stay off the site until
 `published = true`. Subjects must be one of: `artificial-intelligence`,
 `group-theory`, `data-science`, `linear-algebra`, `real-analysis`,
-`calculus`, `graph-theory`, `topology` (defined in `app/catalog.py`).
+`calculus`, `graph-theory`, `topology`, `complex-analysis`,
+`analytic-geometry`, `foundations`, `classical-mechanics` (defined in
+`app/catalog.py`).
 
 ## Writing
 
@@ -58,6 +60,9 @@ uv run tools/new.py course calculus "Calculus" -s calculus
 ```
 
 A course is one entry: `master.tex` inputs one `lec_NN.tex` per lecture.
+Topic notes use `\chapter{2}{Power Series}` instead of `\lecture` (no date).
+Images go in the entry's `figures/` folder: `\includegraphics{name}`.
+Computations use `\begin{solution}`; arguments use `\begin{proof}`.
 Compiled PDFs and LaTeX build files are ignored by git.
 
 Validate every entry, including drafts, before publishing:

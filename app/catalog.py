@@ -19,6 +19,10 @@ SUBJECTS = {
     "calculus": "Calculus",
     "graph-theory": "Graph Theory",
     "topology": "Topology",
+    "complex-analysis": "Complex Analysis",
+    "analytic-geometry": "Analytic Geometry",
+    "foundations": "Foundations",
+    "classical-mechanics": "Classical Mechanics",
 }
 
 

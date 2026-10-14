@@ -8,6 +8,8 @@
 \RequirePackage{fancyhdr}
 \RequirePackage{titlesec}
 \RequirePackage{enumitem}
+\RequirePackage{graphicx}
+\graphicspath{{figures/}}
 \setlength{\parindent}{1.2em}
 \setlength{\parskip}{0.25em}
 \linespread{1.06}
@@ -97,6 +99,9 @@
 \declaretheorem[style=dsremark, name=Example, sibling=theorem]{example}
 \declaretheorem[style=dsremark, name=Exercise, sibling=theorem]{exercise}
 \declaretheorem[style=dsremark, name=Remark, sibling=theorem]{remark}
+% Worked computation (as opposed to a proof); ends with an open triangle.
+\declaretheorem[style=dsremark, name=Solution, numbered=no,
+  qed=\ensuremath{\vartriangleleft}]{solution}
 
 % Results: shaded box with an accent rule on the left.
 \tcbset{dsresult/.style={enhanced, breakable, sharp corners, boxrule=0pt,
@@ -125,18 +130,23 @@
 % Contents: sections sit under their lecture, with dot leaders.
 \renewcommand*{\l@section}{\@dottedtocline{1}{1.2em}{1.8em}}
 \renewcommand*{\l@subsection}{\@dottedtocline{2}{3em}{2.6em}}
-\newcommand{\lecture}[3]{%
+% \ds@unit{label}{number}{margin note}{title}
+\newcommand{\ds@unit}[4]{%
   \par\addvspace{4.5ex plus 1ex}%
   % One box, so the rule, heading and contents entry never split across pages.
   \vbox{%
     \noindent{\color{dsrule}\rule{\linewidth}{0.6pt}}\par
     \vspace{0.8ex}%
     \noindent\phantomsection
-    \addcontentsline{toc}{lecture}{Lecture #1\if\relax\detokenize{#3}\relax\else: #3\fi}%
-    {\large\scshape\color{dsaccent}Lecture #1}%
-    \if\relax\detokenize{#3}\relax\else{\large\scshape: #3}\fi
-    \marginnote{\footnotesize\itshape\color{dsinksoft}#2}\par}%
+    \addcontentsline{toc}{lecture}{#1 #2\if\relax\detokenize{#4}\relax\else: #4\fi}%
+    {\large\scshape\color{dsaccent}#1 #2}%
+    \if\relax\detokenize{#4}\relax\else{\large\scshape: #4}\fi
+    \if\relax\detokenize{#3}\relax\else
+      \marginnote{\footnotesize\itshape\color{dsinksoft}#3}\fi\par}%
   \nopagebreak\vspace{1.2ex}\@afterheading}
+\newcommand{\lecture}[3]{\ds@unit{Lecture}{#1}{#2}{#3}}
+% Topic notes: \chapter{2}{Power Series}. No date.
+\newcommand{\chapter}[2]{\ds@unit{Chapter}{#1}{}{#2}}
 
 % Proofs: small-caps head and a filled tombstone.
 \renewcommand{\proofname}{\textsc{Proof}}
