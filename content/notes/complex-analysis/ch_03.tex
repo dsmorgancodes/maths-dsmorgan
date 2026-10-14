@@ -1,0 +1,182 @@
+%! TEX root = master.tex
+\chapter{3}{Singularities, Laurent Series and Residues}
+
+Near an isolated singularity a function is no longer a power series, but it is
+still a series in both positive and negative powers. The negative part
+classifies the singularity, and a single coefficient, the residue, is all
+that survives when we integrate around it.
+
+\section{Laurent series}\label{sec:laurent}
+
+\input{theorems/laurent}
+
+\begin{definition}\label{def:singularities}
+  Let $f$ be analytic in $0 < \abs{z - z_0} < R$, with Laurent series
+  $\sum_{n=-\infty}^{\infty} a_n (z - z_0)^n$ there. The isolated singularity
+  $z_0$ is
+  \begin{itemize}
+    \item \emph{removable} if $a_n = 0$ for every $n < 0$;
+    \item a \emph{pole of order $m$} if $a_{-m} \neq 0$ and $a_n = 0$ for
+      every $n < -m$;
+    \item \emph{essential} if $a_n \neq 0$ for infinitely many $n < 0$.
+  \end{itemize}
+  The \emph{residue} of $f$ at $z_0$ is $\Res(f; z_0) = a_{-1}$.
+\end{definition}
+
+\begin{exercise}\label{ex:exp-inverse-square}
+  Find the Laurent series of $f(z) = e^{1/(2z^2)}$ about $0$, classify the
+  singularity, and find $\Res(f; 0)$.
+\end{exercise}
+
+\begin{solution}
+  The series $e^w = \sum_{j=0}^{\infty} w^j / j!$ converges for every $w$,
+  because $e^w$ is entire. Putting $w = 1/(2z^2)$ gives, for every $z \neq 0$,
+  \[
+    e^{1/(2z^2)}
+    = \sum_{j=0}^{\infty} \frac{1}{j! \, 2^j z^{2j}}
+    = 1 + \frac{1}{2z^2} + \frac{1}{8z^4} + \frac{1}{48z^6} + \dotsb.
+  \]
+  By uniqueness of Laurent coefficients (\cref{thm:laurent}), this is the
+  Laurent series on $0 < \abs{z} < \infty$. It has infinitely many negative
+  powers, so $0$ is an essential singularity. Only even powers occur, so
+  $a_{-1} = 0$ and $\Res(f; 0) = 0$.
+\end{solution}
+
+\begin{remark}
+  A zero residue does not mean a mild singularity: here it sits beside an
+  essential singularity. It only says that $\oint f = 0$ around small circles.
+\end{remark}
+
+\section{Removable singularities}\label{sec:removable}
+
+\input{theorems/removable-singularity}
+
+\begin{exercise}\label{ex:one-minus-cos}
+  Show that $f(z) = \dfrac{1 - \cos z}{z^2}$ has a removable singularity at
+  $0$, and find the value of $f(0)$ that makes $f$ analytic there.
+\end{exercise}
+
+\begin{solution}
+  For every $z$,
+  $\cos z = 1 - \frac{z^2}{2!} + \frac{z^4}{4!} - \frac{z^6}{6!} + \dotsb$,
+  so for $z \neq 0$
+  \[
+    f(z) = \frac{1}{2!} - \frac{z^2}{4!} + \frac{z^4}{6!} - \dotsb
+    = \frac12 - \frac{z^2}{24} + \frac{z^4}{720} - \dotsb.
+  \]
+  The Laurent series has no negative powers, so the singularity is removable.
+  Equivalently, $\lim_{z \to 0} f(z) = \frac12$ (\cref{thm:removable}).
+  Setting $f(0) = \frac12$ makes $f$ the sum of an everywhere convergent power
+  series, so $f$ is entire.
+\end{solution}
+
+\section{Zeros and poles}\label{sec:poles}
+
+\input{theorems/poles}
+
+\begin{exercise}\label{ex:double-poles}
+  Find the poles of $f(z) = \dfrac{e^z}{z^2 (z - 2)^2}$ and their orders.
+\end{exercise}
+
+\begin{solution}
+  $e^z$ is entire, so $f$ is analytic except at the zeros $0$ and $2$ of the
+  denominator.
+
+  \emph{At $0$.} $f(z) = g(z) / z^2$ with $g(z) = e^z / (z - 2)^2$, which is
+  analytic at $0$ with $g(0) = \frac14 \neq 0$. By \cref{thm:poles}, $0$ is a
+  pole of order $2$.
+
+  \emph{At $2$.} $f(z) = g(z) / (z - 2)^2$ with $g(z) = e^z / z^2$, analytic
+  at $2$ with $g(2) = e^2 / 4 \neq 0$. So $2$ is also a pole of order $2$.
+\end{solution}
+
+\section{Residues}\label{sec:residues}
+
+\input{theorems/residue-theorem}
+\input{theorems/residue-at-pole}
+
+\begin{exercise}\label{ex:z-squared-sin}
+  Let $f(z) = \dfrac{1}{z^2 \sin z}$. Find $\Res(f; 0)$ in two ways, first by
+  \cref{thm:residue-at-pole} and then from the Laurent series, and use it to
+  evaluate $\oint_{\abs{z} = 1} f(z) \dd z$.
+\end{exercise}
+
+\begin{solution}
+  \emph{Order of the pole.} From the series for $\sin z$,
+  \[
+    z^2 \sin z = z^3 h(z),
+    \qquad h(z) = 1 - \frac{z^2}{6} + \frac{z^4}{120} - \dotsb,
+  \]
+  with $h(0) = 1 \neq 0$. So $z^2 \sin z$ has a zero of order $3$ at $0$, and
+  $f$ has a pole of order $3$ there (\cref{thm:poles}).
+
+  \emph{A series for $z / \sin z$.} This is $1/h(z)$, which is analytic near
+  $0$. Write $h = 1 - c$ with $c = \frac{z^2}{6} - \frac{z^4}{120} + \dotsb$.
+  For small $z$, $\abs{c} < 1$, and the geometric series gives
+  \[
+    \frac{z}{\sin z} = 1 + c + c^2 + \dotsb
+    = 1 + \frac{z^2}{6} + \left(\frac{1}{36} - \frac{1}{120}\right) z^4 + \dotsb
+    = 1 + \frac{z^2}{6} + \frac{7 z^4}{360} + \dotsb.
+  \]
+
+  \emph{By the formula.} With $m = 3$,
+  \[
+    \Res(f; 0)
+    = \frac{1}{2!} \lim_{z \to 0} \frac{\dd^2}{\dd z^2} \left[ \frac{z}{\sin z} \right]
+    = \frac12 \lim_{z \to 0} \left( \frac13 + \frac{7 z^2}{30} + \dotsb \right)
+    = \frac16,
+  \]
+  differentiating term by term (\cref{thm:termwise}).
+
+  \emph{From the Laurent series.} Dividing by $z^3$,
+  \[
+    f(z) = \frac{1}{z^3} \cdot \frac{z}{\sin z}
+    = \frac{1}{z^3} + \frac{1}{6z} + \frac{7z}{360} + \dotsb,
+  \]
+  so again $\Res(f; 0) = a_{-1} = \frac16$.
+
+  \emph{The integral.} The singularities of $f$ are the zeros $z = k\pi$ of
+  $z^2 \sin z$, and only $z = 0$ lies inside $\abs{z} = 1$. By
+  \cref{thm:residue-theorem},
+  \[
+    \oint_{\abs{z} = 1} \frac{\dd z}{z^2 \sin z}
+    = 2\pi i \cdot \frac16 = \frac{\pi i}{3}. \qedhere
+  \]
+\end{solution}
+
+\begin{exercise}\label{ex:residues-two-functions}
+  Find the singularities and the residues there of
+  \[
+    \text{(a)}\ f(z) = \frac{\sin z}{z(z + 1)},
+    \qquad
+    \text{(b)}\ g(z) = \frac{\cos z}{z (z - 1)^2}.
+  \]
+\end{exercise}
+
+\begin{solution}
+  \emph{(a) At $0$.} Since $\frac{\sin z}{z} = 1 - \frac{z^2}{3!} + \dotsb$,
+  $f(z) \to 1$ as $z \to 0$. The singularity is removable
+  (\cref{thm:removable}), so there are no negative powers and $\Res(f; 0) = 0$.
+
+  \emph{(a) At $-1$.} $f(z) = \frac{\sin z / z}{z + 1}$, and
+  $\frac{\sin(-1)}{-1} = \sin 1 \neq 0$, so $-1$ is a simple pole and
+  \[
+    \Res(f; -1) = \lim_{z \to -1} \frac{\sin z}{z} = \sin 1.
+  \]
+
+  \emph{(b) At $0$.} $g(z) = \frac{\cos z / (z - 1)^2}{z}$, with numerator
+  $1 \neq 0$ at $z = 0$. This is a simple pole, and
+  \[
+    \Res(g; 0) = \lim_{z \to 0} \frac{\cos z}{(z - 1)^2} = 1.
+  \]
+
+  \emph{(b) At $1$.} $g(z) = \frac{\cos z / z}{(z - 1)^2}$, with numerator
+  $\cos 1 \neq 0$ at $z = 1$, so this is a pole of order $2$. By
+  \cref{thm:residue-at-pole} with $m = 2$,
+  \[
+    \Res(g; 1)
+    = \lim_{z \to 1} \frac{\dd}{\dd z} \frac{\cos z}{z}
+    = \lim_{z \to 1} \frac{-z \sin z - \cos z}{z^2}
+    = -\sin 1 - \cos 1. \qedhere
+  \]
+\end{solution}

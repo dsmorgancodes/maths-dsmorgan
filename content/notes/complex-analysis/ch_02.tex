@@ -212,3 +212,22 @@ section states one of these facts and then puts it to work.
   converges exactly on $\abs{z} < \pi/2$. The numerators $1, 1, 5, 61$ are the
   Euler (secant) numbers.
 \end{remark}
+
+\begin{exercise}\label{ex:z-fourth-about-one}
+  Expand $p(z) = z^4$ in powers of $z - 1$.
+\end{exercise}
+
+\begin{solution}
+  $p$ is entire, so by \cref{thm:taylor} its Taylor series about $1$ converges
+  to it everywhere. The derivatives at $1$ are
+  $p(1) = 1$, $p'(1) = 4$, $p''(1) = 12$, $p'''(1) = 24$, $p^{(4)}(1) = 24$, and
+  $p^{(j)} \equiv 0$ for $j \geq 5$. Dividing by $j!$,
+  \[
+    z^4 = 1 + 4(z - 1) + 6(z - 1)^2 + 4(z - 1)^3 + (z - 1)^4. \qedhere
+  \]
+\end{solution}
+
+\begin{remark}
+  The coefficients are the binomial coefficients $\binom{4}{j}$, as they must
+  be: $z^4 = \bigl(1 + (z - 1)\bigr)^4$.
+\end{remark}

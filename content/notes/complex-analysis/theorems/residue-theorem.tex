@@ -1,0 +1,23 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Cauchy's residue theorem]\label{thm:residue-theorem}
+  Let $\Gamma$ be a simple closed positively oriented contour, and let $f$ be
+  analytic inside and on $\Gamma$ except at finitely many points
+  $z_1, \dots, z_n$ inside $\Gamma$. Then
+  \[
+    \oint_\Gamma f(z) \dd z = 2\pi i \sum_{k=1}^{n} \Res(f; z_k).
+  \]
+  \thmsource{\cite[ch.~6]{saff-snider}}
+\end{theorem}
+
+\begin{proof}
+  Surround each $z_k$ by a small positively oriented circle $C_k$, with the
+  discs disjoint and inside $\Gamma$. By \cref{thm:deformation},
+  $\oint_\Gamma f = \sum_k \oint_{C_k} f$. On $C_k$, $f$ equals its Laurent
+  series about $z_k$, which converges uniformly there (\cref{thm:laurent}),
+  so it may be integrated term by term. Since
+  \[
+    \oint_{C_k} (z - z_k)^n \dd z =
+    \begin{cases} 2\pi i, & n = -1, \\ 0, & n \neq -1, \end{cases}
+  \]
+  only the $a_{-1}$ term survives, and $\oint_{C_k} f = 2\pi i \Res(f; z_k)$.
+\end{proof}

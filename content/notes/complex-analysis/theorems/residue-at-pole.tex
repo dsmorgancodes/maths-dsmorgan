@@ -1,0 +1,21 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Residue at a pole]\label{thm:residue-at-pole}
+  If $f$ has a pole of order $m$ at $z_0$, then
+  \[
+    \Res(f; z_0) = \frac{1}{(m-1)!} \lim_{z \to z_0}
+      \frac{\dd^{m-1}}{\dd z^{m-1}} \bigl[ (z - z_0)^m f(z) \bigr].
+  \]
+  For a simple pole, $\Res(f; z_0) = \lim_{z \to z_0} (z - z_0) f(z)$.
+  \thmsource{\cite[ch.~6]{saff-snider}}
+\end{theorem}
+
+\begin{proof}
+  Near $z_0$,
+  \[
+    (z - z_0)^m f(z)
+    = a_{-m} + a_{-m+1}(z - z_0) + \dots + a_{-1}(z - z_0)^{m-1} + \dotsb,
+  \]
+  a power series once its removable singularity at $z_0$ is filled in. By
+  \cref{thm:uniqueness}, its $(m-1)$st derivative at $z_0$ is
+  $(m-1)! \, a_{-1}$, and this derivative is continuous, so it equals the limit.
+\end{proof}

@@ -1,0 +1,14 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Zeros and poles]\label{thm:poles}
+  Let $m \geq 1$.
+  \begin{enumerate}[label=(\roman*)]
+    \item $f$ has a pole of order $m$ at $z_0$ if and only if
+      $f(z) = g(z) / (z - z_0)^m$ near $z_0$, with $g$ analytic at $z_0$ and
+      $g(z_0) \neq 0$.
+    \item $g$ has a zero of order $m$ at $z_0$ if and only if
+      $g(z) = (z - z_0)^m h(z)$ with $h$ analytic at $z_0$ and $h(z_0) \neq 0$.
+    \item If $g$ has a zero of order $m$ at $z_0$, then $1/g$ has a pole of
+      order $m$ there.
+  \end{enumerate}
+  \thmsource{\cite[ch.~5]{saff-snider}}
+\end{theorem}

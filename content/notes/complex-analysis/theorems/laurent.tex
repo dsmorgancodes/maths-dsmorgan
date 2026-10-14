@@ -1,0 +1,15 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Laurent's theorem]\label{thm:laurent}
+  If $f$ is analytic in the annulus $r < \abs{z - z_0} < R$, then
+  \[
+    f(z) = \sum_{n=-\infty}^{\infty} a_n (z - z_0)^n
+  \]
+  there, where both halves of the series converge absolutely in the annulus
+  and uniformly on every closed subannulus. The coefficients are unique, and
+  \[
+    a_n = \frac{1}{2\pi i} \oint_C \frac{f(\zeta)}{(\zeta - z_0)^{n+1}} \dd \zeta
+  \]
+  for any positively oriented circle $C \colon \abs{\zeta - z_0} = \rho$ with
+  $r < \rho < R$.
+  \thmsource{\cite[ch.~5]{saff-snider}}
+\end{theorem}
