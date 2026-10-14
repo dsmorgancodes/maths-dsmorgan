@@ -1,0 +1,108 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{dsmorgan}
+
+\title{Entire Functions of Polynomial Growth}
+\subtitle{Liouville's theorem, one derivative and one power at a time}
+\author{Drew M. Schaffner}
+\date{Draft, \today}
+
+\begin{document}
+\maketitle
+
+\section{Statement}
+
+\begin{theorem}[Polynomial growth]\label{thm:main}
+  Let $f$ be entire and $k \geq 0$ an integer. The following are equivalent:
+  \begin{enumerate}[label=(\alph*)]
+    \item $f$ is a polynomial of degree at most $k$;
+    \item $f^{(k)}$ is bounded on $\C$;
+    \item there are constants $A, B \geq 0$ with $\abs{f(z)} \leq A + B \abs{z}^k$
+      for all $z \in \C$.
+  \end{enumerate}
+\end{theorem}
+
+The case $k = 0$ of (c) $\Rightarrow$ (a) is Liouville's theorem.
+
+\section{Setting}
+
+We use two standard facts about an entire function $f$ \cite[ch.~4--5]{saff-snider}:
+it equals its Taylor series $f(z) = \sum_{n \geq 0} a_n z^n$ on all of $\C$, with
+$a_n = f^{(n)}(0)/n!$, and its derivatives are again entire.
+
+\begin{lemma}[Cauchy's estimate]\label{lem:cauchy}
+  If $f$ is entire and $M(R) = \max_{\abs{z} = R} \abs{f(z)}$, then
+  $\abs{a_n} \leq M(R) / R^n$ for every $R > 0$ and $n \geq 0$.
+\end{lemma}
+
+\begin{proof}
+  By Cauchy's integral formula for derivatives on the circle $\abs{z} = R$,
+  \[
+    \abs{a_n} = \abs*{\frac{1}{2\pi i} \oint_{\abs{z} = R} \frac{f(z)}{z^{n+1}} \dd z}
+    \leq \frac{1}{2\pi} \cdot 2\pi R \cdot \frac{M(R)}{R^{n+1}}
+    = \frac{M(R)}{R^n}. \qedhere
+  \]
+\end{proof}
+
+\section{Idea of the proof}
+
+Growth of $f$ controls its Taylor coefficients through \cref{lem:cauchy}. If $f$
+grows no faster than $\abs{z}^k$, every coefficient beyond $a_k$ is crushed to zero
+as $R \to \infty$.
+
+\section{Proof}
+
+\begin{proof}[(c) $\Rightarrow$ (a)]
+  For $R \geq 1$ we have $M(R) \leq A + B R^k$, so for $n > k$, \cref{lem:cauchy} gives
+  \[
+    \abs{a_n} \leq \frac{A + B R^k}{R^n} = \frac{A}{R^n} + \frac{B}{R^{n-k}}
+    \xrightarrow[R \to \infty]{} 0 .
+  \]
+  Hence $a_n = 0$ for all $n > k$, and $f(z) = \sum_{n=0}^{k} a_n z^n$.
+\end{proof}
+
+\begin{proof}[(b) $\Rightarrow$ (a)]
+  The function $f^{(k)}$ is entire and bounded, so it satisfies (c) with exponent $0$.
+  By the case already proved, it is a constant $c$. Then $f^{(n)} \equiv 0$ for
+  $n > k$, so $a_n = f^{(n)}(0)/n! = 0$ for $n > k$.
+\end{proof}
+
+\begin{proof}[(a) $\Rightarrow$ (b) and (c)]
+  If $f(z) = \sum_{n=0}^{k} a_n z^n$, then $f^{(k)} = k!\, a_k$ is constant. For
+  (c), note that $\abs{z}^n \leq 1 + \abs{z}^k$ for $0 \leq n \leq k$, since one of
+  $1$ and $\abs{z}^k$ is at least $\abs{z}^n$. So
+  $\abs{f(z)} \leq \sum_{n} \abs{a_n} (1 + \abs{z}^k)$.
+\end{proof}
+
+\section{Remarks}
+
+\begin{corollary}[Sublinear growth]\label{cor:sublinear}
+  If $f$ is entire and $f(z)/z \to 0$ as $z \to \infty$, then $f$ is constant.
+\end{corollary}
+
+\begin{proof}
+  By \cref{lem:cauchy} with $n = 1$, $\abs{a_1} \leq M(R)/R \to 0$, and for $n \geq 2$,
+  $\abs{a_n} \leq M(R)/R^n \leq M(R)/R \to 0$ once $R \geq 1$.
+\end{proof}
+
+\begin{remark}
+  Nothing like this holds for real functions. The function $\sin x$ is smooth on
+  $\R$ and all of its derivatives are bounded by $1$, but it is not a polynomial.
+  Its complex extension is unbounded in every direction except the real axis:
+  $\abs{\sin(iy)} = \abs{\sinh y}$. Bounding a function on the real line says nothing
+  about the complex plane, and Liouville's theorem needs the whole plane.
+\end{remark}
+
+\begin{remark}
+  Read contrapositively, (c) $\Rightarrow$ (a) says that an entire function that is
+  not a polynomial, such as $e^z$, outgrows every power: for each $k$ there is a
+  sequence $z_j \to \infty$ with $\abs{f(z_j)} / \abs{z_j}^k \to \infty$.
+\end{remark}
+
+% Verified: archive.org record fundamentalsofco0000saff_c0g0. Cite by chapter only.
+\begin{thebibliography}{9}
+  \bibitem{saff-snider} E.~B. Saff and A.~D. Snider,
+    \emph{Fundamentals of Complex Analysis with Applications to Engineering
+    and Science}, 3rd ed., Prentice Hall, Upper Saddle River, NJ, 2003.
+\end{thebibliography}
+
+\end{document}

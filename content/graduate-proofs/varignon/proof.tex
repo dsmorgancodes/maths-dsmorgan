@@ -1,0 +1,128 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{dsmorgan}
+
+\title{Varignon's Theorem}
+\subtitle{The midpoint parallelogram of any quadrilateral}
+\author{Drew M. Schaffner}
+\date{Draft, \today}
+
+\begin{document}
+\maketitle
+
+\section{Statement}
+
+\begin{theorem}[Varignon]\label{thm:main}
+  Let $A$, $B$, $C$, $D$ be any four points in $\R^n$, and let $K$, $L$, $M$,
+  $N$ be the midpoints of $AB$, $BC$, $CD$, $DA$. Then:
+  \begin{enumerate}[label=(\alph*)]
+    \item $\overrightarrow{KL} = \overrightarrow{NM} = \frac12 \overrightarrow{AC}$
+      and $\overrightarrow{KN} = \overrightarrow{LM} = \frac12 \overrightarrow{BD}$,
+      so $KLMN$ is a parallelogram, possibly degenerate;
+    \item its diagonals bisect each other at the centroid
+      $G = \frac14 (A + B + C + D)$;
+    \item its perimeter is $AC + BD$;
+    \item if $ABCD$ is a simple quadrilateral in the plane, the area of $KLMN$ is
+      half the area of $ABCD$.
+  \end{enumerate}
+\end{theorem}
+
+The quadrilateral may be convex, non-convex or self-intersecting, and in (a)--(c)
+the four points need not even lie in a plane.
+
+\section{Setting}
+
+We identify each point with its position vector, so that $\overrightarrow{PQ} = Q - P$
+and the midpoint of $PQ$ is $\frac12 (P + Q)$. A parallelogram is a quadrilateral
+$KLMN$ with $L - K = M - N$; equivalently, $KL$ and $NM$ are equal and parallel.
+
+For vectors $u = (u_1, u_2)$ and $v = (v_1, v_2)$ in $\R^2$, write
+\[
+  u \wedge v = u_1 v_2 - u_2 v_1 .
+\]
+This is bilinear and antisymmetric ($v \wedge u = -u \wedge v$, so $u \wedge u = 0$),
+and $\abs{u \wedge v}$ is the area of the parallelogram spanned by $u$ and $v$.
+
+\begin{lemma}[Shoelace formula]\label{lem:shoelace}
+  The area of a simple polygon $P_1 P_2 \dotsm P_m$ is
+  $\frac12 \abs*{\sum_{j=1}^{m} P_j \wedge P_{j+1}}$, where $P_{m+1} = P_1$.
+\end{lemma}
+
+We use this standard fact without proof; it follows from Green's theorem applied to
+the vector field $\frac12(-y, x)$.
+
+\section{Idea of the proof}
+
+Every statement is linear in the four points. Each side of $KLMN$ is the
+difference of two midpoints, and the terms that do not involve a diagonal cancel.
+
+\section{Proof}
+
+\begin{proof}[Proof of (a)]
+  \[
+    L - K = \frac{B + C}{2} - \frac{A + B}{2} = \frac{C - A}{2}, \qquad
+    M - N = \frac{C + D}{2} - \frac{D + A}{2} = \frac{C - A}{2}.
+  \]
+  The same computation with $B$ and $D$ in place of $A$ and $C$ gives
+  $N - K = M - L = \frac12 (D - B)$.
+\end{proof}
+
+\begin{proof}[Proof of (b)]
+  The midpoints of the diagonals $KM$ and $LN$ are
+  \[
+    \frac{K + M}{2} = \frac{A + B + C + D}{4} = \frac{L + N}{2}. \qedhere
+  \]
+\end{proof}
+
+\begin{proof}[Proof of (c)]
+  By (a), the four sides have lengths $\frac12 AC$, $\frac12 BD$, $\frac12 AC$ and
+  $\frac12 BD$.
+\end{proof}
+
+\begin{lemma}[Area from the diagonals]\label{lem:diag-area}
+  For any $A, B, C, D \in \R^2$,
+  \[
+    A \wedge B + B \wedge C + C \wedge D + D \wedge A = (C - A) \wedge (D - B).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Expand the right-hand side by bilinearity and use antisymmetry:
+  \[
+    (C - A) \wedge (D - B)
+    = C \wedge D - C \wedge B - A \wedge D + A \wedge B
+    = A \wedge B + B \wedge C + C \wedge D + D \wedge A. \qedhere
+  \]
+\end{proof}
+
+\begin{proof}[Proof of (d)]
+  By \cref{lem:shoelace,lem:diag-area}, the area of $ABCD$ is
+  $\frac12 \abs{(C - A) \wedge (D - B)}$. By (a), $KLMN$ is the parallelogram
+  spanned by $L - K = \frac12 (C - A)$ and $N - K = \frac12 (D - B)$, so its area is
+  \[
+    \abs*{\tfrac12 (C - A) \wedge \tfrac12 (D - B)}
+    = \tfrac14 \abs{(C - A) \wedge (D - B)},
+  \]
+  which is half the area of $ABCD$.
+\end{proof}
+
+\section{Remarks}
+
+\begin{remark}
+  The parallelogram degenerates to a segment exactly when the diagonals $AC$ and
+  $BD$ are parallel, and to a point exactly when both diagonals collapse, that is,
+  $A = C$ and $B = D$.
+\end{remark}
+
+\begin{remark}
+  Corollaries follow from (a) at once. $KLMN$ is a rhombus exactly when
+  $AC = BD$, and a rectangle exactly when $AC \perp BD$. So the midpoint
+  quadrilateral of a rhombus is a rectangle, and that of a rectangle is a rhombus.
+\end{remark}
+
+\begin{remark}
+  The coordinate proof in the Analytic Geometry notes places $A$ at the origin and
+  $B$ on the $x$-axis. The vector proof needs no choice of coordinates, so it works
+  in any dimension and for every quadrilateral at once.
+\end{remark}
+
+\end{document}

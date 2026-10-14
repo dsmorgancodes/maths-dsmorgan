@@ -2,7 +2,7 @@
 \usepackage{dsmorgan}
 
 \title{Euler's Identity}
-\subtitle{A proof from power series}
+\subtitle{Two proofs: power series and the circle group}
 \author{Drew M. Schaffner}
 \date{08/05/2026}
 
@@ -20,7 +20,7 @@
 \section{Setting}
 
 Everything is built from power series, so no geometric intuition about angles
-is assumed. I have, however, offered an additional version of this proof utilizing Group Theory. 
+is assumed. \Cref{sec:group} gives a second proof using group theory.
 
 \begin{definition}[Exponential, sine and cosine]\label{def:exp}
   For $z \in \C$, define
@@ -98,6 +98,74 @@ $i \sin\theta$. Then evaluate at $\theta = \pi$.
   so $e^{i\pi} + 1 = 0$.
 \end{proof}
 
+\section{A second proof: the circle group}\label{sec:group}
+
+The first proof computes $\cos\pi$ and $\sin\pi$ through the addition formulas. The
+second avoids them: it needs only the value at $\pi/2$ and the fact that $\exp$ turns
+addition into multiplication.
+
+\begin{lemma}[Homomorphism]\label{lem:hom}
+  $\exp(z + w) = \exp(z)\exp(w)$ for all $z, w \in \C$, and $\exp(0) = 1$.
+\end{lemma}
+
+\begin{proof}
+  The series for $\exp(z)$ and $\exp(w)$ converge absolutely by \cref{lem:converge},
+  so their Cauchy product converges to $\exp(z)\exp(w)$. Its $n$th term is
+  \[
+    \sum_{k=0}^{n} \frac{z^k}{k!} \frac{w^{n-k}}{(n-k)!}
+    = \frac{1}{n!} \sum_{k=0}^{n} \binom{n}{k} z^k w^{n-k}
+    = \frac{(z + w)^n}{n!}
+  \]
+  by the binomial theorem, which is the $n$th term of $\exp(z + w)$.
+\end{proof}
+
+Let $\mathbb{T} = \set{w \in \C : \abs{w} = 1}$. It is a group under multiplication,
+called the \emph{circle group}.
+
+\begin{proposition}[Into the circle]\label{prop:circle}
+  The map $E(\theta) = e^{i\theta}$ is a group homomorphism
+  $E \colon (\R, +) \to (\mathbb{T}, \cdot)$.
+\end{proposition}
+
+\begin{proof}
+  The series for $\exp$ has real coefficients, so
+  $\overline{e^{i\theta}} = e^{-i\theta}$. By \cref{lem:hom},
+  \[
+    \abs{e^{i\theta}}^2 = e^{i\theta}\, e^{-i\theta} = e^{0} = 1,
+  \]
+  so $E$ takes values in $\mathbb{T}$. It is a homomorphism by \cref{lem:hom}.
+\end{proof}
+
+\begin{lemma}[A quarter turn]\label{lem:quarter}
+  $E(\pi/2) = i$.
+\end{lemma}
+
+\begin{proof}
+  By \cref{lem:formula} and \cref{def:pi},
+  $E(\pi/2) = \cos\frac\pi2 + i \sin\frac\pi2 = i \sin\frac\pi2$. This has modulus
+  $1$ by \cref{prop:circle}, so $\sin\frac\pi2 = \pm 1$. On $[0, \pi/2)$ we have
+  $\sin' = \cos > 0$ and $\sin 0 = 0$, so $\sin\frac\pi2 > 0$ and $E(\pi/2) = i$.
+\end{proof}
+
+\begin{proof}[Second proof of \cref{thm:euler}]
+  $E$ is a homomorphism, so
+  \[
+    e^{i\pi} = E\bigl(\tfrac\pi2 + \tfrac\pi2\bigr) = E\bigl(\tfrac\pi2\bigr)^2
+    = i^2 = -1. \qedhere
+  \]
+\end{proof}
+
+\begin{remark}[The group-theoretic meaning]
+  More is true \cite[Prologue]{rudin-rca}: $E$ is surjective with kernel $2\pi\Z$,
+  so it induces an isomorphism of groups
+  \[
+    \R / 2\pi\Z \;\cong\; \mathbb{T}, \qquad \theta + 2\pi\Z \mapsto e^{i\theta}.
+  \]
+  Each side has exactly one element of order $2$: the class of $\pi$ on the left, and
+  $-1$ on the right, since $w^2 = 1$ forces $w = \pm 1$. An isomorphism must match
+  them. In this language, Euler's identity says that half a turn is $-1$.
+\end{remark}
+
 \section{Remarks}
 
 \begin{remark}
@@ -117,6 +185,8 @@ $i \sin\theta$. Then evaluate at $\theta = \pi$.
 \begin{thebibliography}{9}
   \bibitem{rudin} W.~Rudin, \emph{Principles of Mathematical Analysis},
     3rd ed., McGraw--Hill, 1976, ch.~8.
+  \bibitem{rudin-rca} W.~Rudin, \emph{Real and Complex Analysis}, 3rd ed.,
+    McGraw--Hill, New York, 1987.
 \end{thebibliography}
 
 \end{document}

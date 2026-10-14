@@ -1,0 +1,132 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{dsmorgan}
+
+\title{A Power Series with a Natural Boundary}
+\subtitle{Why $z + z^2 + z^4 + z^8 + \dotsb$ cannot be continued past the unit circle}
+\author{Drew M. Schaffner}
+\date{Draft, \today}
+
+\begin{document}
+\maketitle
+
+\section{Statement}
+
+Let $\mathbb{D} = \set{z : \abs{z} < 1}$ and $\mathbb{T} = \set{z : \abs{z} = 1}$, and
+\[
+  f(z) = \sum_{n=0}^{\infty} z^{2^n} = z + z^2 + z^4 + z^8 + \dotsb .
+\]
+
+\begin{theorem}[Natural boundary]\label{thm:main}
+  The series $f$ has radius of convergence $1$, and every point of $\mathbb{T}$ is a
+  singular point of $f$. So $f$ cannot be continued analytically across any arc of
+  the unit circle.
+\end{theorem}
+
+\section{Setting}
+
+\begin{definition}[Regular and singular points]\label{def:regular}
+  A point $\zeta \in \mathbb{T}$ is \emph{regular} for $f$ if there are an open disc
+  $D$ centred at $\zeta$ and a function $g$ analytic on $D$ with $g = f$ on
+  $D \cap \mathbb{D}$. Otherwise $\zeta$ is \emph{singular}. If every point of
+  $\mathbb{T}$ is singular, $\mathbb{T}$ is a \emph{natural boundary} for $f$.
+\end{definition}
+
+This is the standard notion \cite[ch.~16]{rudin-rca}. A power series with radius
+of convergence $1$ always has at least one singular point on $\mathbb{T}$; for
+instance $1/(1 - z)$ has exactly one. The theorem says that $f$ is as bad as
+possible.
+
+\begin{definition}[Dyadic roots of unity]\label{def:dyadic}
+  $\omega \in \mathbb{T}$ is a \emph{dyadic root of unity} if $\omega^{2^m} = 1$ for
+  some $m \geq 0$, that is, $\omega = e^{2\pi i j / 2^m}$ for some integers $j$ and
+  $m \geq 0$.
+\end{definition}
+
+\section{Idea of the proof}
+
+Along the radius towards a dyadic root of unity $\omega$, all but finitely many terms
+$(r\omega)^{2^n}$ equal $r^{2^n}$, which is positive. So $f$ blows up along that
+radius, and $\omega$ cannot be regular. Such roots are dense in the circle, and the
+regular points form an open set, so there are no regular points at all.
+
+\section{Proof}
+
+\begin{lemma}[Radius of convergence]\label{lem:radius}
+  The radius of convergence of $f$ is $1$.
+\end{lemma}
+
+\begin{proof}
+  For $\abs{z} < 1$ the series is dominated by $\sum_k \abs{z}^k < \infty$. At $z = 1$
+  its terms do not tend to $0$, so it diverges, and the radius is exactly $1$.
+\end{proof}
+
+\begin{lemma}[Blow-up at dyadic roots]\label{lem:blowup}
+  If $\omega^{2^m} = 1$, then $\abs{f(r\omega)} \to \infty$ as $r \to 1^-$.
+\end{lemma}
+
+\begin{proof}
+  For $n \geq m$, $\omega^{2^n} = \bigl(\omega^{2^m}\bigr)^{2^{n-m}} = 1$. Hence, for
+  $0 < r < 1$,
+  \[
+    f(r\omega) = \sum_{n=0}^{m-1} (r\omega)^{2^n} + \sum_{n=m}^{\infty} r^{2^n} .
+  \]
+  The first sum has modulus at most $m$. For any $N > m$, the second sum is at least
+  $\sum_{n=m}^{N} r^{2^n}$, which tends to $N - m + 1$ as $r \to 1^-$. So
+  \[
+    \liminf_{r \to 1^-} \abs{f(r\omega)} \geq (N - m + 1) - m
+  \]
+  for every $N$, and the limit is infinite.
+\end{proof}
+
+\begin{lemma}[Density]\label{lem:dense}
+  The dyadic roots of unity are dense in $\mathbb{T}$.
+\end{lemma}
+
+\begin{proof}
+  Given $e^{i\theta}$ and $m \geq 0$, choose an integer $j$ with
+  $\abs{\theta - 2\pi j / 2^m} \leq \pi / 2^m$. Since $\abs{e^{is} - e^{it}} \leq \abs{s - t}$,
+  the root $e^{2\pi i j / 2^m}$ lies within $\pi / 2^m$ of $e^{i\theta}$.
+\end{proof}
+
+\begin{lemma}[Regular points form an open set]\label{lem:open}
+  If $\zeta$ is regular, then so is every point of $\mathbb{T}$ close enough to $\zeta$.
+\end{lemma}
+
+\begin{proof}
+  Let $D$ and $g$ be as in \cref{def:regular}. For $\zeta' \in \mathbb{T} \cap D$,
+  choose an open disc $D'$ centred at $\zeta'$ with $D' \subseteq D$. Then $g$ is
+  analytic on $D'$ and equals $f$ on $D' \cap \mathbb{D}$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:main}]
+  A dyadic root $\omega$ is singular. If it were regular, with $g$ analytic on a disc
+  $D$ about $\omega$, then $g$ would be bounded near $\omega$. But
+  $f(r\omega) = g(r\omega)$ for $r$ close to $1$, which is unbounded by
+  \cref{lem:blowup}.
+
+  By \cref{lem:open}, the set of regular points is an open subset of $\mathbb{T}$, and
+  it contains no dyadic root. By \cref{lem:dense}, every non-empty open subset of
+  $\mathbb{T}$ contains a dyadic root. Hence the set of regular points is empty.
+\end{proof}
+
+\section{Remarks}
+
+\begin{remark}
+  The functional equation $f(z) = z + f(z^2)$ explains the result. Singularities
+  of $f(z^2)$ include every square root of a singularity of $f$, so once $1$ is
+  singular, so are $-1$, then $\pm i$, and so on through all dyadic roots of unity.
+\end{remark}
+
+\begin{remark}
+  The real reason is the size of the gaps between exponents. By Hadamard's gap
+  theorem, any power series $\sum c_k z^{n_k}$ with radius of convergence $1$ and
+  $n_{k+1} / n_k \geq \lambda > 1$ for all $k$ has $\mathbb{T}$ as a natural
+  boundary. Our proof uses the special structure $n_k = 2^k$ to avoid that theorem.
+\end{remark}
+
+\begin{thebibliography}{9}
+  \bibitem{rudin-rca} W.~Rudin, \emph{Real and Complex Analysis}, 3rd ed.,
+    McGraw--Hill, New York, 1987.
+\end{thebibliography}
+
+\end{document}

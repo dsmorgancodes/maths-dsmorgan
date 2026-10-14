@@ -1,0 +1,112 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{dsmorgan}
+
+\title{The Golden Ratio is Irrational}
+\subtitle{Three proofs: descent, rational roots and continued fractions}
+\author{Drew M. Schaffner}
+\date{Draft, \today}
+
+\begin{document}
+\maketitle
+
+\section{Statement}
+
+\begin{theorem}[Irrationality of $\varphi$]\label{thm:main}
+  The golden ratio $\varphi = \dfrac{1 + \sqrt5}{2}$ is irrational.
+\end{theorem}
+
+\section{Setting}
+
+The number $\varphi$ is the positive root of
+\begin{equation}\label{eq:poly}
+  x^2 - x - 1 = 0, \qquad\text{equivalently}\qquad \varphi = 1 + \frac{1}{\varphi}.
+\end{equation}
+Since $2 < \sqrt5 < 3$, we have $1 < \varphi < 2$.
+
+\section{Idea of the proof}
+
+The relation $\varphi = 1 + 1/\varphi$ is self-similar: removing a unit from $\varphi$
+and inverting gives $\varphi$ back. A fraction cannot behave like this, because each
+step strictly shrinks its denominator.
+
+\section{First proof: descent}
+
+\begin{proof}
+  Suppose $\varphi$ is rational. Among all ways of writing $\varphi = p/q$ with
+  integers $p, q \geq 1$, choose one with $q$ least, by well-ordering. By
+  \eqref{eq:poly},
+  \[
+    \varphi = \frac{1}{\varphi - 1} = \frac{1}{p/q - 1} = \frac{q}{p - q}.
+  \]
+  Since $1 < p/q < 2$, we have $0 < p - q < q$. This writes $\varphi$ with the positive
+  denominator $p - q < q$, contradicting the choice of $q$.
+\end{proof}
+
+\section{Second proof: rational roots}
+
+\begin{lemma}[Rational root test]\label{lem:rrt}
+  If $p/q$ is in lowest terms and is a root of $a x^2 + b x + c$ with integer
+  coefficients, then $p \mid c$ and $q \mid a$.
+\end{lemma}
+
+\begin{proof}
+  Multiplying $a(p/q)^2 + b(p/q) + c = 0$ by $q^2$ gives $ap^2 + bpq + cq^2 = 0$. So
+  $p \mid cq^2$. Since $\gcd(p, q) = 1$, also $\gcd(p, q^2) = 1$, so B\'ezout gives
+  $1 = px + q^2y$ and $c = pcx + cq^2y$ is divisible by $p$. Similarly, $q \mid ap^2$
+  gives $q \mid a$.
+\end{proof}
+
+\begin{proof}[Second proof of \cref{thm:main}]
+  By \cref{lem:rrt}, a rational root of $x^2 - x - 1$ has $p \mid 1$ and $q \mid 1$, so
+  it is $\pm 1$. But $1 - 1 - 1 = -1$ and $1 + 1 - 1 = 1$, so neither is a root.
+\end{proof}
+
+\section{Third proof: continued fractions}
+
+For $x > 0$, the \emph{continued fraction algorithm} sets $x_0 = x$, records
+$a_j = \lfloor x_j \rfloor$, and continues with $x_{j+1} = 1/(x_j - a_j)$, stopping if
+$x_j$ is an integer.
+
+\begin{lemma}[Rationals terminate]\label{lem:terminate}
+  If $x$ is rational, the algorithm stops after finitely many steps.
+\end{lemma}
+
+\begin{proof}
+  If $x_j = p/q$ with $q \geq 1$ is not an integer, write $p = a_j q + r$ with
+  $0 < r < q$. Then $x_{j+1} = q/r$ has denominator $r < q$. Denominators are positive
+  integers that strictly decrease, so the process stops.
+\end{proof}
+
+\begin{proof}[Third proof of \cref{thm:main}]
+  For $x_0 = \varphi$: $a_0 = 1$ because $1 < \varphi < 2$, and
+  $x_1 = 1/(\varphi - 1) = \varphi$ by \eqref{eq:poly}. So $x_j = \varphi$ for every
+  $j$, and the algorithm never stops:
+  \[
+    \varphi = 1 + \cfrac{1}{1 + \cfrac{1}{1 + \cfrac{1}{1 + \dotsb}}}.
+  \]
+  By \cref{lem:terminate}, $\varphi$ is irrational.
+\end{proof}
+
+\section{Remarks}
+
+\begin{remark}
+  The three proofs are one proof in different clothing. The step $p/q \mapsto q/(p-q)$
+  in the first proof is one step of the continued fraction algorithm, and it is the
+  Euclidean algorithm run on $(p, q)$.
+\end{remark}
+
+\begin{remark}
+  Truncating the continued fraction gives $1, 2, \frac32, \frac53, \frac85, \dotsc$,
+  the ratios $F_{j+1}/F_j$ of consecutive Fibonacci numbers. If $r_j = F_{j+1}/F_j$,
+  then $r_{j+1} = 1 + 1/r_j$, the same recursion as \eqref{eq:poly}. One can show
+  $\abs{r_j - \varphi} < 1/F_j^2$, so these fractions approximate $\varphi$, but only
+  slowly: every partial quotient is $1$, the smallest possible.
+\end{remark}
+
+\begin{remark}
+  This sharpens the treatment in the Foundations notes, which reduces the problem to
+  $\sqrt5$ and residues mod $5$. Here no fact about $\sqrt5$ is needed beyond
+  $2 < \sqrt5 < 3$.
+\end{remark}
+
+\end{document}

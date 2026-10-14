@@ -1,0 +1,94 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{dsmorgan}
+
+\title{Irrational Square Roots}
+\subtitle{$\sqrt{n}$ is rational only when $n$ is a perfect square}
+\author{Drew M. Schaffner}
+\date{Draft, \today}
+
+\begin{document}
+\maketitle
+
+\section{Statement}
+
+\begin{theorem}[Square roots]\label{thm:main}
+  Let $n$ be a positive integer. Then $\sqrt{n}$ is rational if and only if $n = k^2$
+  for some integer $k$. In particular, $\sqrt2$, $\sqrt3$, $\sqrt5$ and $\sqrt6$ are
+  irrational.
+\end{theorem}
+
+\section{Setting}
+
+We use only the integers and the well-ordering principle: every non-empty set of
+positive integers has a least element. A real number $x$ is \emph{rational} if
+$x = p/q$ for integers $p$ and $q \geq 1$.
+
+\section{Idea of the proof}
+
+If $\sqrt n = p/q$, then $\sqrt n$ times a suitable integer combination of $p$ and
+$q$ produces a representation with a strictly smaller denominator. Choosing the
+smallest denominator first gives a contradiction. This needs no primes and no
+unique factorisation.
+
+\section{Proof}
+
+\begin{lemma}[Integer part]\label{lem:floor}
+  If $n$ is not a perfect square, there is an integer $k$ with $k < \sqrt n < k + 1$.
+\end{lemma}
+
+\begin{proof}
+  Let $k$ be the largest integer with $k^2 \leq n$; it exists because $0^2 \leq n$
+  and $j^2 > n$ for $j > n$. Then $k^2 \leq n < (k+1)^2$, and $k^2 \neq n$ by
+  assumption, so $k < \sqrt n < k + 1$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:main}]
+  If $n = k^2$, then $\sqrt n = k/1$ is rational. Conversely, suppose $n$ is not a
+  perfect square but $\sqrt n$ is rational. Take $k$ from \cref{lem:floor}. The set
+  \[
+    S = \set{q \geq 1 : q\sqrt n \in \Z}
+  \]
+  is non-empty, so by well-ordering it has a least element $q$. Write $p = q\sqrt n$,
+  and put
+  \[
+    q' = p - kq = q(\sqrt n - k), \qquad p' = q'\sqrt n = nq - kp .
+  \]
+  Both $q'$ and $p'$ are integers, because $p' = q\sqrt n \cdot \sqrt n - kq\sqrt n
+  = nq - kp$. Since $0 < \sqrt n - k < 1$, we have $0 < q' < q$. So $q' \in S$ and
+  $q' < q$, contradicting the minimality of $q$.
+\end{proof}
+
+\section{A second proof, by prime factorisation}
+
+\begin{lemma}[Euclid]\label{lem:euclid}
+  If a prime $\ell$ divides $ab$, then $\ell \mid a$ or $\ell \mid b$.
+\end{lemma}
+
+This is standard; it follows from B\'ezout's identity. If $\ell \nmid a$, then
+$\gcd(a, \ell) = 1$, so $1 = ax + \ell y$ for some integers $x, y$, and
+$b = abx + \ell b y$ is divisible by $\ell$.
+
+\begin{proof}[Second proof of \cref{thm:main}]
+  Suppose $\sqrt n = p/q$ in lowest terms, so that $\gcd(p, q) = 1$ and $p^2 = nq^2$.
+  If $q > 1$, let $\ell$ be a prime dividing $q$. Then $\ell \mid p^2$, so
+  $\ell \mid p$ by \cref{lem:euclid}, contradicting $\gcd(p, q) = 1$. Hence $q = 1$
+  and $n = p^2$.
+\end{proof}
+
+\section{Remarks}
+
+\begin{remark}
+  The second proof generalises at once. If a rational number $p/q$ in lowest terms is
+  a root of a monic polynomial $x^d + c_{d-1}x^{d-1} + \dotsb + c_0$ with integer
+  coefficients, then multiplying by $q^d$ shows $q \mid p^d$, so $q = 1$. A rational
+  root of such a polynomial must therefore be an integer. Taking $x^d - n$, the
+  number $\sqrt[d]{n}$ is rational only when $n$ is a perfect $d$th power.
+\end{remark}
+
+\begin{remark}
+  The first proof is a version of the descent in the Foundations notes, where it is
+  carried out for $\sqrt 2$ with $k = 1$. There the new representation
+  is $\sqrt 2 = (2q - p)/(p - q)$.
+\end{remark}
+
+\end{document}

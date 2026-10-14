@@ -1,0 +1,143 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{dsmorgan}
+
+\title{The Reflective Property of the Ellipse}
+\subtitle{Two coordinate-free proofs}
+\author{Drew M. Schaffner}
+\date{Draft, \today}
+
+\begin{document}
+\maketitle
+
+\section{Statement}
+
+\begin{theorem}[Reflective property]\label{thm:main}
+  Let $E$ be an ellipse with foci $F_1$, $F_2$. At every point $P \in E$, the
+  normal line to $E$ bisects the angle $F_1 P F_2$. Consequently, a ray from $F_1$
+  that reflects off $E$ at $P$ passes through $F_2$.
+\end{theorem}
+
+\section{Setting}
+
+\begin{definition}[Ellipse]\label{def:ellipse}
+  Let $F_1, F_2 \in \R^2$ and $a > c \geq 0$, where $2c = \abs{F_1 - F_2}$. The
+  \emph{ellipse} with foci $F_1$, $F_2$ and major axis $2a$ is the level set
+  \[
+    E = \set{X \in \R^2 : g(X) = 2a}, \qquad
+    g(X) = \abs{X - F_1} + \abs{X - F_2}.
+  \]
+\end{definition}
+
+\begin{definition}[Law of reflection]\label{def:reflection}
+  A ray travelling in the unit direction $d$ that meets a curve with unit normal $n$
+  leaves in the direction $d' = d - 2 (d \cdot n) n$, the mirror image of $d$ in the
+  tangent line.
+\end{definition}
+
+The circle is the case $c = 0$, and no point needs separate treatment: unlike a
+proof using slopes, nothing goes wrong where the tangent or a focal line is
+vertical.
+
+\section{Idea of the proof}
+
+The gradient of a distance $\abs{X - F}$ is the unit vector pointing away from $F$.
+So $\nabla g$ is a sum of two unit vectors, and a sum of two unit vectors bisects the
+angle between them.
+
+\section{First proof: the gradient}
+
+\begin{lemma}[$E$ is a smooth curve]\label{lem:smooth}
+  Neither focus lies on $E$. At every $X \in E$, $g$ is differentiable with
+  \[
+    \nabla g(X) = u_1 + u_2 \neq 0, \qquad
+    u_j = \frac{X - F_j}{\abs{X - F_j}}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  By the triangle inequality, $g(F_1) = g(F_2) = 2c < 2a$, so the foci are not on
+  $E$. Away from $F_j$, the map $X \mapsto \abs{X - F_j}$ is differentiable with
+  gradient $u_j$. If $u_1 + u_2 = 0$, then $X$ lies on the segment $F_1F_2$, so
+  $g(X) = 2c < 2a$ and $X \notin E$.
+\end{proof}
+
+By \cref{lem:smooth} and the implicit function theorem, $E$ is a smooth curve near
+each of its points, with normal direction $\nabla g = u_1 + u_2$.
+
+\begin{proof}[Proof of \cref{thm:main}]
+  Let $P \in E$ and set $u_j$ as in \cref{lem:smooth}, so $u_1$ points from $F_1$
+  to $P$ and $u_2$ from $F_2$ to $P$. Since $\abs{u_1} = \abs{u_2} = 1$,
+  \[
+    u_1 \cdot (u_1 + u_2) = 1 + u_1 \cdot u_2 = u_2 \cdot (u_1 + u_2),
+  \]
+  so $u_1$ and $u_2$ make equal angles with the normal $u_1 + u_2$. Equivalently,
+  $-u_1$ and $-u_2$, which point from $P$ to the foci, make equal angles with the
+  inward normal. This is the first claim.
+
+  For the second, the incoming ray travels in direction $d = u_1$. Put
+  $s = 1 + u_1 \cdot u_2 > 0$, so that $\abs{u_1 + u_2}^2 = 2s$ and the unit normal is
+  $n = (u_1 + u_2)/\sqrt{2s}$. Then $d \cdot n = s / \sqrt{2s}$ and
+  \[
+    d' = u_1 - 2 \cdot \frac{s}{\sqrt{2s}} \cdot \frac{u_1 + u_2}{\sqrt{2s}}
+       = u_1 - (u_1 + u_2) = -u_2 ,
+  \]
+  which is the direction from $P$ towards $F_2$.
+\end{proof}
+
+\section{Second proof: Heron's shortest path}
+
+This proof needs no calculus, only the triangle inequality.
+
+\begin{lemma}[Supporting line]\label{lem:support}
+  Let $\ell$ be the tangent line to $E$ at $P$. Then $g(X) > 2a$ for every
+  $X \in \ell$ with $X \neq P$.
+\end{lemma}
+
+\begin{proof}
+  The function $g$ is convex, as a sum of two convex functions. Restricted to $\ell$,
+  it is a convex function of one variable whose derivative at $P$ is
+  $\nabla g(P) \cdot v = 0$ for a direction $v$ of $\ell$. So $P$ minimises $g$ on
+  $\ell$, and $g \geq 2a$ there. If $g(X) = 2a$ for some $X \neq P$ on $\ell$, then
+  by convexity $g = 2a$ on the whole segment $PX$. Each $\abs{Y - F_j}$ is convex, so
+  each must then be affine along $PX$. A distance $\abs{Y - F_j}$ is affine along a
+  segment only if the line through it passes through $F_j$, so $\ell$ would contain
+  both foci. But $g(F_1) = 2c < 2a$, contradicting $g \geq 2a$ on $\ell$.
+\end{proof}
+
+\begin{proof}[Second proof of \cref{thm:main}]
+  Let $F_2'$ be the reflection of $F_2$ in $\ell$, so that
+  $\abs{X - F_2} = \abs{X - F_2'}$ for all $X \in \ell$. Both foci satisfy
+  $g < 2a$, and the set $\set{g < 2a}$ is convex and does not meet $\ell$ by
+  \cref{lem:support}, so $F_1$ and $F_2$ lie on the same side of $\ell$. Hence $F_1$
+  and $F_2'$ lie on opposite sides, and the segment $F_1F_2'$ meets $\ell$ at a point
+  $X_0$.
+
+  For any $X \in \ell$, the triangle inequality gives
+  \[
+    g(X) = \abs{X - F_1} + \abs{X - F_2'} \geq \abs{F_1 - F_2'} = g(X_0).
+  \]
+  So $X_0$ minimises $g$ on $\ell$, and by \cref{lem:support} the only minimiser is
+  $P$. Therefore $P$ lies on the segment $F_1F_2'$. The line $F_1P$ continues
+  straight to $F_2'$, and reflecting that continuation in $\ell$ sends it to $PF_2$.
+  This is exactly the law of reflection at $P$.
+\end{proof}
+
+\section{Remarks}
+
+\begin{remark}
+  The same computation proves the hyperbola's property. With
+  $h(X) = \abs{X - F_1} - \abs{X - F_2}$ we have $\nabla h = u_1 - u_2$, and
+  \[
+    u_1 \cdot (u_1 - u_2) = 1 - u_1 \cdot u_2 = -u_2 \cdot (u_1 - u_2).
+  \]
+  So the \emph{tangent} bisects the angle between the focal lines. A ray aimed at
+  one focus is reflected towards the other.
+\end{remark}
+
+\begin{remark}
+  The Analytic Geometry notes prove the theorem with slopes and the tangent-of-angle
+  formula. That needs a limiting argument at the four points where a focal line is
+  vertical. The gradient proof treats every point the same way.
+\end{remark}
+
+\end{document}

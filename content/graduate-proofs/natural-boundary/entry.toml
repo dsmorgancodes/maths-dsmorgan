@@ -1,0 +1,4 @@
+title = "A Power Series with a Natural Boundary"
+summary = "The lacunary series z + z^2 + z^4 + ... blows up at every dyadic root of unity, so no arc of the unit circle can be crossed."
+subjects = ["complex-analysis"]
+published = false

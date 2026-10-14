@@ -1,0 +1,4 @@
+title = "Entire Functions of Polynomial Growth"
+summary = "An entire function with a bounded k-th derivative, or growth at most |z|^k, is a polynomial of degree at most k."
+subjects = ["complex-analysis"]
+published = false

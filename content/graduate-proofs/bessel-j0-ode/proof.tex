@@ -1,0 +1,153 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{dsmorgan}
+
+\title{The Bessel Function of Order Zero}
+\subtitle{Existence, uniqueness and an integral formula}
+\author{Drew M. Schaffner}
+\date{Draft, \today}
+
+\begin{document}
+\maketitle
+
+\section{Statement}
+
+\begin{definition}[Bessel function]\label{def:j0}
+  \begin{equation}\label{eq:series}
+    J_0(z) = \sum_{m=0}^{\infty} \frac{(-1)^m z^{2m}}{4^m (m!)^2}
+    = 1 - \frac{z^2}{4} + \frac{z^4}{64} - \dotsb .
+  \end{equation}
+\end{definition}
+
+\begin{theorem}[Bessel's equation of order zero]\label{thm:main}
+  \begin{enumerate}[label=(\alph*)]
+    \item $J_0$ is entire and satisfies
+      \begin{equation}\label{eq:bessel}
+        z f''(z) + f'(z) + z f(z) = 0 \qquad (z \in \C).
+      \end{equation}
+    \item If $f$ is analytic on a disc about $0$ and satisfies \eqref{eq:bessel}
+      there, then $f = f(0)\, J_0$.
+    \item For every $z \in \C$,
+      $J_0(z) = \dfrac{1}{\pi} \displaystyle\int_0^\pi \cos(z \sin\theta) \dd\theta$.
+    \item $\abs{J_0(x)} \leq 1$ for every real $x$.
+  \end{enumerate}
+\end{theorem}
+
+\section{Setting}
+
+We use the following facts about power series \cite[ch.~5]{saff-snider}. A power
+series is analytic inside its disc of convergence and may be differentiated term by
+term there. If two power series agree on a disc about $0$, they have the same
+coefficients.
+
+\section{Idea of the proof}
+
+Substituting a general power series into \eqref{eq:bessel} gives a two-step
+recursion $n^2 a_n = -a_{n-2}$, with $a_1 = 0$. That recursion has exactly one
+solution for each choice of $a_0$, and $a_0 = 1$ gives the coefficients of $J_0$.
+
+\section{Proof}
+
+\begin{lemma}[The recursion]\label{lem:recursion}
+  Let $f(z) = \sum_{n \geq 0} a_n z^n$ converge on a disc about $0$. Then $f$
+  satisfies \eqref{eq:bessel} on that disc if and only if
+  \[
+    a_1 = 0 \qquad\text{and}\qquad n^2 a_n + a_{n-2} = 0 \quad (n \geq 2).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Differentiating term by term and collecting the coefficient of $z^{n-1}$,
+  \[
+    z f'' = \sum_{n \geq 2} n(n-1) a_n z^{n-1}, \qquad
+    f' = \sum_{n \geq 1} n a_n z^{n-1}, \qquad
+    z f = \sum_{n \geq 2} a_{n-2} z^{n-1}.
+  \]
+  So $z f'' + f' + z f = a_1 + \sum_{n \geq 2} (n^2 a_n + a_{n-2}) z^{n-1}$. This
+  vanishes identically if and only if every coefficient is zero.
+\end{proof}
+
+\begin{proof}[Proof of (a) and (b)]
+  Solve the recursion of \cref{lem:recursion}. From $a_1 = 0$ and
+  $a_{2m+1} = -a_{2m-1}/(2m+1)^2$, every odd coefficient is zero. For the even ones,
+  $a_{2m} = -a_{2m-2} / (4m^2)$, so by induction
+  \[
+    a_{2m} = \frac{(-1)^m a_0}{4^m (m!)^2}.
+  \]
+  For (b): $f$ has a power series at $0$, which must satisfy the recursion, so
+  $f = a_0 J_0$ with $a_0 = f(0)$.
+
+  For (a): the coefficients of $J_0$ satisfy the recursion with $a_0 = 1$, so it
+  remains to see that \eqref{eq:series} converges everywhere. For $z \neq 0$, the
+  ratio of consecutive terms is $\abs{z}^2 / (4(m+1)^2) \to 0$, so by the ratio test
+  the radius of convergence is infinite. Then $J_0$ is entire, and
+  \cref{lem:recursion} applies on every disc.
+\end{proof}
+
+\begin{lemma}[Wallis]\label{lem:wallis}
+  For $m \geq 0$,
+  $\displaystyle\int_0^\pi \sin^{2m}\theta \dd\theta = \pi \, \frac{(2m)!}{4^m (m!)^2}$.
+\end{lemma}
+
+\begin{proof}
+  Let $I_m$ be the integral, so $I_0 = \pi$. For $m \geq 1$, integrate by parts with
+  $u = \sin^{2m-1}\theta$ and $\dd v = \sin\theta \dd\theta$. The boundary terms
+  vanish, so
+  \[
+    I_m = (2m - 1) \int_0^\pi \sin^{2m-2}\theta \cos^2\theta \dd\theta
+        = (2m - 1)(I_{m-1} - I_m),
+  \]
+  that is, $I_m = \frac{2m-1}{2m} I_{m-1}$. The right-hand side of the lemma
+  satisfies the same recursion, because
+  \[
+    \frac{(2m)!}{4^m (m!)^2} \bigg/ \frac{(2m-2)!}{4^{m-1} ((m-1)!)^2}
+    = \frac{(2m)(2m-1)}{4m^2} = \frac{2m-1}{2m},
+  \]
+  and both sides equal $\pi$ when $m = 0$.
+\end{proof}
+
+\begin{proof}[Proof of (c)]
+  Fix $z$. The series $\cos(z\sin\theta) = \sum_m (-1)^m z^{2m} \sin^{2m}\theta / (2m)!$
+  converges uniformly in $\theta \in [0, \pi]$, since its $m$th term is at most
+  $\abs{z}^{2m} / (2m)!$. So we may integrate term by term and apply \cref{lem:wallis}:
+  \[
+    \frac1\pi \int_0^\pi \cos(z \sin\theta) \dd\theta
+    = \sum_{m=0}^{\infty} \frac{(-1)^m z^{2m}}{(2m)!} \cdot \frac{(2m)!}{4^m (m!)^2}
+    = J_0(z). \qedhere
+  \]
+\end{proof}
+
+\begin{proof}[Proof of (d)]
+  For real $x$ the integrand in (c) is a real number in $[-1, 1]$, so
+  $\abs{J_0(x)} \leq \frac1\pi \int_0^\pi 1 \dd\theta = 1$.
+\end{proof}
+
+\section{Remarks}
+
+\begin{remark}[An energy proof of (d)]
+  Part (d) also follows from the equation alone. For real $x > 0$, put
+  $E = J_0^2 + (J_0')^2$. By \eqref{eq:bessel},
+  $J_0'' = -J_0 - J_0'/x$, so
+  \[
+    E' = 2 J_0' (J_0 + J_0'') = -\frac{2 (J_0')^2}{x} \leq 0 .
+  \]
+  Hence $E(x) \leq E(0) = 1$, so $\abs{J_0(x)} \leq 1$. Since $J_0$ is even, the same
+  holds for $x < 0$. Physically, the term $f'/x$ acts as friction, so the
+  oscillation loses energy and its amplitude decays.
+\end{remark}
+
+\begin{remark}
+  Away from $0$, \eqref{eq:bessel} is a second-order linear equation, so it has a
+  two-dimensional space of solutions on any disc not containing $0$. By (b), only the
+  multiples of $J_0$ extend analytically to $0$. Every independent second solution is
+  singular at the origin; the standard choice is the Bessel function $Y_0$ of the
+  second kind, which has a logarithmic singularity there.
+\end{remark}
+
+% Verified: archive.org record fundamentalsofco0000saff_c0g0. Cite by chapter only.
+\begin{thebibliography}{9}
+  \bibitem{saff-snider} E.~B. Saff and A.~D. Snider,
+    \emph{Fundamentals of Complex Analysis with Applications to Engineering
+    and Science}, 3rd ed., Prentice Hall, Upper Saddle River, NJ, 2003.
+\end{thebibliography}
+
+\end{document}
