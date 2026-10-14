@@ -6,10 +6,50 @@
     <p>This is the working archive of Drew M. Schaffner, M.S. Mathematics, Northwest
       Missouri State University. It collects notes, papers, computational projects,
       and proofs from graduate study, along with the code and graphics behind them.</p>
-    <p>Entries are tagged by subject:</p>
+
+    <h2 id="mission">A mission in mathematics</h2>
+    <p>I have long been interested in Mathematics, I hold a masters degree in the
+      discipline. But, my peers often wonder what it is exactly that I would like to
+      do with the degree. The answer here is that I want to know more. I want to
+      understand mathematics so as to understand the making of the universe. The
+      handiwork of the heavens written in a language so vastly wide and large that we
+      have yet to uncover even a fraction of it's conventions. Mathematics is the
+      language that God spoke when he said "Let there be light." To know that
+      language, is to know of what God has done. And I can think of no better thing to
+      do with my time on earth, than to understand the workings of my Master.</p>
+    <p>So, is this a selfish endeavor? Yes, by all means. But need it necessarily be
+      entirely so? I shall not think so. I hope that you can use this site to excel in
+      your mathematical understanding. I know, for certain, that it has helped me.</p>
+
+    <h2 id="presuppositions">Presuppositions</h2>
+    <p>Standard proof techniques (direct proof, contrapositive, contradiction and
+      induction) are assumed throughout. The Foundations notes cover the essentials,
+      and Richard Hammack's
+      <a href="https://richardhammack.github.io/BookOfProof/"><cite>Book of Proof</cite></a>,
+      free online, covers them in full. Each set of notes states the results it
+      relies on, and cites the textbook it follows by chapter. Some steps that seem
+      obvious to me may not seem obvious to you. If so, the cited chapter is the
+      place to look.</p>
+
+    <h2 id="code">Code</h2>
+    <p>Code on this site is written in <a href="https://www.python.org/">Python</a>.
+      Projects pair a written account with the scripts that produce their figures and
+      animations, so every graphic can be rebuilt from source. To run them you will
+      need Python and the packages each project lists.</p>
+
+    <h2 id="using">How to use this site</h2>
+    <p><strong>Notes</strong> are organised by course and typeset in LaTeX. Every
+      theorem worth keeping also has its own short note, so a result can be read on
+      its own or in the chapter where it is used. <strong>Graduate Proofs</strong>
+      are complete, self-contained proofs, often more general than the exercise that
+      prompted them. <strong>Projects</strong> and <strong>Papers</strong> are
+      longer pieces of work. Every entry is tagged by subject:</p>
     <ul>
       {% for name in subjects.values() %}<li>{{ name }}</li>{% endfor %}
     </ul>
+    <p>This is an unfinished hand. Mistakes are mine, and I am glad to hear about
+      them.</p>
+
     <p>For a curriculum vitae, selected work, and contact details, visit
       <a href="{{ config.MAIN_SITE_URL }}">dsmorgan.com</a>.</p>
   </section>

@@ -115,6 +115,8 @@ def test_navigation_and_about(client):
     about = client.get("/about").data
     assert b'href="https://dsmorgan.com"' in about
     assert b'<a href="/about" aria-current="page">About</a>' in about
+    for anchor in (b'id="mission"', b'id="presuppositions"', b'id="code"', b'id="using"'):
+        assert anchor in about
 
     missing = client.get("/no-such-page")
     assert missing.status_code == 404
