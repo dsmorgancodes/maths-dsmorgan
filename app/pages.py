@@ -9,10 +9,12 @@ from flask import (
     redirect,
     render_template,
     request,
+    send_from_directory,
     url_for,
 )
 
 from app.catalog import SUBJECTS, find_published, published_entries
+from app.documents import load_document, load_theorem
 
 pages = Blueprint("pages", __name__)
 
@@ -64,9 +66,15 @@ def collection_dir(section: Section) -> Path:
     return Path(current_app.config["CONTENT_DIR"]) / section.folder
 
 
+def show_drafts() -> bool:
+    return bool(current_app.config["SHOW_DRAFTS"])
+
+
 @pages.app_context_processor
 def navigation():
-    endpoint = (request.endpoint or "").removeprefix("pages.").removesuffix("_entry")
+    endpoint = (request.endpoint or "").removeprefix("pages.")
+    for suffix in ("_entry", "_theorem"):
+        endpoint = endpoint.removesuffix(suffix)
     current = next((s for s in SECTIONS if s.endpoint == endpoint), None)
     return {"sections": SECTIONS, "current_section": current}
 
@@ -76,7 +84,7 @@ def index():
     recent = [
         (section, entry)
         for section in COLLECTIONS
-        for entry in published_entries(collection_dir(section))
+        for entry in published_entries(collection_dir(section), show_drafts())
     ]
     recent.sort(key=lambda item: item[1].written or date.min, reverse=True)
     return render_template(
@@ -91,7 +99,7 @@ def about():
 
 def register_collection(section: Section) -> None:
     def listing():
-        entries = published_entries(collection_dir(section))
+        entries = published_entries(collection_dir(section), show_drafts())
         subject = request.args.get("subject")
         if subject is not None:
             if subject not in SUBJECTS:
@@ -105,18 +113,58 @@ def register_collection(section: Section) -> None:
             active_subject=subject,
         )
 
-    def entry(slug):
-        found = find_published(collection_dir(section), slug)
+    def find(slug):
+        found = find_published(collection_dir(section), slug, show_drafts())
         if found is None:
             abort(404)
-        return render_template("pages/entry.html", section=section, entry=found)
+        return found, collection_dir(section) / slug
 
+    def entry(slug):
+        found, directory = find(slug)
+        return render_template(
+            "pages/entry.html",
+            section=section,
+            entry=found,
+            document=load_document(directory),
+        )
+
+    def theorem(slug, note):
+        found, directory = find(slug)
+        loaded = load_theorem(directory, note)
+        if loaded is None:
+            abort(404)
+        theorem, body = loaded
+        return render_template(
+            "pages/theorem.html",
+            section=section,
+            entry=found,
+            theorem=theorem,
+            body=body,
+            pdf=(directory / "files" / "theorems" / f"{note}.pdf").is_file(),
+        )
+
+    def files(slug, filename):
+        _, directory = find(slug)
+        return send_from_directory(directory / "files", filename)
+
+    base = f"/{section.folder}/<slug>"
     pages.add_url_rule(f"/{section.folder}", section.endpoint, listing)
-    pages.add_url_rule(f"/{section.folder}/<slug>", f"{section.endpoint}_entry", entry)
+    pages.add_url_rule(base, f"{section.endpoint}_entry", entry)
+    pages.add_url_rule(
+        f"{base}/theorems/<note>", f"{section.endpoint}_theorem", theorem
+    )
+    pages.add_url_rule(
+        f"{base}/files/<path:filename>", f"{section.endpoint}_files", files
+    )
 
 
 for _section in COLLECTIONS:
     register_collection(_section)
+
+
+@pages.get("/health")
+def health():
+    return {"status": "ok"}
 
 
 @pages.get("/favicon.ico")

@@ -2,19 +2,38 @@
 {% from "macros.html" import written_date, subject_tags %}
 {% block title %}{{ entry.title }} | {{ section.title }} | Mathematics | D.S. Morgan{% endblock %}
 {% block description %}{{ entry.summary or entry.title }}{% endblock %}
+{% block head %}
+  {% if document.body or document.theorems %}{% include "partials/mathjax.html" %}{% endif %}
+{% endblock %}
 {% block content %}
   <article aria-labelledby="page-heading">
     <header class="entry-head">
       <p class="breadcrumb"><a href="{{ url_for('pages.' ~ section.endpoint) }}">{{ section.title }}</a></p>
       <h1 id="page-heading">{{ entry.title }}</h1>
-      <p class="entry-meta">{{ written_date(entry.written) }}</p>
+      <p class="entry-meta">
+        {{ written_date(entry.written) }}
+        {%- if document.pdf %} &middot; <a href="{{ url_for('pages.' ~ section.endpoint ~ '_files', slug=entry.slug, filename=document.pdf) }}">PDF</a>{% endif %}
+        {%- if not entry.published %} &middot; <strong>Draft</strong>{% endif %}
+      </p>
       {{ subject_tags(entry, section) }}
     </header>
     {% if entry.summary %}
       <p class="abstract">{{ entry.summary }}</p>
     {% endif %}
-    <div class="prose">
-      {% block body %}{% endblock %}
-    </div>
+    {% if document.theorems %}
+      <nav class="theorem-index" aria-labelledby="theorems-heading">
+        <h2 id="theorems-heading">Theorems</h2>
+        <ol>
+          {% for theorem in document.theorems %}
+            <li><a href="{{ url_for('pages.' ~ section.endpoint ~ '_theorem', slug=entry.slug, note=theorem.slug) }}">{{ theorem.number }}</a> {{ theorem.name }}</li>
+          {% endfor %}
+        </ol>
+      </nav>
+    {% endif %}
+    {% if document.body %}
+      <div class="prose document">
+        {{ document.body }}
+      </div>
+    {% endif %}
   </article>
 {% endblock %}

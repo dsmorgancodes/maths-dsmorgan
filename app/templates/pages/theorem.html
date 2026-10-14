@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% set plain_name = theorem.name|replace('\\(', '')|replace('\\)', '') %}
+{% block title %}{{ plain_name }} | {{ entry.title }} | Mathematics | D.S. Morgan{% endblock %}
+{% block description %}Theorem {{ theorem.number }} of {{ entry.title }}: {{ plain_name }}.{% endblock %}
+{% block head %}{% include "partials/mathjax.html" %}{% endblock %}
+{% block content %}
+  {% set course = url_for('pages.' ~ section.endpoint ~ '_entry', slug=entry.slug) %}
+  <article aria-labelledby="page-heading">
+    <header class="entry-head">
+      <p class="breadcrumb"><a href="{{ url_for('pages.' ~ section.endpoint) }}">{{ section.title }}</a> / <a href="{{ course }}">{{ entry.title }}</a></p>
+      <h1 id="page-heading">{{ theorem.name }}</h1>
+      <p class="entry-meta">
+        Theorem {{ theorem.number }} of <a href="{{ course }}">{{ entry.title }}</a>
+        &middot; <a href="{{ course }}#{{ theorem.anchor }}">Read in context</a>
+        {%- if pdf %} &middot; <a href="{{ url_for('pages.' ~ section.endpoint ~ '_files', slug=entry.slug, filename='theorems/' ~ theorem.slug ~ '.pdf') }}">PDF</a>{% endif %}
+      </p>
+    </header>
+    <div class="prose document">
+      {{ body }}
+    </div>
+  </article>
+{% endblock %}

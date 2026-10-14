@@ -1,0 +1,24 @@
+{# MathJax for documents built by tools/publish.py. The macros mirror
+   shared/latex/dsmorgan.sty; publish.py turns \abs*{x} into \absStar{x}. #}
+{% raw %}
+<script>
+  window.MathJax = {
+    tex: {
+      tags: "none",
+      macros: {
+        N: "\\mathbb{N}", Z: "\\mathbb{Z}", Q: "\\mathbb{Q}",
+        R: "\\mathbb{R}", C: "\\mathbb{C}",
+        abs: ["\\lvert #1\\rvert", 1], absStar: ["\\left\\lvert #1\\right\\rvert", 1],
+        norm: ["\\lVert #1\\rVert", 1], normStar: ["\\left\\lVert #1\\right\\rVert", 1],
+        set: ["\\{#1\\}", 1], setStar: ["\\left\\{#1\\right\\}", 1],
+        ip: ["\\langle #1\\rangle", 1], ipStar: ["\\left\\langle #1\\right\\rangle", 1],
+        dd: "\\mathop{}\\!\\mathrm{d}",
+        Res: "\\operatorname{Res}",
+        qedhere: "",
+      },
+    },
+    chtml: { matchFontHeight: false },
+  };
+</script>
+{% endraw %}
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml-full.js"></script>

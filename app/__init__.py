@@ -12,10 +12,13 @@ def create_app(test_config=None):
         SITE_URL="https://maths.dsmorgan.com",
         MAIN_SITE_URL="https://dsmorgan.com",
         CONTENT_DIR=Path(app.root_path).parent / "content",
+        # Local preview only: list and serve unpublished entries too.
+        SHOW_DRAFTS=False,
     )
     app.config.from_prefixed_env()
     if test_config is not None:
         app.config.update(test_config)
+    app.config["CONTENT_DIR"] = Path(app.config["CONTENT_DIR"]).resolve()
 
     app.register_blueprint(pages)
     app.cli.add_command(check_content)

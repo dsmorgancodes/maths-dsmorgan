@@ -147,6 +147,131 @@
   text-align: right;
 }
 
+/* Documents built from LaTeX by tools/publish.py. */
+/* Inline maths cannot wrap; on a phone a long formula scrolls the document,
+   not the page. */
+.document {
+  overflow-x: auto;
+}
+
+.document .head {
+  font-style: normal;
+}
+
+.document .sc {
+  font-variant-caps: small-caps;
+  letter-spacing: 0.02em;
+}
+
+.document .theorem .head .sc,
+.document .definition .head .sc {
+  color: var(--accent);
+}
+
+/* Tombstone at the end of the last line, as in the PDF. */
+.document .proof::after {
+  content: none;
+}
+
+.document .proof > :last-child::after {
+  content: "\220E";
+  float: right;
+  margin-left: var(--space-s);
+}
+
+.document .remark {
+  margin-block: var(--space-m);
+}
+
+.document h2.unit {
+  padding-top: var(--space-s);
+  border-top: 1px solid var(--rule);
+  color: var(--accent);
+}
+
+.document .titlemark {
+  margin-right: 0.4em;
+}
+
+.document .toc {
+  display: grid;
+  margin-bottom: var(--space-l);
+}
+
+.document .toc br {
+  display: none;
+}
+
+.document img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Side-by-side subfigures stay side by side. */
+.document figure:has(img ~ img) img {
+  max-width: 48%;
+}
+
+.document figcaption {
+  text-align: center;
+}
+
+/* Labelled lists: (a), (b), ... beside their items. */
+.document dl {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-2xs) var(--space-xs);
+}
+
+.document dd {
+  min-width: 0;
+  margin: 0;
+}
+
+.document dd > :first-child {
+  margin-top: 0;
+}
+
+.document .center {
+  text-align: center;
+}
+
+.document .center table {
+  margin-inline: auto;
+}
+
+.document .mathjax-block {
+  margin-block: var(--space-s);
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.theorem-link {
+  display: block;
+  margin-top: calc(-1 * var(--space-s));
+  font-size: var(--step--1);
+  text-align: right;
+}
+
+.theorem-index {
+  max-width: var(--measure);
+  margin-bottom: var(--space-l);
+}
+
+.theorem-index h2 {
+  font-size: var(--step-1);
+}
+
+.theorem-index ol {
+  padding: 0;
+  list-style: none;
+  columns: 2 16rem;
+}
+
+.theorem-index li {
+  break-inside: avoid;
+}
+
 @media (min-width: 48rem) {
   .section-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));

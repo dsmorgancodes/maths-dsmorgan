@@ -1,7 +1,9 @@
+import json
 from datetime import date
 
 import pytest
 
+from app import create_app
 from app.catalog import CatalogError, published_entries, read_entry
 
 EIGEN = """
@@ -115,9 +117,104 @@ def test_navigation_and_about(client):
     about = client.get("/about").data
     assert b'href="https://dsmorgan.com"' in about
     assert b'<a href="/about" aria-current="page">About</a>' in about
-    for anchor in (b'id="mission"', b'id="presuppositions"', b'id="code"', b'id="using"'):
+    for anchor in (
+        b'id="mission"',
+        b'id="presuppositions"',
+        b'id="code"',
+        b'id="using"',
+    ):
         assert anchor in about
 
     missing = client.get("/no-such-page")
     assert missing.status_code == 404
     assert b'name="robots" content="noindex"' in missing.data
+
+
+COURSE = """
+title = "Foundations"
+summary = "Statements and proof."
+published = true
+"""
+
+
+def built_course(content, toml=COURSE):
+    directory = content("notes", "foundations", toml)
+    (directory / "body.html").write_text("<p>Body with \\(x^2\\)</p>\n")
+    (directory / "files" / "theorems").mkdir(parents=True)
+    (directory / "files" / "foundations.pdf").write_bytes(b"%PDF-course")
+    (directory / "files" / "theorems" / "sqrt2.pdf").write_bytes(b"%PDF-note")
+    (directory / "theorems").mkdir()
+    (directory / "theorems" / "sqrt2.html").write_text(
+        '<div class="theorem">Note</div>'
+    )
+    (directory / "theorems.json").write_text(
+        json.dumps(
+            [
+                {
+                    "slug": "sqrt2",
+                    "name": "\\(\\sqrt2\\) is irrational",
+                    "number": "6.1",
+                    "anchor": "x1-7002r1",
+                }
+            ]
+        )
+    )
+    return directory
+
+
+def test_built_entry_shows_document_pdf_and_theorems(client, content):
+    built_course(content)
+    page = client.get("/notes/foundations").data.decode()
+    assert "<p>Body with \\(x^2\\)</p>" in page
+    assert "mathjax@3" in page and "absStar" in page
+    assert 'href="/notes/foundations/files/foundations.pdf"' in page
+    assert 'href="/notes/foundations/theorems/sqrt2">6.1</a>' in page
+
+    pdf = client.get("/notes/foundations/files/foundations.pdf")
+    assert pdf.status_code == 200 and pdf.data == b"%PDF-course"
+    assert client.get("/notes/foundations/files/../entry.toml").status_code == 404
+    assert client.get("/notes/foundations/files/missing.png").status_code == 404
+
+
+def test_unbuilt_entry_has_no_mathjax(client, content):
+    content("notes", "eigenvectors", EIGEN)
+    page = client.get("/notes/eigenvectors").data
+    assert b"mathjax" not in page and b"PDF" not in page
+
+
+def test_theorem_page(client, content):
+    built_course(content)
+    page = client.get("/notes/foundations/theorems/sqrt2").data.decode()
+    assert '<div class="theorem">Note</div>' in page
+    assert "Theorem 6.1 of" in page
+    assert 'href="/notes/foundations#x1-7002r1"' in page
+    assert 'href="/notes/foundations/files/theorems/sqrt2.pdf"' in page
+    assert "<title>\\sqrt2 is irrational | Foundations" in page
+    assert 'aria-current="page">Notes' in page
+
+    for path in (
+        "/notes/foundations/theorems/missing",
+        "/notes/foundations/theorems/Bad.slug",
+    ):
+        assert client.get(path).status_code == 404
+
+
+def test_drafts_are_hidden_unless_previewing(content):
+    built_course(content, COURSE.replace("true", "false"))
+    for drafts, status in ((False, 404), (True, 200)):
+        client = create_app(
+            {"TESTING": True, "CONTENT_DIR": content.root, "SHOW_DRAFTS": drafts}
+        ).test_client()
+        for path in (
+            "/notes/foundations",
+            "/notes/foundations/theorems/sqrt2",
+            "/notes/foundations/files/foundations.pdf",
+        ):
+            assert client.get(path).status_code == status, (path, drafts)
+        listing = client.get("/notes").data
+        assert (b'href="/notes/foundations"' in listing) is drafts
+
+
+def test_health(client):
+    response = client.get("/health")
+    assert response.status_code == 200 and response.json == {"status": "ok"}

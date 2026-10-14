@@ -109,18 +109,20 @@ def all_entries(collection_dir: Path) -> list[Entry]:
     ]
 
 
-def published_entries(collection_dir: Path) -> list[Entry]:
-    """Published entries, newest first; undated entries last."""
+def published_entries(collection_dir: Path, drafts: bool = False) -> list[Entry]:
+    """Published entries (and drafts, if asked), newest first; undated last."""
     entries = sorted(
-        (entry for entry in all_entries(collection_dir) if entry.published),
+        (e for e in all_entries(collection_dir) if e.published or drafts),
         key=lambda entry: entry.title.lower(),
     )
     return sorted(entries, key=lambda entry: entry.written or date.min, reverse=True)
 
 
-def find_published(collection_dir: Path, slug: str) -> Entry | None:
+def find_published(
+    collection_dir: Path, slug: str, drafts: bool = False
+) -> Entry | None:
     directory = collection_dir / slug
     if not SLUG.fullmatch(slug) or not (directory / METADATA_FILE).is_file():
         return None
     entry = read_entry(directory)
-    return entry if entry.published else None
+    return entry if entry.published or drafts else None

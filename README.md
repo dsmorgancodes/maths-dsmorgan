@@ -86,6 +86,29 @@ Validate every entry, including drafts, before publishing:
 uv run flask --app app check-content
 ```
 
+## Publishing
+
+The site serves `build/`, not `content/`. `tools/publish.py` compiles each
+entry's LaTeX twice: latexmk for the PDF download, and make4ht for the web page
+(maths stays as TeX and MathJax renders it with the house macros). Course
+theorem notes also get their own page, `/notes/<course>/theorems/<slug>`,
+with a link back to the theorem in context and a standalone PDF.
+
+```sh
+uv run tools/publish.py                      # published entries only: what ships
+uv run tools/publish.py --drafts             # every entry, to preview
+uv run tools/publish.py notes/foundations    # rebuild one entry
+```
+
+Preview the built site, drafts included:
+
+```sh
+FLASK_CONTENT_DIR=build FLASK_SHOW_DRAFTS=1 uv run flask --app app run --debug --port 5001
+```
+
+A full build empties `build/` first, so a draft never ships by accident; the
+site also hides unpublished entries unless `SHOW_DRAFTS` is set.
+
 ## Branches
 
 - `working` - everyday writing and experiments.
@@ -99,16 +122,18 @@ personal data, or material you lack permission to redistribute.
 Shares the dsmorgan.com palette and EB Garamond (self-hosted, SIL Open Font
 License in `app/static/fonts`), with a practical layout: header navigation,
 entry lists filterable by subject, and prose styles for proofs, code, tables,
-and figures. No JavaScript. CSS loads in order:
+and figures. The only JavaScript is MathJax, on document pages. CSS loads in
+order:
 
 - `css/tokens.css` - fonts, colors, type scale, spacing. Retheme here.
 - `css/base.css` - paper background, typography, print rules.
 - `css/components.css` - header, footer, entry lists, tags, filters.
 - `css/pages.css` - home, entry pages, and document prose.
 
-Inside rendered documents, wrap statements in `.theorem`, `.definition`,
-`.lemma`, or `.proof` (which ends with a tombstone), and use `.wide` for
-figures or animations that should exceed the text width.
+Inside rendered documents, statements are `.theorem`, `.definition`,
+`.remark`, or `.proof` (which ends with a tombstone); `tools/publish.py`
+produces these from the LaTeX. Use `.wide` for figures or animations that
+should exceed the text width.
 
 ## Local development
 
