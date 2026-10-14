@@ -1,0 +1,33 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Rotation of axes]\label{thm:rotation-of-axes}
+  Rotating the axes through an angle $\theta$ gives new coordinates $(x', y')$
+  related to the old ones by
+  \[
+    \begin{aligned}
+      x &= x' \cos\theta - y' \sin\theta, &
+      x' &= x \cos\theta + y \sin\theta, \\
+      y &= x' \sin\theta + y' \cos\theta, &
+      y' &= -x \sin\theta + y \cos\theta.
+    \end{aligned}
+  \]
+  If $B \neq 0$, the rotation with
+  \[
+    \cot 2\theta = \frac{A - C}{B}, \qquad 0 < \theta < \frac{\pi}{2},
+  \]
+  removes the cross term from $Ax^2 + Bxy + Cy^2 + Dx + Ey + F = 0$. In
+  particular $\theta = \pi/4$ when $A = C$.
+\end{theorem}
+
+\begin{proof}
+  The two systems are inverse to each other, since the matrix of a rotation by
+  $\theta$ has inverse the rotation by $-\theta$. Substitute the left-hand
+  formulas into the quadratic part. Only $x^2$, $xy$ and $y^2$ produce an
+  $x'y'$ term, and its coefficient is
+  \[
+    -2A \sin\theta\cos\theta + B(\cos^2\theta - \sin^2\theta)
+    + 2C \sin\theta\cos\theta
+    = B\cos 2\theta - (A - C)\sin 2\theta.
+  \]
+  This vanishes exactly when $\cot 2\theta = (A - C)/B$, and $\cot$ takes
+  every real value once on $(0, \pi)$.
+\end{proof}

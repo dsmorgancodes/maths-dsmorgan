@@ -1,0 +1,115 @@
+%! TEX root = master.tex
+\chapter{3}{Rotation of Axes}
+
+A second-degree equation with an $xy$ term describes a conic whose axes are
+tilted. Rotating the coordinate axes through the right angle removes that
+term, and completing the square then puts the conic in standard position.
+The same formulas run backwards to take a conic from standard position to
+a tilted one.
+
+\section{Removing the cross term}\label{sec:rotation}
+
+\input{theorems/rotation-of-axes}
+
+\begin{exercise}\label{ex:rotate-parabola}
+  Rotate the axes to remove the cross term from
+  \[
+    x'^2 - 2x'y' + y'^2 - 2y' = 0,
+  \]
+  and find a standard equation for the curve in the rotated
+  $x''y''$-coordinates.
+\end{exercise}
+
+\begin{solution}
+  Here $A = 1$, $B = -2$ and $C = 1$. Since $A = C$,
+  \cref{thm:rotation-of-axes} gives $\theta = \frac{\pi}{4}$, with
+  $\cos\theta = \sin\theta = \frac{1}{\sqrt2}$:
+  \[
+    x' = \frac{x'' - y''}{\sqrt2}, \qquad y' = \frac{x'' + y''}{\sqrt2}.
+  \]
+  The first three terms form a perfect square, so the equation is
+  $(x' - y')^2 - 2y' = 0$. Now
+  \[
+    x' - y' = \frac{(x'' - y'') - (x'' + y'')}{\sqrt2} = -\sqrt2\, y'',
+  \]
+  so the equation becomes
+  \[
+    2y''^2 - \sqrt2\,(x'' + y'') = 0
+    \quad\text{or}\quad
+    y''^2 - \frac{\sqrt2}{2}\,y'' = \frac{\sqrt2}{2}\,x''.
+  \]
+  Complete the square by adding
+  $\bigl(\frac{\sqrt2}{4}\bigr)^2 = \frac18$ to both sides:
+  \[
+    \Bigl(y'' - \frac{\sqrt2}{4}\Bigr)^2
+    = \frac{\sqrt2}{2}\,x'' + \frac18
+    = \frac{\sqrt2}{2}\Bigl(x'' + \frac{\sqrt2}{8}\Bigr),
+  \]
+  using $\frac18 \cdot \frac{2}{\sqrt2} = \frac{1}{4\sqrt2} = \frac{\sqrt2}{8}$.
+  By \cref{thm:parabola-standard}, this is a parabola with horizontal axis
+  $y'' = \frac{\sqrt2}{4}$ and vertex
+  $\bigl(-\frac{\sqrt2}{8}, \frac{\sqrt2}{4}\bigr)$. Since
+  $4p = \frac{\sqrt2}{2}$, we have $p = \frac{\sqrt2}{8}$. \qedhere
+\end{solution}
+
+\section{Rotating back}\label{sec:rotating-back}
+
+\begin{exercise}\label{ex:rotated-ellipse}
+  An ellipse has foci $A(-12, -5)$ and $B(12, 5)$ and passes through
+  $P_1(-2.5, 6)$. In coordinates whose $x'$-axis contains the foci, its
+  equation is
+  \[
+    \frac{4x'^2}{845} + \frac{4y'^2}{169} = 1.
+  \]
+  Find its equation in the original $xy$-coordinates.
+\end{exercise}
+
+\begin{solution}
+  \emph{Angle.} The $x'$-axis is the line through the origin and the foci.
+  Its slope is $\frac{5 - (-5)}{12 - (-12)} = \frac{5}{12}$, so
+  $\tan\theta = \frac{5}{12}$. With hypotenuse $\sqrt{5^2 + 12^2} = 13$, this
+  gives $\sin\theta = \frac{5}{13}$ and $\cos\theta = \frac{12}{13}$.
+
+  \emph{Substitution.} By \cref{thm:rotation-of-axes},
+  \[
+    x' = \frac{12x + 5y}{13}, \qquad y' = \frac{-5x + 12y}{13}.
+  \]
+  Multiplying the equation by $845 = 5 \cdot 169$ gives
+  $4x'^2 + 20y'^2 = 845$. Substituting,
+  \[
+    \frac{4(12x + 5y)^2 + 20(-5x + 12y)^2}{169} = 845.
+  \]
+  Multiply by $169$ (note $845 \cdot 169 = 142805$) and expand:
+  \[
+    \begin{aligned}
+      4(144x^2 + 120xy + 25y^2) + 20(25x^2 - 120xy + 144y^2) &= 142805, \\
+      (576 + 500)x^2 + (480 - 2400)xy + (100 + 2880)y^2 &= 142805.
+    \end{aligned}
+  \]
+  The ellipse is
+  \[
+    1076x^2 - 1920xy + 2980y^2 = 142805. \qedhere
+  \]
+\end{solution}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.55\linewidth]{rotated-ellipse}
+  \caption{The ellipse $1076x^2 - 1920xy + 2980y^2 = 142805$, with its foci
+    and the point $P_1$.}
+  \label{fig:rotated-ellipse}
+\end{figure}
+
+\begin{remark}
+  Three checks, all by hand.
+  \begin{itemize}
+    \item \emph{The given point.} At $P_1(-2.5, 6)$,
+      $x' = \frac{-30 + 30}{13} = 0$ and $y' = \frac{12.5 + 72}{13} = 6.5$,
+      so $4x'^2 + 20y'^2 = 20 \cdot 42.25 = 845$. In the final equation,
+      $1076(6.25) + 1920(15) + 2980(36) = 6725 + 28800 + 107280 = 142805$.
+    \item \emph{The foci.} In the $x'y'$ form, $a^2 = \frac{845}{4}$ and
+      $b^2 = \frac{169}{4}$, so $c^2 = a^2 - b^2 = 169$ and $c = 13$. This is
+      the distance from the origin to $(12, 5)$, as it should be.
+    \item \emph{The picture.} \Cref{fig:rotated-ellipse} plots the result.
+  \end{itemize}
+\end{remark}

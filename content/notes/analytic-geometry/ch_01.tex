@@ -1,0 +1,381 @@
+%! TEX root = master.tex
+\chapter{1}{Coordinate Proofs}
+
+A coordinate proof of a statement in plane geometry has three steps. First,
+place the figure on the axes where the algebra is simplest, without losing
+generality. Then name the points with as few letters as possible. Finally,
+turn lengths, midpoints, parallelism and perpendicularity into algebra. Most
+of the care goes into the first step: a placement that quietly makes the
+figure special proves only a special case.
+
+\section{Distance and division of a segment}\label{sec:distance}
+
+\input{theorems/distance-formula}
+\input{theorems/section-formula}
+
+\begin{exercise}[Varignon]\label{ex:varignon}
+  Prove that joining the midpoints of the sides of a quadrilateral, in
+  order, gives a parallelogram.
+\end{exercise}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.72\linewidth]{midpoint-quadrilateral}
+  \caption{The quadrilateral $ABCD$ and its midpoint quadrilateral, with
+    sides $j$, $k$, $l$, $m$.}
+  \label{fig:midpoint-quadrilateral}
+\end{figure}
+
+\begin{proof}
+  Place $A$ at the origin and $B$ on the positive $x$-axis, so that
+  $A(0, 0)$, $B(a, 0)$, $C(b, c)$ and $D(d, e)$, as in
+  \cref{fig:midpoint-quadrilateral}. Any quadrilateral can be moved into this
+  position. By \cref{thm:section-formula}, the midpoints of $AB$, $BC$, $CD$
+  and $DA$ are
+  \[
+    K\Bigl(\frac a2, 0\Bigr),\quad
+    L\Bigl(\frac{a + b}{2}, \frac c2\Bigr),\quad
+    M\Bigl(\frac{b + d}{2}, \frac{c + e}{2}\Bigr),\quad
+    N\Bigl(\frac d2, \frac e2\Bigr).
+  \]
+  Compare opposite sides of $KLMN$ by their changes in $x$ and $y$:
+  \[
+    \begin{aligned}
+      K \to L &: \Bigl(\frac b2, \frac c2\Bigr), &
+      N \to M &: \Bigl(\frac b2, \frac c2\Bigr), \\
+      K \to N &: \Bigl(\frac{d - a}{2}, \frac e2\Bigr), &
+      L \to M &: \Bigl(\frac{d - a}{2}, \frac e2\Bigr).
+    \end{aligned}
+  \]
+  Each pair of opposite sides has the same change in $x$ and the same change
+  in $y$. By \cref{thm:distance-formula}, opposite sides therefore have
+  equal length: $k = m = \frac12\sqrt{b^2 + c^2}$ and
+  $j = l = \frac12\sqrt{(d - a)^2 + e^2}$. They are also parallel, since
+  they have equal slopes or are both vertical. A quadrilateral whose
+  opposite sides are parallel is a parallelogram.
+\end{proof}
+
+\begin{remark}
+  The proof shows more. $KL$ and $NM$ both have the same changes as
+  $\frac12 \overrightarrow{AC} = (\frac b2, \frac c2)$, so each is parallel to
+  the diagonal $AC$ and half its length. Likewise $KN$ and $LM$ are parallel
+  to $BD$ and half its length.
+\end{remark}
+
+\begin{exercise}\label{ex:trisection}
+  Let $M$ be the midpoint of the side $AB$ of the parallelogram $ABCD$.
+  Prove that the segment $MC$ and the diagonal $BD$ trisect each other.
+\end{exercise}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.48\linewidth]{parallelogram-trisection}\hfill
+  \includegraphics[width=0.5\linewidth]{trisection-ratio}
+  \caption{The parallelogram with $A$ at the origin and $D$ on the $x$-axis.
+    Left: the unknown intersection $P$. Right: $P$ found.}
+  \label{fig:trisection}
+\end{figure}
+
+\begin{proof}
+  Place the parallelogram as in \cref{fig:trisection}: $A(0, 0)$,
+  $B(2a, 2b)$, $D(c - 2a, 0)$ and $C(c, 2b)$, with $b > 0$ and $c \neq 2a$.
+  Then $\overrightarrow{AB} = \overrightarrow{DC}$, so $ABCD$ really is a
+  parallelogram. The factors of $2$ make the midpoint $M(a, b)$ free of
+  fractions.
+
+  \emph{Finding $P$.} Suppose first that $c \neq a$ and $c \neq 4a$, so
+  neither line is vertical. Then
+  \[
+    MC : y = b + \frac{b}{c - a}(x - a), \qquad
+    BD : y = 2b + \frac{2b}{4a - c}(x - 2a).
+  \]
+  Set them equal, divide by $b$, and rearrange:
+  \[
+    \frac{x - a}{c - a} - \frac{2(x - 2a)}{4a - c} = 1.
+  \]
+  Multiplying by $(c - a)(4a - c)$ gives
+  \[
+    (x - a)(4a - c) - 2(x - 2a)(c - a) = (c - a)(4a - c),
+  \]
+  which expands to
+  \[
+    3(2a - c)\,x - 8a^2 + 5ac = 5ac - c^2 - 4a^2.
+  \]
+  So $3(2a - c)\,x = 4a^2 - c^2 = (2a - c)(2a + c)$. Since $c \neq 2a$,
+  \[
+    x = \frac{2a + c}{3}.
+  \]
+  Then $x - a = \frac{c - a}{3}$, and the equation of $MC$ gives
+  \[
+    y = b + \frac{b}{c - a} \cdot \frac{c - a}{3} = \frac{4b}{3}.
+  \]
+  So the lines meet at $P\bigl( \frac{2a + c}{3}, \frac{4b}{3} \bigr)$.
+
+  \emph{Ratios.} Neither segment is horizontal, so by
+  \cref{thm:section-formula}(b) lengths along each one are in the same ratio
+  as the changes in $y$. Along $BD$, the $y$-coordinates of $B$, $P$, $D$ are
+  $2b$, $\frac{4b}{3}$, $0$, so
+  \[
+    BP : PD = \frac{2b}{3} : \frac{4b}{3} = 1 : 2.
+  \]
+  Along $MC$, the $y$-coordinates of $M$, $P$, $C$ are $b$, $\frac{4b}{3}$,
+  $2b$, so
+  \[
+    MP : PC = \frac{b}{3} : \frac{2b}{3} = 1 : 2.
+  \]
+  So $P$ is a point of trisection of both segments: each segment cuts the
+  other one-third of the way along.
+\end{proof}
+
+\begin{remark}
+  \Cref{thm:section-formula}(a) gives a shorter proof that also covers the
+  cases $c = a$ and $c = 4a$ excluded above. The point one-third of the way
+  from $M$ to $C$ is
+  $\frac{2M + C}{3} = \bigl( \frac{2a + c}{3}, \frac{4b}{3} \bigr)$. The
+  point one-third of the way from $B$ to $D$ is
+  $\frac{2B + D}{3} = \bigl( \frac{2a + c}{3}, \frac{4b}{3} \bigr)$. They are
+  the same point, so the segments meet there and trisect each other. No line
+  equations are needed.
+\end{remark}
+
+\begin{exercise}\label{ex:trapezoid-midline}
+  Prove that the segment joining the midpoints of the non-parallel sides of a
+  trapezoid is parallel to the parallel sides, and that its length is half
+  the sum of their lengths.
+\end{exercise}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\linewidth]{trapezoid-midline}
+  \caption{A trapezoid with $A(-a, 0)$, $B(a, 0)$ and the top side at
+    height $2c$. The figure shows the symmetric case $D(-b, 2c)$; the proof
+    places $D$ at $(d, 2c)$.}
+  \label{fig:trapezoid}
+\end{figure}
+
+\begin{proof}
+  Put the parallel sides on horizontal lines with $AB$ centred at the
+  origin: $A(-a, 0)$, $B(a, 0)$, $C(b, 2c)$ and $D(d, 2c)$, where $a, c > 0$
+  and $d < b$. The non-parallel sides are $AD$ and $BC$, and by
+  \cref{thm:section-formula} their midpoints are
+  \[
+    M_1\Bigl(\frac{d - a}{2}, c\Bigr), \qquad
+    M_2\Bigl(\frac{a + b}{2}, c\Bigr).
+  \]
+  \emph{Parallel.} $AB$, $DC$ and $M_1M_2$ all join two points with equal
+  $y$-coordinates, so all three have slope $0$ and are parallel.
+
+  \emph{Length.} On horizontal segments the length is the change in $x$:
+  \[
+    M_1M_2 = \frac{a + b}{2} - \frac{d - a}{2} = \frac{2a + (b - d)}{2},
+    \qquad AB = 2a, \qquad DC = b - d.
+  \]
+  So $M_1M_2 = \frac12 (AB + DC)$.
+\end{proof}
+
+\begin{remark}
+  The first version of this proof placed the top side symmetrically, at
+  $D(-b, 2c)$ and $C(b, 2c)$ as in \cref{fig:trapezoid}. That makes the
+  figure symmetric about the $y$-axis, so it covers only isosceles
+  trapezoids. Centring \emph{one} parallel side costs nothing, but the
+  other side must be left free. This is the placement trap described at the
+  start of the chapter.
+\end{remark}
+
+\section{Perpendicular lines}\label{sec:perpendicular}
+
+\input{theorems/perpendicular-slopes}
+
+\begin{exercise}\label{ex:rhombus}
+  Prove that the diagonals of a rhombus are perpendicular.
+\end{exercise}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.55\linewidth]{rhombus-diagonals}
+  \caption{The rhombus $ABCD$ with its diagonals (red).}
+  \label{fig:rhombus}
+\end{figure}
+
+\begin{proof}
+  Place the rhombus as in \cref{fig:rhombus}: $A(0, 0)$, $B(a, 0)$,
+  $C(a + b, d)$ and $D(b, d)$, with $a > 0$ and $d \neq 0$. This is a
+  parallelogram, and it is a rhombus when $AB = AD$, that is,
+  \[
+    a^2 = b^2 + d^2.
+  \]
+  This gives $b^2 - a^2 = -d^2 \neq 0$, so $b \neq \pm a$ and neither
+  diagonal is vertical. Their slopes are
+  \[
+    m_{AC} = \frac{d}{a + b}, \qquad m_{BD} = \frac{d}{b - a},
+  \]
+  and
+  \[
+    m_{AC}\, m_{BD} = \frac{d^2}{b^2 - a^2} = \frac{d^2}{-d^2} = -1.
+  \]
+  By \cref{thm:perpendicular-slopes}, the diagonals are perpendicular.
+\end{proof}
+
+\begin{exercise}\label{ex:equilateral-medians}
+  Prove that the medians of an equilateral triangle are altitudes.
+\end{exercise}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5\linewidth]{equilateral-medians}
+  \caption{An equilateral triangle on the base $AB$, with its medians
+    (dashed).}
+  \label{fig:equilateral}
+\end{figure}
+
+\begin{proof}
+  Let $A(0, 0)$, $B(2a, 0)$ with $a > 0$, and $C(x, y)$ with $y > 0$, as in
+  \cref{fig:equilateral}.
+
+  \emph{Locating $C$.} The triangle is equilateral, so
+  $CA^2 = AB^2 = 4a^2$ and $CB^2 = AB^2 = 4a^2$. By
+  \cref{thm:distance-formula},
+  \[
+    x^2 + y^2 = 4a^2, \qquad (x - 2a)^2 + y^2 = 4a^2.
+  \]
+  Subtracting the first equation from the second gives $-4ax + 4a^2 = 0$, so
+  $x = a$. Then $y^2 = 3a^2$, and since $y > 0$, $C = (a, a\sqrt3)$.
+
+  \emph{Midpoints.} By \cref{thm:section-formula},
+  \[
+    M_{AB}(a, 0), \qquad
+    M_{AC}\Bigl(\frac a2, \frac{a\sqrt3}{2}\Bigr), \qquad
+    M_{BC}\Bigl(\frac{3a}{2}, \frac{a\sqrt3}{2}\Bigr).
+  \]
+  \emph{Median from $C$.} $C$ and $M_{AB}$ both have $x$-coordinate $a$, so
+  this median is the vertical line $x = a$. It is perpendicular to the
+  horizontal side $AB$.
+
+  \emph{Median from $B$.} The slopes are
+  \[
+    m_{AC} = \frac{a\sqrt3}{a} = \sqrt3,
+    \qquad
+    m_{BM_{AC}} = \frac{a\sqrt3/2}{a/2 - 2a} = -\frac{1}{\sqrt3},
+  \]
+  whose product is $-1$.
+
+  \emph{Median from $A$.} The slopes are
+  \[
+    m_{BC} = \frac{a\sqrt3}{a - 2a} = -\sqrt3,
+    \qquad
+    m_{AM_{BC}} = \frac{a\sqrt3/2}{3a/2} = \frac{1}{\sqrt3},
+  \]
+  whose product is again $-1$.
+
+  By \cref{thm:perpendicular-slopes}, each median is perpendicular to the
+  side it meets, so each median is an altitude.
+\end{proof}
+
+\begin{exercise}[Converse of Pythagoras]\label{ex:converse-pythagoras}
+  Prove that if the squares of two sides of a triangle add up to the square
+  of the third side, then the triangle is a right triangle.
+\end{exercise}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.55\linewidth]{converse-pythagoras}
+  \caption{The triangle with the vertex in question at the origin, tilted
+    off the axes so that nothing about the angle at $A$ is assumed.}
+  \label{fig:converse-pythagoras}
+\end{figure}
+
+\begin{proof}
+  Name the vertices so that the hypothesis reads $AB^2 + AC^2 = BC^2$, and
+  put the shared vertex at the origin: $A(0, 0)$, $B(x_1, y_1)$ and
+  $C(x_2, y_2)$. By
+  \cref{thm:distance-formula},
+  \[
+    (x_1^2 + y_1^2) + (x_2^2 + y_2^2)
+    = (x_2 - x_1)^2 + (y_2 - y_1)^2
+    = x_1^2 + x_2^2 + y_1^2 + y_2^2 - 2x_1x_2 - 2y_1y_2.
+  \]
+  Cancelling the common terms leaves
+  \begin{equation}\label{eq:dot-zero}
+    x_1x_2 + y_1y_2 = 0.
+  \end{equation}
+  We show that $AB \perp AC$.
+
+  \emph{If $x_1x_2 \neq 0$}, neither $AB$ nor $AC$ is vertical. Dividing
+  \eqref{eq:dot-zero} by $x_1x_2$ gives
+  \[
+    \frac{y_1}{x_1} \cdot \frac{y_2}{x_2} = -1,
+  \]
+  which is $m_{AB}\, m_{AC} = -1$. Apply \cref{thm:perpendicular-slopes}.
+
+  \emph{If $x_1 = 0$}, then $B \neq A$ forces $y_1 \neq 0$, and
+  \eqref{eq:dot-zero} becomes $y_1 y_2 = 0$, so $y_2 = 0$. Then $AB$ lies on
+  the $y$-axis and $AC$ on the $x$-axis, so they are perpendicular. The case
+  $x_2 = 0$ is the same with $B$ and $C$ exchanged.
+
+  In every case the angle at $A$ is a right angle.
+\end{proof}
+
+\begin{remark}
+  The slope argument alone breaks down when a side is vertical, which is
+  why the case split is needed. In vector language, \eqref{eq:dot-zero} says
+  $\overrightarrow{AB} \cdot \overrightarrow{AC} = 0$, which handles every
+  case at once.
+\end{remark}
+
+\begin{exercise}\label{ex:chord-bisector}
+  Prove that the perpendicular bisector of a chord of a circle passes
+  through the centre.
+\end{exercise}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.42\linewidth]{chord-bisector}
+  \caption{The chord $BC$ and its perpendicular bisector (red), drawn
+    without assuming that it passes through $A$.}
+  \label{fig:chord-bisector}
+\end{figure}
+
+\begin{proof}
+  Centre the circle at the origin $A(0, 0)$ with radius $r$, and let the
+  chord have endpoints $B(x_1, y_1) \neq C(x_2, y_2)$ on the circle, so
+  \begin{equation}\label{eq:on-circle}
+    x_1^2 + y_1^2 = r^2 = x_2^2 + y_2^2.
+  \end{equation}
+  The midpoint of $BC$ is
+  $M\bigl(\frac{x_1 + x_2}{2}, \frac{y_1 + y_2}{2}\bigr)$.
+
+  \emph{General case: $x_1 \neq x_2$ and $y_1 \neq y_2$.} Here
+  $m_{BC} = \frac{y_2 - y_1}{x_2 - x_1}$ is neither zero nor undefined. By
+  \cref{thm:perpendicular-slopes}, the perpendicular bisector has slope
+  $-\frac{x_2 - x_1}{y_2 - y_1}$, so its equation is
+  \[
+    y - \frac{y_1 + y_2}{2}
+    = -\frac{x_2 - x_1}{y_2 - y_1}\Bigl(x - \frac{x_1 + x_2}{2}\Bigr).
+  \]
+  The origin lies on this line exactly when
+  \[
+    -\frac{y_1 + y_2}{2} = \frac{(x_2 - x_1)(x_2 + x_1)}{2(y_2 - y_1)}.
+  \]
+  Multiplying by $-2(y_2 - y_1) \neq 0$ turns this into the equivalent
+  condition
+  \[
+    y_2^2 - y_1^2 = -(x_2^2 - x_1^2),
+    \qquad\text{that is,}\qquad
+    x_2^2 + y_2^2 = x_1^2 + y_1^2.
+  \]
+  This is true by \eqref{eq:on-circle}. So the bisector passes through $A$.
+
+  \emph{Horizontal chord: $y_1 = y_2$.} Then $x_1 \neq x_2$, and
+  \eqref{eq:on-circle} gives $x_1^2 = x_2^2$, so $x_2 = -x_1$. The
+  perpendicular bisector is the vertical line through $M$, namely
+  $x = \frac{x_1 + x_2}{2} = 0$. This is the $y$-axis, which contains $A$.
+
+  \emph{Vertical chord: $x_1 = x_2$.} In the same way $y_2 = -y_1$, and the
+  bisector is $y = 0$, which contains $A$.
+\end{proof}
+
+\begin{remark}
+  A slope-free proof is possible. The perpendicular bisector of $BC$ is
+  exactly the set of points equidistant from $B$ and $C$, and the centre is
+  such a point, since $AB = AC = r$.
+\end{remark}

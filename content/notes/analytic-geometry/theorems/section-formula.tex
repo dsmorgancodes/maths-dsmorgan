@@ -1,0 +1,31 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Division of a segment]\label{thm:section-formula}
+  Let $P_1(x_1, y_1)$ and $P_2(x_2, y_2)$ be distinct points.
+  \begin{enumerate}[label=(\alph*)]
+    \item The point $P$ on $P_1P_2$ with $P_1P : PP_2 = r : s$ (where
+      $r, s > 0$) is
+      \[
+        P = \left( \frac{s x_1 + r x_2}{r + s}, \frac{s y_1 + r y_2}{r + s} \right).
+      \]
+      In particular the midpoint is
+      $\bigl( \frac{x_1 + x_2}{2}, \frac{y_1 + y_2}{2} \bigr)$.
+    \item If $P(x, y)$ and $Q(x', y')$ also lie on the line $P_1P_2$, then
+      \[
+        \frac{PQ}{P_1P_2} = \frac{\abs{x' - x}}{\abs{x_2 - x_1}}
+        \quad\text{(line not vertical)}, \qquad
+        \frac{PQ}{P_1P_2} = \frac{\abs{y' - y}}{\abs{y_2 - y_1}}
+        \quad\text{(line not horizontal)}.
+      \]
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Every point of the line is $P_1 + t\,(x_2 - x_1, y_2 - y_1)$ for exactly one
+  real $t$, and by \cref{thm:distance-formula} the points with parameters $t$
+  and $t'$ are $\abs{t' - t} \cdot P_1P_2$ apart. Their $x$-coordinates differ
+  by $\abs{t' - t} \abs{x_2 - x_1}$ and their $y$-coordinates by
+  $\abs{t' - t} \abs{y_2 - y_1}$, which gives (b). For (a), $P$ lies between
+  $P_1$ and $P_2$ at $t = r / (r + s)$, and
+  $x_1 + \frac{r}{r + s}(x_2 - x_1) = \frac{s x_1 + r x_2}{r + s}$, and likewise
+  for $y$.
+\end{proof}

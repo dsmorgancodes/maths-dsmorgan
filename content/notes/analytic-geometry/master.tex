@@ -1,0 +1,24 @@
+% Topic notes: one chapter per file, ch_NN.tex, each starting with \chapter.
+% Theorem notes live in theorems/ and are \input by the chapters.
+% Compile this file, or any chapter: the "TEX root" line points them here.
+% Label prefixes:  def:  lem:  thm:  cor:  prop:  eq:  ex:
+\documentclass[11pt,a4paper]{article}
+\usepackage{dsmorgan}
+
+\title{Analytic Geometry}
+\subtitle{Course notes}
+\author{Drew M. Schaffner}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+% start lectures
+\input{ch_01.tex}
+\input{ch_02.tex}
+\input{ch_03.tex}
+\input{ch_04.tex}
+% end lectures
+
+\end{document}

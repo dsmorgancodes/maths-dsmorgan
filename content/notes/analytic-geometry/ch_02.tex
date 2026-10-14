@@ -1,0 +1,171 @@
+%! TEX root = master.tex
+\chapter{2}{Conics and Their Reflective Properties}
+
+Parabolas and ellipses in standard position. The tools are implicit
+differentiation for tangent slopes and the angle formula for comparing two
+lines. The chapter ends with the reflective property of the ellipse.
+
+\section{The parabola}\label{sec:parabola}
+
+\input{theorems/parabola-standard}
+
+\begin{exercise}\label{ex:parabola-tangents}
+  Tangent lines $T_1$ and $T_2$ to the parabola $y = x^2$ at the points $P_1$
+  and $P_2$ meet at $P$. A third tangent $T$, touching the parabola at a
+  point between $P_1$ and $P_2$, meets $T_1$ at $Q_1$ and $T_2$ at $Q_2$.
+  Show that
+  \[
+    \frac{PQ_1}{PP_1} + \frac{PQ_2}{PP_2} = 1.
+  \]
+\end{exercise}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.62\linewidth]{parabola-tangents}
+  \caption{Three tangents to $y = x^2$.}
+  \label{fig:parabola-tangents}
+\end{figure}
+
+\begin{solution}
+  Let $P_1 = (a, a^2)$ and $P_2 = (b, b^2)$, and let $T$ touch at
+  $(c, c^2)$ with $c$ strictly between $a$ and $b$. In
+  \cref{fig:parabola-tangents} we have $b < c < a$, but the argument below
+  does not depend on the order.
+
+  \emph{Tangents.} Since $\frac{\dd y}{\dd x} = 2x$, the tangent at
+  $(s, s^2)$ is $y - s^2 = 2s(x - s)$, that is, $y = 2sx - s^2$. So
+  \[
+    T_1 : y = 2ax - a^2, \qquad
+    T_2 : y = 2bx - b^2, \qquad
+    T : y = 2cx - c^2.
+  \]
+  \emph{Intersections.} Tangents at $s \neq u$ meet where
+  $2(s - u)\,x = s^2 - u^2$, that is, at $x = \frac{s + u}{2}$, and then
+  $y = 2s \cdot \frac{s + u}{2} - s^2 = su$. Hence
+  \[
+    P\Bigl(\frac{a + b}{2}, ab\Bigr), \qquad
+    Q_1\Bigl(\frac{a + c}{2}, ac\Bigr), \qquad
+    Q_2\Bigl(\frac{b + c}{2}, bc\Bigr).
+  \]
+  \emph{Ratios.} The points $P$, $Q_1$, $P_1$ lie on $T_1$, which is not
+  vertical. By \cref{thm:section-formula}(b), the ratio of lengths equals the
+  ratio of changes in $x$:
+  \[
+    \frac{PQ_1}{PP_1}
+    = \frac{\abs{\frac{a + b}{2} - \frac{a + c}{2}}}{\abs{\frac{a + b}{2} - a}}
+    = \frac{\abs{b - c}}{\abs{b - a}}.
+  \]
+  In the same way, on $T_2$,
+  \[
+    \frac{PQ_2}{PP_2}
+    = \frac{\abs{\frac{b + c}{2} - \frac{a + b}{2}}}{\abs{b - \frac{a + b}{2}}}
+    = \frac{\abs{c - a}}{\abs{b - a}}.
+  \]
+  Because $c$ lies between $a$ and $b$, $\abs{b - c} + \abs{c - a} = \abs{b - a}$,
+  and so
+  \[
+    \frac{PQ_1}{PP_1} + \frac{PQ_2}{PP_2}
+    = \frac{\abs{b - c} + \abs{c - a}}{\abs{b - a}} = 1. \qedhere
+  \]
+\end{solution}
+
+\begin{remark}
+  The intersection rule is worth remembering: the tangents at $s$ and $u$
+  meet at $\bigl(\frac{s + u}{2}, su\bigr)$, above the midpoint of $s$ and
+  $u$.
+\end{remark}
+
+\begin{exercise}\label{ex:parabola-normal}
+  Let $P(x_1, y_1)$ be a point other than the vertex on the parabola
+  $y^2 = 2px$. Find the normal line at $P$, and show that it meets the
+  $x$-axis at $Q(x_1 + p, 0)$.
+\end{exercise}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.45\linewidth]{parabola-normal}
+  \caption{The normal at $P$. The label on $Q$ should read
+    $(x_1 + p, 0)$.}
+  \label{fig:parabola-normal}
+\end{figure}
+
+\begin{solution}
+  Differentiating $y^2 = 2px$ implicitly gives $2y\,\frac{\dd y}{\dd x} = 2p$,
+  so the tangent at $P$ has slope $p / y_1$. Here $y_1 \neq 0$ because $P$ is
+  not the vertex. By \cref{thm:perpendicular-slopes}, the normal has slope
+  $-y_1 / p$, and its equation is
+  \[
+    y - y_1 = -\frac{y_1}{p}(x - x_1).
+  \]
+  At the $x$-axis $y = 0$, so $-y_1 = -\frac{y_1}{p}(x - x_1)$. Dividing by
+  $-y_1 \neq 0$ gives $1 = \frac{x - x_1}{p}$, that is, $x = x_1 + p$. So the
+  normal meets the axis at $Q(x_1 + p, 0)$.
+\end{solution}
+
+\begin{remark}
+  This is the reflective property of the parabola in disguise. Writing
+  $y^2 = 2px$ as $y^2 = 4 \cdot \frac p2 \cdot x$, \cref{thm:parabola-standard}
+  puts the focus at $F(\frac p2, 0)$ and the directrix at $x = -\frac p2$.
+  By the focus--directrix definition,
+  $FP = x_1 + \frac p2 = FQ$, so the triangle $FPQ$ is isosceles. The normal
+  $PQ$ therefore makes equal angles with $PF$ and with the horizontal line
+  through $P$. In other words, rays parallel to the axis reflect through the
+  focus.
+\end{remark}
+
+\section{The ellipse}\label{sec:ellipse}
+
+\input{theorems/ellipse-standard}
+
+\begin{exercise}\label{ex:overpass}
+  A highway overpass has the shape of half an ellipse, with a base 200 feet
+  wide. The highway beneath it is 120 feet wide, and the minimum clearance
+  over the highway is 40 feet. Find the height of the overpass at its
+  centre.
+\end{exercise}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.55\linewidth]{elliptical-overpass}
+  \caption{The overpass as the upper half of
+    $\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$.}
+  \label{fig:overpass}
+\end{figure}
+
+\begin{solution}
+  Put the centre of the base at the origin, so the arch is the upper half of
+  $\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$ and the height at the centre is $b$.
+
+  \emph{Base.} The base is the major axis, so $2a = 200$ and $a = 100$.
+
+  \emph{Clearance.} The highway runs from $x = -60$ to $x = 60$. On the
+  upper half, $y$ decreases as $\abs{x}$ grows, so the clearance over the road
+  is smallest at its edges. Therefore $(60, 40)$ lies on the ellipse:
+  \[
+    \frac{60^2}{100^2} + \frac{40^2}{b^2} = 1
+    \implies \frac{1600}{b^2} = 1 - 0.36 = 0.64
+    \implies b^2 = 2500.
+  \]
+  Since $b > 0$, $b = 50$. The overpass is $50$ feet high at its centre.
+\end{solution}
+
+\section{Reflection}\label{sec:reflection}
+
+\input{theorems/angle-between-lines}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\linewidth]{ellipse-reflection}
+  \caption{A ray from $F_1$ meets the ellipse at $P$ and reflects to $F_2$.
+    The tangent at $P$ is dashed.}
+  \label{fig:ellipse-reflection}
+\end{figure}
+
+\input{theorems/ellipse-reflection}
+
+\begin{remark}
+  The simplifications in the proof rely on two facts: $P$ lies on the
+  ellipse, so $b^2x_1^2 + a^2y_1^2 = a^2b^2$, and $a^2 - b^2 = c^2$. Without
+  substituting both, the expressions for $\tan\alpha$ and $\tan\beta$ do not
+  visibly agree.
+\end{remark}

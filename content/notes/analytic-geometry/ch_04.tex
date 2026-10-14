@@ -1,0 +1,150 @@
+%! TEX root = master.tex
+\chapter{4}{Parametric Curves}
+
+A parametric curve gives $x$ and $y$ separately as functions of a parameter
+$t$. This records not just the set of points but the way the curve is
+traced: where it starts, which way it goes and how often it passes each
+point. Circles are the basic building block. The chapter ends with the
+geometry behind the rotary engine.
+
+\section{Circles and arcs}\label{sec:parametric-circles}
+
+\input{theorems/parametric-circle}
+
+\begin{exercise}\label{ex:parabola-path}
+  Find parametric equations, with $0 \leq t \leq 1$, for a particle that
+  moves along $y = x^2$ from $(1, 1)$ to $(-1, 1)$ and back to $(1, 1)$.
+\end{exercise}
+
+\begin{solution}
+  Take
+  \[
+    x(t) = \cos 2\pi t, \qquad y(t) = \cos^2 2\pi t, \qquad 0 \leq t \leq 1.
+  \]
+  Then $y = x^2$ for every $t$, so the particle stays on the parabola. As $t$
+  runs over $[0, \frac12]$, $2\pi t$ runs over $[0, \pi]$ and $x = \cos 2\pi t$
+  decreases from $1$ to $-1$. As $t$ runs over $[\frac12, 1]$, $x$ increases
+  back to $1$. So the particle goes from $(1, 1)$ to $(-1, 1)$ and returns,
+  passing through each point of the arc once in each direction.
+\end{solution}
+
+\begin{exercise}\label{ex:smiley}
+  Find parametric equations, with $0 \leq t \leq 1$ (several sets are
+  needed), that draw the face in \cref{fig:smiley}.
+\end{exercise}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.4\linewidth]{parametric-face}
+  \caption{The face, drawn from the four sets of equations below.}
+  \label{fig:smiley}
+\end{figure}
+
+\begin{solution}
+  All four pieces come from \cref{thm:parametric-circle}.
+  \begin{enumerate}[label=(\alph*)]
+    \item \emph{Face}, centre $(2, 2)$ and radius $2$:
+      $x = 2 + 2\cos 2\pi t$, $y = 2 + 2\sin 2\pi t$.
+    \item \emph{Left eye}, centre $(1, 3)$ and radius $0.2$:
+      $x = 1 + 0.2\cos 2\pi t$, $y = 3 + 0.2\sin 2\pi t$.
+    \item \emph{Right eye}, centre $(3, 3)$ and radius $0.2$:
+      $x = 3 + 0.2\cos 2\pi t$, $y = 3 + 0.2\sin 2\pi t$.
+    \item \emph{Smile}, the lower half of the circle with centre $(2, 2)$ and
+      radius $1$, so the angles run from $\pi$ to $2\pi$:
+      \[
+        x = 2 + \cos(\pi + \pi t), \qquad y = 2 + \sin(\pi + \pi t).
+      \]
+      It starts at $(1, 2)$ when $t = 0$, passes through $(2, 1)$ when
+      $t = \frac12$ and ends at $(3, 2)$ when $t = 1$. \qedhere
+  \end{enumerate}
+\end{solution}
+
+\begin{exercise}\label{ex:two-circle-ellipse}
+  Circles of radius $a$ and $b$, with $a > b > 0$, are centred at the origin.
+  A ray from the origin at angle $t$ to the positive $x$-axis meets the
+  large circle and then the small one. The point $P$ takes its
+  $x$-coordinate from the first intersection and its $y$-coordinate from the
+  second. Find parametric equations for the curve traced by $P$, and
+  identify it.
+\end{exercise}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5\linewidth]{two-circle-ellipse}
+  \caption{$P$ takes its $x$-coordinate from the large circle and its
+    $y$-coordinate from the small one.}
+  \label{fig:two-circle-ellipse}
+\end{figure}
+
+\begin{solution}
+  The ray at angle $t$ meets the circle of radius $a$ at
+  $(a\cos t, a\sin t)$, and it meets the circle of radius $b$ at
+  $(b\cos t, b\sin t)$.
+  Hence
+  \[
+    x = a\cos t, \qquad y = b\sin t, \qquad 0 \leq t \leq 2\pi.
+  \]
+  Since $\cos^2 t + \sin^2 t = 1$, eliminating $t$ gives
+  \[
+    \frac{x^2}{a^2} + \frac{y^2}{b^2} = 1,
+  \]
+  which is the ellipse of \cref{thm:ellipse-standard} with semi-axes $a$ and
+  $b$. As $t$ runs over $[0, 2\pi]$, $P$ goes once around it, anticlockwise.
+\end{solution}
+
+\section{The rotary engine}\label{sec:rotary-engine}
+
+\input{theorems/centroid}
+
+\begin{exercise}\label{ex:epitrochoid}
+  Show that an equilateral triangle can be inscribed in the epitrochoid
+  \[
+    x = 3r\cos t + b\cos 3t, \qquad y = 3r\sin t + b\sin 3t,
+  \]
+  and that as the triangle moves its centroid traces a circle of radius $b$
+  about the centre of the epitrochoid.
+\end{exercise}
+
+\begin{proof}
+  This is the principle of the rotary (Wankel) engine: a triangular rotor
+  turns with its three tips on an epitrochoid-shaped housing, while its
+  centre moves on a small circle.
+
+  \emph{Vertices.} Fix $t$ and take the three points of the curve at the
+  parameters $t_k = t + \frac{2\pi k}{3}$, for $k = 0, 1, 2$. Since
+  $3t_k = 3t + 2\pi k$, the $b$-terms are the same for all three points:
+  $b\cos 3t_k = b\cos 3t$ and $b\sin 3t_k = b\sin 3t$. Writing
+  $G = (b\cos 3t, b\sin 3t)$, the vertices are
+  \[
+    V_k = G + 3r\,(\cos t_k, \sin t_k), \qquad k = 0, 1, 2.
+  \]
+  \emph{Equilateral.} The points $3r(\cos t_k, \sin t_k)$ lie on the circle
+  of radius $3r$ about the origin, spaced $\frac{2\pi}{3}$ apart, so they form
+  an equilateral triangle with side $2 \cdot 3r \sin\frac{\pi}{3} = 3\sqrt3\,r$.
+  Adding the fixed point $G$ to all three is a translation, which preserves
+  distances. So $V_0V_1V_2$ is equilateral, and its vertices lie on the
+  epitrochoid.
+
+  \emph{Centroid.} By \cref{thm:centroid}, the centroid is
+  $G + r\sum_k (\cos t_k, \sin t_k)$. By the addition formulas, with
+  $\cos\frac{2\pi}{3} = \cos\frac{4\pi}{3} = -\frac12$ and
+  $\sin\frac{2\pi}{3} = -\sin\frac{4\pi}{3} = \frac{\sqrt3}{2}$,
+  \[
+    \sum_{k=0}^{2} \cos t_k
+    = \cos t
+      + \Bigl(-\tfrac12\cos t - \tfrac{\sqrt3}{2}\sin t\Bigr)
+      + \Bigl(-\tfrac12\cos t + \tfrac{\sqrt3}{2}\sin t\Bigr) = 0,
+  \]
+  and likewise $\sum_k \sin t_k = 0$. So the centroid is
+  \[
+    G = (b\cos 3t,\; b\sin 3t),
+  \]
+  which, as $t$ varies, runs around the circle of radius $b$ centred at the
+  origin.
+\end{proof}
+
+\begin{remark}
+  The vertices turn at rate $1$ in $t$, while the centroid goes round at
+  rate $3$. So the rotor's centre makes three orbits for every turn of the
+  rotor, which is the 3:1 gearing of the Wankel engine.
+\end{remark}

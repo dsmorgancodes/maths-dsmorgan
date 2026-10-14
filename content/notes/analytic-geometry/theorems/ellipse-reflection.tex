@@ -1,0 +1,78 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Reflective property of the ellipse]\label{thm:ellipse-reflection}
+  A ray leaving one focus of an ellipse is reflected by the ellipse through
+  the other focus.
+\end{theorem}
+
+\begin{proof}
+  Take the ellipse of \cref{thm:ellipse-standard} with $c > 0$ (if $c = 0$
+  it is a circle, and every ray from the centre returns along itself). Let
+  $P(x_1, y_1)$ be on the ellipse.
+
+  If $y_1 = 0$, then $P = (\pm a, 0)$, the tangent there is vertical, and the
+  ray runs along the $x$-axis, so it returns along the axis through both
+  foci. Suppose now $y_1 \neq 0$ and, for the moment, $x_1 \neq \pm c$, so
+  that neither focal line is vertical.
+
+  \emph{Slopes.} Differentiating $x^2/a^2 + y^2/b^2 = 1$ implicitly gives
+  $2x/a^2 + (2y/b^2)\,y' = 0$. So the tangent at $P$ has slope
+  \[
+    m = -\frac{b^2 x_1}{a^2 y_1},
+  \]
+  and the lines $F_1P$ and $F_2P$ have slopes
+  \[
+    m_1 = \frac{y_1}{x_1 + c}, \qquad m_2 = \frac{y_1}{x_1 - c}.
+  \]
+  Below we use $b^2 x_1^2 + a^2 y_1^2 = a^2 b^2$ (because $P$ is on the
+  ellipse) and $a^2 - b^2 = c^2$.
+
+  \emph{Incoming angle.} Let $\alpha$ be the angle from $F_1P$ to the tangent.
+  By \cref{thm:angle-between-lines},
+  $\tan\alpha = (m - m_1)/(1 + m m_1)$. Multiply the numerator and the
+  denominator by $a^2 y_1 (x_1 + c)$:
+  \[
+    \begin{aligned}
+      \text{numerator}
+      &= -b^2 x_1 (x_1 + c) - a^2 y_1^2
+       = -(b^2 x_1^2 + a^2 y_1^2) - b^2 c x_1
+       = -b^2 (a^2 + c x_1), \\
+      \text{denominator}
+      &= a^2 y_1 (x_1 + c) - b^2 x_1 y_1
+       = y_1 \bigl( (a^2 - b^2) x_1 + a^2 c \bigr)
+       = c y_1 (a^2 + c x_1).
+    \end{aligned}
+  \]
+  Since $\abs{x_1} \leq a$ and $c < a$, we have $a^2 + c x_1 > 0$. So the
+  denominator is not zero (the lines are not perpendicular), and
+  \[
+    \tan\alpha = -\frac{b^2}{c y_1}.
+  \]
+
+  \emph{Outgoing angle.} Let $\beta$ be the angle from the tangent to $F_2P$,
+  so $\tan\beta = (m_2 - m)/(1 + m m_2)$. Multiply the numerator and the
+  denominator by $a^2 y_1 (x_1 - c)$:
+  \[
+    \begin{aligned}
+      \text{numerator}
+      &= a^2 y_1^2 + b^2 x_1 (x_1 - c)
+       = b^2 (a^2 - c x_1), \\
+      \text{denominator}
+      &= a^2 y_1 (x_1 - c) - b^2 x_1 y_1
+       = -c y_1 (a^2 - c x_1),
+    \end{aligned}
+  \]
+  with $a^2 - c x_1 > 0$. Hence
+  \[
+    \tan\beta = -\frac{b^2}{c y_1} = \tan\alpha.
+  \]
+
+  Both angles lie in $[0, \pi)$, where $\tan$ is one-to-one, so
+  $\alpha = \beta$. So $F_1P$ and $F_2P$ make equal angles with the tangent,
+  one on each side: reflecting the line $F_1P$ in the tangent gives the line
+  $F_2P$. This is the law of reflection (the angle of incidence equals the
+  angle of reflection), so the reflected ray passes through $F_2$.
+
+  When $x_1 = \pm c$, one focal line is vertical and the slope formula does
+  not apply. The result still holds there by continuity: both angles depend
+  continuously on $P$, and they agree at every nearby point of the ellipse.
+\end{proof}

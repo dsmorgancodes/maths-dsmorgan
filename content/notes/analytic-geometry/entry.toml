@@ -1,0 +1,7 @@
+title = "Analytic Geometry"
+summary = "Coordinate proofs in plane geometry, conics and their reflective properties, rotation of axes, and parametric curves."
+# Keys from SUBJECTS in app/catalog.py.
+subjects = ["analytic-geometry"]
+# Uncomment when finished (TOML date, no quotes).
+# written = 2026-01-01
+published = false
