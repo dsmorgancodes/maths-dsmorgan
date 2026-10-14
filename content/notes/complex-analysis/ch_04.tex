@@ -1,0 +1,73 @@
+%! TEX root = master.tex
+\chapter{4}{Real Integrals by Residues}
+
+Some real integrals that resist every calculus technique become routine
+once they are read as contour integrals. The simplest case is an integral of
+a rational function of $\cos\theta$ and $\sin\theta$ over a full period, which
+becomes an integral around the unit circle.
+
+\section{Integrals over a period}\label{sec:trig-integrals}
+
+\input{theorems/trig-integrals}
+
+\begin{exercise}\label{ex:one-plus-quarter-cos}
+  Evaluate $\displaystyle \int_0^{2\pi} \frac{\dd\theta}{1 + \frac14 \cos\theta}$.
+\end{exercise}
+
+\begin{solution}
+  \emph{To the circle.} By \cref{thm:trig-integrals}, with $C$ the circle
+  $\abs{z} = 1$,
+  \[
+    I = \oint_C \frac{1}{1 + \frac18\left(z + z^{-1}\right)} \frac{\dd z}{iz}
+      = \oint_C \frac{8z}{z^2 + 8z + 1} \frac{\dd z}{iz}
+      = \frac{8}{i} \oint_C \frac{\dd z}{z^2 + 8z + 1}.
+  \]
+
+  \emph{Poles.} The roots of $z^2 + 8z + 1$ are
+  $z_{1,2} = -4 \pm \sqrt{15}$, both simple. Since $\sqrt{15} \approx 3.87$,
+  $z_1 = -4 + \sqrt{15} \approx -0.13$ lies inside $C$ and
+  $z_2 = -4 - \sqrt{15} \approx -7.87$ lies outside.
+
+  \emph{Residue.} By \cref{thm:residue-at-pole},
+  \[
+    \Res\left( \frac{1}{(z - z_1)(z - z_2)}; z_1 \right)
+    = \frac{1}{z_1 - z_2} = \frac{1}{2\sqrt{15}}.
+  \]
+
+  \emph{Total.}
+  \[
+    I = \frac{8}{i} \cdot 2\pi i \cdot \frac{1}{2\sqrt{15}}
+      = \frac{8\pi}{\sqrt{15}}. \qedhere
+  \]
+\end{solution}
+
+\begin{exercise}\label{ex:one-plus-a-cos}
+  Show that for real $a$ with $0 < \abs{a} < 1$,
+  \[
+    \int_0^{2\pi} \frac{\dd\theta}{1 + a\cos\theta} = \frac{2\pi}{\sqrt{1 - a^2}}.
+  \]
+\end{exercise}
+
+\begin{solution}
+  As above,
+  \[
+    \int_0^{2\pi} \frac{\dd\theta}{1 + a\cos\theta}
+    = \frac{2}{ia} \oint_{\abs{z} = 1} \frac{\dd z}{z^2 + \frac{2}{a} z + 1}.
+  \]
+  The roots $z_{1,2} = \bigl(-1 \pm \sqrt{1 - a^2}\bigr)/a$ are real with
+  product $1$ and $\abs{z_1} < \abs{z_2}$, so exactly one of them, $z_1$, lies
+  inside the circle. Its residue is
+  $1/(z_1 - z_2) = a / \bigl(2\sqrt{1 - a^2}\bigr)$, and so
+  \[
+    \int_0^{2\pi} \frac{\dd\theta}{1 + a\cos\theta}
+    = \frac{2}{ia} \cdot 2\pi i \cdot \frac{a}{2\sqrt{1 - a^2}}
+    = \frac{2\pi}{\sqrt{1 - a^2}}.
+  \]
+  With $a = \frac14$ this gives $2\pi / \sqrt{15/16} = 8\pi / \sqrt{15}$,
+  agreeing with \cref{ex:one-plus-quarter-cos}.
+\end{solution}
+
+\begin{remark}
+  As $a \to \pm 1$ the integral blows up: one pole moves onto the unit circle,
+  where $1 + a\cos\theta$ vanishes.
+\end{remark}

@@ -1,0 +1,22 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Trigonometric integrals]\label{thm:trig-integrals}
+  Let $R(x, y)$ be a rational function with no poles on the circle
+  $x^2 + y^2 = 1$. Then
+  \[
+    \int_0^{2\pi} R(\cos\theta, \sin\theta) \dd\theta
+    = \oint_{\abs{z} = 1}
+      R\left( \frac{z + z^{-1}}{2}, \frac{z - z^{-1}}{2i} \right)
+      \frac{\dd z}{iz},
+  \]
+  and the right-hand side is $2\pi i$ times the sum of the residues of its
+  integrand inside $\abs{z} = 1$.
+  \thmsource{\cite[ch.~6]{saff-snider}}
+\end{theorem}
+
+\begin{proof}
+  Parametrise the circle by $z = e^{i\theta}$, $0 \leq \theta \leq 2\pi$. Then
+  $\dd z = iz \dd\theta$, $\cos\theta = \frac12(z + z^{-1})$ and
+  $\sin\theta = \frac{1}{2i}(z - z^{-1})$, which turns the contour integral
+  into the real one. The integrand on the right is rational in $z$, so it has
+  finitely many poles, and \cref{thm:residue-theorem} applies.
+\end{proof}
