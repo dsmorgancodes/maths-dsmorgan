@@ -1,4 +1,4 @@
 title = "Euler's Identity"
 summary = "Two proofs of e^(iπ) + 1 = 0: from the power series for exp, sin and cos, and from the circle group."
 subjects = ["real-analysis", "group-theory"]
-published = false
+published = true

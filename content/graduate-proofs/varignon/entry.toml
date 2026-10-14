@@ -1,4 +1,4 @@
 title = "Varignon's Theorem"
 summary = "The midpoints of any quadrilateral form a parallelogram with half its area, by one line of vector algebra."
 subjects = ["analytic-geometry"]
-published = false
+published = true

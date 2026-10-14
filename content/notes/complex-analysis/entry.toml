@@ -4,4 +4,4 @@ summary = "Series, singularities and residues, worked through as examples."
 subjects = ["complex-analysis"]
 # Uncomment when finished (TOML date, no quotes).
 # written = 2026-01-01
-published = false
+published = true

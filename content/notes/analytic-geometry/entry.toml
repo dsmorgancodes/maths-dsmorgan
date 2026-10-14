@@ -4,4 +4,4 @@ summary = "Coordinate proofs in plane geometry, conics and their reflective prop
 subjects = ["analytic-geometry"]
 # Uncomment when finished (TOML date, no quotes).
 # written = 2026-01-01
-published = false
+published = true

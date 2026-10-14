@@ -1,4 +1,4 @@
 title = "Irrational Square Roots"
 summary = "The square root of n is rational only for perfect squares: a descent proof with no primes, and one by Euclid's lemma."
 subjects = ["foundations"]
-published = false
+published = true

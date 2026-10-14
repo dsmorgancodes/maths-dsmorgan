@@ -1,4 +1,4 @@
 title = "The Golden Ratio is Irrational"
 summary = "Three proofs that phi is irrational: descent from phi = 1 + 1/phi, the rational root test, and its endless continued fraction."
 subjects = ["foundations"]
-published = false
+published = true

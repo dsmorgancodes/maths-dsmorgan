@@ -1,4 +1,4 @@
 title = "The Bessel Function of Order Zero"
 summary = "J0 is the only solution of Bessel's equation analytic at the origin; with Bessel's integral and the bound |J0(x)| <= 1."
 subjects = ["complex-analysis"]
-published = false
+published = true

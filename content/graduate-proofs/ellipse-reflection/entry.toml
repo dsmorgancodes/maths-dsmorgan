@@ -1,4 +1,4 @@
 title = "The Reflective Property of the Ellipse"
 summary = "The normal to an ellipse bisects the focal angle: a gradient proof and Heron's shortest-path proof."
 subjects = ["analytic-geometry"]
-published = false
+published = true
