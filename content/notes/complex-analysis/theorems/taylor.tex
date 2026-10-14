@@ -1,0 +1,11 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Taylor's theorem]\label{thm:taylor}
+  If $f$ is analytic on $\abs{z - z_0} < \rho$, then
+  \[
+    f(z) = \sum_{n=0}^{\infty} \frac{f^{(n)}(z_0)}{n!} (z - z_0)^n
+  \]
+  for every $z$ in that disc. In particular, the radius of convergence of the
+  Taylor series is at least the distance from $z_0$ to the nearest point where
+  $f$ fails to be analytic.
+  \thmsource{\cite[ch.~5]{saff-snider}}
+\end{theorem}

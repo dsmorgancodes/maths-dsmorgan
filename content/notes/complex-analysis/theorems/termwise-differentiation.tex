@@ -1,0 +1,45 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Termwise differentiation]\label{thm:termwise}
+  Suppose $f(z) = \sum_{n=0}^{\infty} a_n (z - z_0)^n$ has radius of
+  convergence $R > 0$. Then $f$ is analytic on $\abs{z - z_0} < R$, and
+  \[
+    f'(z) = \sum_{n=1}^{\infty} n a_n (z - z_0)^{n-1},
+  \]
+  where the differentiated series also has radius of convergence $R$.
+  \thmsource{\cite[ch.~5]{saff-snider}}
+\end{theorem}
+
+\begin{proof}
+  Translating, we may take $z_0 = 0$.
+
+  \emph{Same radius.} Since $n^{1/n} \to 1$,
+  \[
+    \limsup_{n \to \infty} \abs{n a_n}^{1/n}
+    = \limsup_{n \to \infty} \abs{a_n}^{1/n},
+  \]
+  so $\sum n a_n z^{n-1}$ has radius $R$ by \cref{thm:cauchy-hadamard}.
+  Similarly, $\sum n(n-1) \abs{a_n} r^{n-2}$ converges for every $0 \leq r < R$.
+
+  \emph{The derivative.} Fix $\abs{z} < R$, choose $r$ with $\abs{z} < r < R$,
+  and let $g(z) = \sum n a_n z^{n-1}$. For $\abs{w} < r$ with $w \neq z$,
+  \[
+    \frac{f(w) - f(z)}{w - z} - g(z)
+    = \sum_{n=2}^{\infty} a_n \left( \frac{w^n - z^n}{w - z} - n z^{n-1} \right).
+  \]
+  Expanding $\frac{w^n - z^n}{w - z} = \sum_{j=0}^{n-1} w^j z^{n-1-j}$, the
+  bracket equals $\sum_{j=1}^{n-1} z^{n-1-j} (w^j - z^j)$. Since
+  $\abs{w^j - z^j} \leq j r^{j-1} \abs{w - z}$, the bracket is at most
+  \[
+    \abs{w - z} \, r^{n-2} \sum_{j=1}^{n-1} j
+    = \abs{w - z} \, \frac{n(n-1)}{2} \, r^{n-2}
+  \]
+  in modulus. Hence
+  \[
+    \abs*{\frac{f(w) - f(z)}{w - z} - g(z)}
+    \leq \frac{\abs{w - z}}{2} \sum_{n=2}^{\infty} n(n-1) \abs{a_n} r^{n-2}
+    \longrightarrow 0
+    \quad \text{as } w \to z.
+  \]
+  So $f'(z) = g(z)$ exists at every point of the disc. That is, $f$ is
+  analytic there.
+\end{proof}

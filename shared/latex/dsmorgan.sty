@@ -39,6 +39,11 @@
   {\normalfont\large\itshape}{\color{dsaccent}\thesubsection}{0.7em}{}
 \titlespacing*{\section}{0pt}{2.2ex plus .5ex}{1.2ex}
 \titlespacing*{\subsection}{0pt}{1.8ex plus .4ex}{0.8ex}
+% Never strand a heading at the foot of a page.
+\RequirePackage{etoolbox}
+\RequirePackage{needspace}
+\pretocmd{\section}{\Needspace{8\baselineskip}}{}{}
+\pretocmd{\subsection}{\Needspace{5\baselineskip}}{}{}
 
 % ---------------------------------------------------------------- running head
 \pagestyle{fancy}
@@ -92,6 +97,8 @@
   bodyfont=\normalfont, headpunct={.}, spaceabove=6pt, spacebelow=6pt]{dsremark}
 
 \declaretheorem[style=dsplain, name=Theorem, numberwithin=section]{theorem}
+% Unique hyperref anchors: Theorem 1.1 and 2.1 must not share "theorem.1".
+\renewcommand{\theHtheorem}{\theHsection.\arabic{theorem}}
 \declaretheorem[style=dsplain, name=Lemma, sibling=theorem]{lemma}
 \declaretheorem[style=dsplain, name=Proposition, sibling=theorem]{proposition}
 \declaretheorem[style=dsplain, name=Corollary, sibling=theorem]{corollary}
@@ -104,7 +111,8 @@
   qed=\ensuremath{\vartriangleleft}]{solution}
 
 % Results: shaded box with an accent rule on the left.
-\tcbset{dsresult/.style={enhanced, breakable, sharp corners, boxrule=0pt,
+% Unbreakable: a split leaves a lonely "Source" line on the next page.
+\tcbset{dsresult/.style={enhanced, sharp corners, boxrule=0pt,
   frame hidden, colback=dsshade, borderline west={1.6pt}{0pt}{dsaccent},
   left=9pt, right=9pt, top=6pt, bottom=6pt, before skip=10pt, after skip=10pt}}
 % Definitions: thin outline, no fill.
@@ -151,6 +159,10 @@
 % Proofs: small-caps head and a filled tombstone.
 \renewcommand{\proofname}{\textsc{Proof}}
 \renewcommand{\qedsymbol}{\ensuremath{\blacksquare}}
+
+% Theorem notes: last line inside the theorem, e.g. \thmsource{\cite[ch.~5]{x}}.
+\newcommand{\thmsource}[1]{\par\smallskip
+  {\upshape\footnotesize\color{dsinksoft}Source: #1}}
 
 % ---------------------------------------------------------------- macros
 \newcommand{\N}{\mathbb{N}}

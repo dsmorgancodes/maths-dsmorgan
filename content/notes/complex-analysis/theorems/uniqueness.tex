@@ -1,0 +1,22 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Uniqueness of power series]\label{thm:uniqueness}
+  If $\sum a_n (z - z_0)^n$ converges to $f(z)$ on some disc
+  $\abs{z - z_0} < r$, then
+  \[
+    a_n = \frac{f^{(n)}(z_0)}{n!} \qquad (n \geq 0).
+  \]
+  In particular, two power series with the same sum near $z_0$ have the same
+  coefficients.
+  \thmsource{\cite[ch.~5]{saff-snider}}
+\end{theorem}
+
+\begin{proof}
+  Applying \cref{thm:termwise} $k$ times,
+  \[
+    f^{(k)}(z) = \sum_{n=k}^{\infty} \frac{n!}{(n-k)!} \, a_n (z - z_0)^{n-k},
+    \qquad \abs{z - z_0} < r.
+  \]
+  Putting $z = z_0$ kills every term except $n = k$, so $f^{(k)}(z_0) = k! \, a_k$.
+  If two series have the same sum $f$ near $z_0$, both sets of coefficients
+  equal $f^{(n)}(z_0)/n!$.
+\end{proof}

@@ -65,6 +65,21 @@ Images go in the entry's `figures/` folder: `\includegraphics{name}`.
 Computations use `\begin{solution}`; arguments use `\begin{proof}`.
 Compiled PDFs and LaTeX build files are ignored by git.
 
+Each usable theorem is its own note, `theorems/<slug>.tex`: one labelled
+`theorem` ending in `\thmsource{\cite[ch.~5]{key}}`, plus a proof only when
+the result matters. Chapters `\input` the note and follow it with the worked
+examples that use it. The bibliography lives in `references.tex`, which the
+master inputs. Each note also builds as a standalone PDF that keeps its number
+from the master:
+
+```sh
+uv run tools/theorem.py new complex-analysis cauchy-goursat "Cauchy--Goursat"
+uv run tools/theorem.py build complex-analysis --all
+```
+
+Cite sources by chapter only unless the page or theorem number has been checked
+against the book itself.
+
 Validate every entry, including drafts, before publishing:
 
 ```sh

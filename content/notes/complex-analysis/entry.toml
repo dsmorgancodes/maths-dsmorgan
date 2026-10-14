@@ -1,0 +1,7 @@
+title = "Complex Analysis"
+summary = "Series, singularities and residues, worked through as examples."
+# Keys from SUBJECTS in app/catalog.py.
+subjects = ["complex-analysis"]
+# Uncomment when finished (TOML date, no quotes).
+# written = 2026-01-01
+published = false
