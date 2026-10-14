@@ -1,0 +1,17 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Closure of the rationals]\label{thm:rational-closure}
+  If $p, q \in \Q$, then $p + q$, $p - q$ and $pq$ are rational, and so is
+  $p / q$ when $q \neq 0$.
+\end{theorem}
+
+\begin{proof}
+  Write $p = a/b$ and $q = c/d$ with $a, b, c, d \in \Z$ and $b, d \neq 0$.
+  Then
+  \[
+    p \pm q = \frac{ad \pm bc}{bd}, \qquad
+    pq = \frac{ac}{bd}, \qquad
+    \frac pq = \frac{ad}{bc} \quad (c \neq 0),
+  \]
+  and in each case the numerator and denominator are integers, with a nonzero
+  denominator.
+\end{proof}

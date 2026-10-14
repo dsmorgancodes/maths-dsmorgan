@@ -1,0 +1,7 @@
+title = "Classical Mechanics"
+summary = "First principles of Newtonian mechanics and the Galilean group, following Arnold."
+# Keys from SUBJECTS in app/catalog.py.
+subjects = ["classical-mechanics"]
+# Uncomment when finished (TOML date, no quotes).
+# written = 2026-01-01
+published = false

@@ -1,0 +1,20 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Arithmetic of parity]\label{thm:parity-arithmetic}
+  Let $m, n \in \Z$.
+  \begin{enumerate}[label=(\alph*)]
+    \item If $m$ and $n$ have the same parity, then $m + n$ is even. If they
+      have different parities, then $m + n$ is odd.
+    \item If $m$ is even, then $mn$ is even. If $m$ and $n$ are both odd,
+      then $mn$ is odd.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  Write the even numbers as $2a$ and the odd ones as $2a + 1$.
+  \begin{enumerate}[label=(\alph*)]
+    \item $2a + 2b = 2(a + b)$ and $(2a + 1) + (2b + 1) = 2(a + b + 1)$ are
+      even, while $2a + (2b + 1) = 2(a + b) + 1$ is odd.
+    \item $(2a)n = 2(an)$ is even, and
+      $(2a + 1)(2b + 1) = 2(2ab + a + b) + 1$ is odd. \qedhere
+  \end{enumerate}
+\end{proof}

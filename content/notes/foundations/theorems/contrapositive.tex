@@ -1,0 +1,21 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Contrapositive]\label{thm:contrapositive}
+  For any statements $P$ and $Q$, the conditional $P \implies Q$ and its
+  contrapositive $\lnot Q \implies \lnot P$ are logically equivalent: they are
+  true in exactly the same cases.
+\end{theorem}
+
+\begin{proof}
+  Compare the two in every case:
+  \[
+    \begin{array}{cccc|c|c}
+      P & Q & \lnot P & \lnot Q & P \implies Q & \lnot Q \implies \lnot P \\
+      \hline
+      T & T & F & F & T & T \\
+      T & F & F & T & F & F \\
+      F & T & T & F & T & T \\
+      F & F & T & T & T & T
+    \end{array}
+  \]
+  The last two columns agree in every row.
+\end{proof}

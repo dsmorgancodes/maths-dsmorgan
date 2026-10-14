@@ -1,0 +1,73 @@
+%! TEX root = master.tex
+\chapter{1}{Statements and Proof}
+
+The first kind of proof is the lowly conditional, $P \implies Q$, read
+``$P$ implies $Q$'' or ``if $P$, then $Q$''. To prove it, we take what we are
+given in $P$, together with what we already know to be true, and use it to
+reach $Q$. This chapter fixes what a conditional means and what may be
+traded for it.
+
+\section{The conditional}\label{sec:conditional}
+
+\begin{definition}[Conditional]\label{def:conditional}
+  For statements $P$ and $Q$, the conditional $P \implies Q$ is false when
+  $P$ is true and $Q$ is false, and true in every other case. $P$ is the
+  \emph{hypothesis} and $Q$ the \emph{conclusion}. Three related statements
+  are
+  \begin{center}
+    \begin{tabular}{ll}
+      converse & $Q \implies P$, \\
+      inverse & $\lnot P \implies \lnot Q$, \\
+      contrapositive & $\lnot Q \implies \lnot P$.
+    \end{tabular}
+  \end{center}
+\end{definition}
+
+\begin{remark}
+  A conditional with a false hypothesis is true, however odd its
+  conclusion. ``If $1 = 2$, then the moon is cheese'' is a true statement.
+  A conditional promises nothing when its hypothesis fails.
+\end{remark}
+
+\input{theorems/contrapositive}
+
+\begin{remark}
+  The converse is \emph{not} equivalent to the conditional. In the second
+  row of the table ($P$ true, $Q$ false), $P \implies Q$ is false but
+  $Q \implies P$ is true. The inverse is the contrapositive of the converse,
+  so it stands or falls with the converse.
+\end{remark}
+
+\section{Three ways to prove \texorpdfstring{$P \implies Q$}{P implies Q}}\label{sec:methods}
+
+\begin{description}[font=\normalfont\scshape]
+  \item[Direct.] Assume $P$ and deduce $Q$ step by step.
+  \item[Contrapositive.] Assume $\lnot Q$ and deduce $\lnot P$. By
+    \cref{thm:contrapositive}, this proves $P \implies Q$.
+  \item[Contradiction.] Assume $P$ and $\lnot Q$ together, and deduce
+    something false. Then the case ``$P$ true, $Q$ false'' cannot happen,
+    and that is the only case in which $P \implies Q$ fails.
+\end{description}
+
+Each method appears in the next two chapters. The proof that $n^2$ even
+implies $n$ even (\cref{thm:square-parity}) goes by contrapositive, and the
+irrationality of $\sqrt2$ (\cref{thm:sqrt2-irrational}) by contradiction.
+
+\begin{exercise}\label{ex:converse-square}
+  Let $n$ be an integer. State the converse, inverse and contrapositive of
+  ``if $n$ is even, then $n^2$ is even'', and decide which of the four
+  statements are true.
+\end{exercise}
+
+\begin{solution}
+  \begin{itemize}
+    \item Converse: if $n^2$ is even, then $n$ is even.
+    \item Inverse: if $n$ is odd, then $n^2$ is odd.
+    \item Contrapositive: if $n^2$ is odd, then $n$ is odd.
+  \end{itemize}
+  Here ``not even'' is the same as ``odd'' by \cref{thm:parity}. All four
+  statements are true: the original and its contrapositive by
+  \cref{thm:parity-arithmetic}, and the converse and inverse by
+  \cref{thm:square-parity}. This is unusual. A conditional and its converse
+  both hold exactly when $P$ and $Q$ are equivalent, as they are here.
+\end{solution}

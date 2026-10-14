@@ -1,0 +1,14 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Newton's equation]\label{thm:newton-equation}
+  Let a mechanical system of $n$ points have configuration
+  $\mathbf x(t) \in \R^N$, where $N = 3n$. By the determinacy principle
+  (\cref{def:determinacy}) there is a function
+  $\mathbf F : \R^N \times \R^N \times \R \to \R^N$ such that every motion of
+  the system satisfies
+  \[
+    \ddot{\mathbf x} = \mathbf F(\mathbf x, \dot{\mathbf x}, t).
+  \]
+  Conversely, if $\mathbf F$ is smooth, then a solution is uniquely determined by
+  $\mathbf x(t_0)$ and $\dot{\mathbf x}(t_0)$.
+  \thmsource{\cite[ch.~1]{arnold}}
+\end{theorem}

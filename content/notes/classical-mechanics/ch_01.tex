@@ -1,0 +1,88 @@
+%! TEX root = master.tex
+\section*{Preface}
+
+Several mathematicians led me to this subject. The first is Vladimir Arnold,
+whose work I met while studying abstract algebra in my junior year of
+college. The second is Eric Weinstein, and the third is Roger Penrose.
+
+My interest began when I became aware of the stagnation in fundamental
+physics. Vast sums have gone into the search for a quantum theory of
+gravity, and, as I see it, we are hardly closer to one than we were sixty
+years ago. To find out where things went south, I first had to understand
+which way is north. That starts with a bridge between mathematics and
+classical mechanics, and these notes are my attempt to cross it. I hope they
+help you as they have helped me.
+
+The notes follow Arnold's \emph{Mathematical Methods of Classical
+Mechanics} \cite{arnold}. The framework and the principles are his; the
+expansions and worked details are mine.
+
+\chapter{1}{First Principles}
+
+Mechanics rests on two facts taken from experiment: Galileo's principle of
+relativity and Newton's principle of determinacy \cite[ch.~1]{arnold}.
+Before stating them we need the stage on which they act.
+
+\section{Space and time}\label{sec:space-time}
+
+Space is three-dimensional and Euclidean. Time is one-dimensional. The
+second word needs a definition.
+
+\begin{definition}[Euclidean space]\label{def:euclidean}
+  The scalar product on $\R^n$ is
+  $(\mathbf x, \mathbf y) = x_1 y_1 + \dots + x_n y_n$. It gives the distance
+  \[
+    \rho(\mathbf x, \mathbf y) = \sqrt{(\mathbf x - \mathbf y, \mathbf x - \mathbf y)}.
+  \]
+  $\R^n$ with this distance is \emph{Euclidean space} $E^n$. A space is
+  \emph{Euclidean} if its distances behave like these, so that lengths and
+  angles are measured as in school geometry.
+\end{definition}
+
+\section{The principle of relativity}\label{sec:relativity}
+
+\begin{definition}[Galileo's principle of relativity]\label{def:relativity}
+  There exist coordinate systems, called \emph{inertial}, with two
+  properties.
+  \begin{enumerate}
+    \item All the laws of nature are the same, at every moment of time, in
+      every inertial coordinate system.
+    \item Every coordinate system in uniform rectilinear motion relative to
+      an inertial one is itself inertial.
+  \end{enumerate}
+\end{definition}
+
+\begin{example}\label{ex:train}
+  Suppose a coordinate system attached to the earth is inertial. Then an
+  experimenter in a train moving uniformly in a straight line relative to
+  the earth cannot detect the train's motion by any experiment carried out
+  inside the carriage.
+\end{example}
+
+\begin{remark}
+  In fact a coordinate system attached to the earth is only approximately
+  inertial: the earth rotates and moves on a curved orbit. The principle is
+  an idealisation. Our equations describe real motions only approximately,
+  so bodies moving on the earth cannot strictly be called inertial.
+\end{remark}
+
+\section{The principle of determinacy}\label{sec:determinacy}
+
+\begin{definition}[Newton's principle of determinacy]\label{def:determinacy}
+  The initial state of a mechanical system, meaning all positions and all
+  velocities of its points at one moment, uniquely determines all of its
+  motion.
+\end{definition}
+
+The principle says that accelerations are functions of positions,
+velocities and time. Writing this down gives the equation of motion.
+
+\input{theorems/newton-equation}
+
+\begin{remark}
+  Experience shows that the state at a moment also needs \emph{velocities}:
+  a stone dropped and a stone thrown from the same point move differently.
+  Experience also shows that velocities are \emph{enough}: we do not need to
+  know accelerations in advance. That is why the equation has second
+  order.
+\end{remark}

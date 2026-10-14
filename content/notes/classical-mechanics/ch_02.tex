@@ -1,0 +1,122 @@
+%! TEX root = master.tex
+\chapter{2}{The Galilean Group}
+
+To turn the principle of relativity into mathematics, we need a precise
+model of space-time and of the transformations that preserve its
+structure \cite[ch.~1]{arnold}.
+
+\section{Affine space}\label{sec:affine}
+
+\begin{definition}[Affine space]\label{def:affine}
+  \emph{Affine $n$-space} $A^n$ is a set of points on which the vector space
+  $\R^n$ acts by parallel displacement. To a point $a \in A^n$ and a vector
+  $\boldsymbol\xi \in \R^n$ corresponds the point $a + \boldsymbol\xi$, and
+  for any two points $a, b$ there is exactly one vector
+  $b - a \in \R^n$ carrying $a$ to $b$.
+\end{definition}
+
+\begin{remark}
+  $A^n$ differs from $\R^n$ in having no distinguished origin. Points can be
+  subtracted, giving a vector, but not added. Choosing an origin
+  $o \in A^n$ identifies $A^n$ with $\R^n$ through $a \mapsto a - o$, but no
+  choice is preferred. This is exactly the situation in physical space.
+\end{remark}
+
+\section{Galilean structure}\label{sec:galilean-structure}
+
+\begin{definition}[Galilean space-time]\label{def:galilean-structure}
+  A \emph{Galilean structure} consists of three things.
+  \begin{enumerate}
+    \item The \emph{universe}, a four-dimensional affine space $A^4$, whose
+      points are called \emph{events}.
+    \item \emph{Time}, a linear map $t : \R^4 \to \R$ from the displacements
+      of the universe onto the real line. The \emph{time interval} from event
+      $a$ to event $b$ is $t(b - a)$. Events with $t(b - a) = 0$ are
+      \emph{simultaneous}.
+    \item A \emph{distance} between simultaneous events,
+      $\rho(a, b) = \sqrt{(a - b, a - b)}$, given by a scalar product on the
+      three-dimensional kernel of $t$. With it, each set of simultaneous
+      events is a Euclidean space $E^3$.
+  \end{enumerate}
+  The coordinate model is $\R \times \R^3$, with time $t$ and the standard
+  distance on each slice $\set{t} \times \R^3$.
+\end{definition}
+
+\begin{definition}[Galilean group]\label{def:galilean-group}
+  A \emph{Galilean transformation} is an affine map of $A^4$ to itself that
+  preserves time intervals and distances between simultaneous events. These
+  transformations form the \emph{Galilean group}.
+\end{definition}
+
+\begin{exercise}\label{ex:galilean-examples}
+  Check that the following maps of $\R \times \R^3$ are Galilean:
+  \begin{enumerate}[label=(\alph*)]
+    \item a \emph{uniform motion} with velocity $\mathbf v$,
+      $g_1(t, \mathbf x) = (t, \mathbf x + \mathbf v t)$;
+    \item a \emph{translation},
+      $g_2(t, \mathbf x) = (t + s, \mathbf x + \mathbf s)$;
+    \item a \emph{rotation}, $g_3(t, \mathbf x) = (t, G\mathbf x)$, where
+      $G : \R^3 \to \R^3$ is orthogonal.
+  \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+  All three are affine. Take events $(t, \mathbf x)$ and $(t', \mathbf x')$.
+  \begin{enumerate}[label=(\alph*)]
+    \item The time interval is unchanged. If $t = t'$, the spatial difference
+      $(\mathbf x' + \mathbf v t) - (\mathbf x + \mathbf v t) = \mathbf x' - \mathbf x$
+      is unchanged too.
+    \item Both times and both positions are shifted by the same amounts, so
+      differences are unchanged.
+    \item Times are unchanged, and
+      $\abs{G\mathbf x' - G\mathbf x} = \abs{G(\mathbf x' - \mathbf x)} = \abs{\mathbf x' - \mathbf x}$
+      because $G$ is orthogonal. \qedhere
+  \end{enumerate}
+\end{solution}
+
+\input{theorems/galilean-decomposition}
+
+\begin{remark}
+  Counting parameters: $\mathbf v$ gives $3$, $(s, \mathbf s)$ gives $4$,
+  and the orthogonal $G$ gives $3$ (three angles, plus a choice of sign for
+  $\det G$). So the Galilean group is $10$-dimensional.
+\end{remark}
+
+\section{Relativity in the equations}\label{sec:relativity-equations}
+
+In this language, Galileo's principle says that Newton's equation
+(\cref{thm:newton-equation}) is unchanged by Galilean transformations: if
+$g$ is Galilean and $\mathbf x(t)$ is a motion, so is its image under $g$.
+Each part of the group then forces a property of $\mathbf F$.
+
+\begin{exercise}\label{ex:time-homogeneity}
+  Use invariance under the time translations $(t, \mathbf x) \mapsto (t + s, \mathbf x)$
+  to show that $\mathbf F$ does not depend on $t$.
+\end{exercise}
+
+\begin{proof}
+  Let $\mathbf x(t)$ be a motion. Its image under the translation is the
+  motion $\mathbf y(t) = \mathbf x(t - s)$, which by assumption satisfies the
+  same equation:
+  \[
+    \ddot{\mathbf y}(t) = \mathbf F\bigl(\mathbf y(t), \dot{\mathbf y}(t), t\bigr).
+  \]
+  But $\ddot{\mathbf y}(t) = \ddot{\mathbf x}(t - s)
+  = \mathbf F\bigl(\mathbf x(t - s), \dot{\mathbf x}(t - s), t - s\bigr)$.
+  Comparing the two,
+  \[
+    \mathbf F(\mathbf x_0, \mathbf v_0, t) = \mathbf F(\mathbf x_0, \mathbf v_0, t - s),
+  \]
+  where $\mathbf x_0 = \mathbf x(t - s)$ and $\mathbf v_0 = \dot{\mathbf x}(t - s)$.
+  By determinacy there is a motion through any initial state
+  $(\mathbf x_0, \mathbf v_0)$ at any time. So the identity holds for all
+  arguments and all $s$, and $\mathbf F = \mathbf F(\mathbf x, \dot{\mathbf x})$.
+\end{proof}
+
+\begin{remark}
+  In the same way, invariance under spatial translations forces $\mathbf F$ to
+  depend only on the relative positions $\mathbf x_i - \mathbf x_j$. Uniform
+  motions force it to depend only on the relative velocities. Rotations make
+  it equivariant: rotating all positions and velocities rotates the
+  accelerations.
+\end{remark}

@@ -1,0 +1,14 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Parity]\label{thm:parity}
+  Every integer is either even or odd, and no integer is both.
+\end{theorem}
+
+\begin{proof}
+  \emph{At least one.} Let $n \in \Z$ and let $q$ be the greatest integer with
+  $2q \leq n$. Then $2(q + 1) > n$, so $r = n - 2q$ satisfies $0 \leq r < 2$.
+  If $r = 0$, then $n = 2q$ is even. If $r = 1$, then $n = 2q + 1$ is odd.
+
+  \emph{Not both.} If $n = 2a = 2b + 1$ with $a, b \in \Z$, then
+  $2(a - b) = 1$. But $2(a - b)$ is $0$ if $a = b$, and at least $2$ in
+  absolute value otherwise. So it is never $1$.
+\end{proof}

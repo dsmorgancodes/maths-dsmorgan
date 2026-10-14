@@ -1,0 +1,95 @@
+%! TEX root = master.tex
+\chapter{2}{Numbers and Parity}
+
+Before we can prove anything about numbers, we have to agree on what they
+are. Some of what follows comes from rather simple ideas, and some of it we
+simply have to accept: there is no substitute for it, and without it we can
+go no further. What we accept without proof is an \emph{axiom}. What we
+merely agree to call something is a \emph{definition}.
+
+\section{The number systems}\label{sec:number-systems}
+
+We take for granted the natural numbers $\N = \set{1, 2, 3, \dots}$, the
+integers $\Z = \set{\dots, -2, -1, 0, 1, 2, \dots}$ with their usual
+arithmetic and order, and the real numbers $\R$, the points of the number
+line.
+
+\begin{axiom}[Well-ordering]\label{ax:well-ordering}
+  Every nonempty set of natural numbers has a least element.
+\end{axiom}
+
+\begin{definition}[Rational and irrational numbers]\label{def:rational}
+  A real number $q$ is \emph{rational}, written $q \in \Q$, if
+  \[
+    q = \frac ab \quad\text{for some } a, b \in \Z \text{ with } b \neq 0.
+  \]
+  A real number that is not rational is \emph{irrational}. The irrationals
+  form the set $\R \setminus \Q$.
+\end{definition}
+
+So $\N \subset \Z \subset \Q \subset \R$, since $n = n/1$. Examples of
+rationals are $-\frac{3}{13}$, $-1$, $0$, $2$ and $\frac{13}{2}$. The
+condition $b \neq 0$ matters, because $\frac a0$ is not a number. It is not
+obvious that irrational numbers exist at all; \cref{sec:sqrt2} shows that
+$\sqrt2$ is one.
+
+\begin{definition}[Complex numbers]\label{def:complex}
+  Let $i$ be a number with $i^2 = -1$. A \emph{complex number} is one of the
+  form
+  \[
+    z = a + ib, \qquad a, b \in \R,
+  \]
+  and the set of them is $\C$. Taking $b = 0$ shows that $\R \subset \C$.
+\end{definition}
+
+\begin{remark}
+  Writing $i = \sqrt{-1}$ is common but risky. The rule
+  $\sqrt{xy} = \sqrt x \sqrt y$, valid for $x, y \geq 0$, would give
+  $-1 = i \cdot i = \sqrt{-1}\sqrt{-1} = \sqrt{1} = 1$. So $i^2 = -1$ is the
+  safe definition.
+
+  It is unfortunate that $i$ is called \emph{imaginary}. In truth all
+  numbers are imaginary, in the sense that we made them up, and $i$ is no
+  less real than $\sqrt2$ or $-1$.
+\end{remark}
+
+\section{Even and odd}\label{sec:parity}
+
+\begin{definition}[Even and odd]\label{def:even-odd}
+  An integer $a$ is \emph{even} if $a = 2b$ for some $b \in \Z$, and
+  \emph{odd} if $a = 2b + 1$ for some $b \in \Z$.
+\end{definition}
+
+\input{theorems/parity}
+
+Because of \cref{thm:parity}, ``not even'' and ``odd'' mean the same thing
+for integers. Every integer is exactly one of the two: even \emph{exclusive
+or} odd.
+
+\input{theorems/parity-arithmetic}
+\input{theorems/square-parity}
+
+\begin{exercise}\label{ex:consecutive}
+  Prove that the product of two consecutive integers is even.
+\end{exercise}
+
+\begin{proof}
+  Let the integers be $n$ and $n + 1$. By \cref{thm:parity}, $n$ is even or
+  odd. If $n$ is even, then $n(n + 1)$ is even by
+  \cref{thm:parity-arithmetic}(b). If $n$ is odd, then $n + 1$ is even by
+  \cref{thm:parity-arithmetic}(a), and again the product is even.
+\end{proof}
+
+\begin{exercise}\label{ex:n2-n-1}
+  Prove that $n^2 + n + 1$ is odd for every integer $n$.
+\end{exercise}
+
+\begin{proof}
+  $n^2 + n = n(n + 1)$ is even by \cref{ex:consecutive}, so
+  $n^2 + n + 1 = 2k + 1$ for some $k \in \Z$.
+\end{proof}
+
+\begin{remark}
+  As a consequence, $x^2 + x + 1 = 0$ has no integer roots. Every integer
+  input gives an odd output, and $0$ is even.
+\end{remark}

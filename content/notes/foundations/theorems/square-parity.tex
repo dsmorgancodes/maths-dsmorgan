@@ -1,0 +1,12 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Parity of a square]\label{thm:square-parity}
+  For $n \in \Z$, $n^2$ is even if and only if $n$ is even.
+\end{theorem}
+
+\begin{proof}
+  If $n$ is even, then $n^2 = n \cdot n$ is even by
+  \cref{thm:parity-arithmetic}. For the converse we prove the contrapositive
+  (\cref{thm:contrapositive}): if $n$ is not even, then by \cref{thm:parity}
+  it is odd, so $n^2$ is odd by \cref{thm:parity-arithmetic}, and hence not
+  even, again by \cref{thm:parity}.
+\end{proof}

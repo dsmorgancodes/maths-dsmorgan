@@ -1,0 +1,11 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Rational and irrational]\label{thm:rational-plus-irrational}
+  Let $q \in \Q$ and let $x \in \R \setminus \Q$. Then $q + x$ is irrational,
+  and so is $qx$ if $q \neq 0$.
+\end{theorem}
+
+\begin{proof}
+  If $q + x = p$ were rational, then $x = p - q$ would be rational by
+  \cref{thm:rational-closure}. If $qx = p$ were rational with $q \neq 0$,
+  then $x = p / q$ would be rational. Both contradict $x \notin \Q$.
+\end{proof}

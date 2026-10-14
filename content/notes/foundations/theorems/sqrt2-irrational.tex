@@ -1,0 +1,14 @@
+%! TEX root = ../master.tex
+\begin{theorem}[$\sqrt2$ is irrational]\label{thm:sqrt2-irrational}
+  There are no integers $a$ and $b \neq 0$ with $(a/b)^2 = 2$.
+\end{theorem}
+
+\begin{proof}
+  Suppose there are, and argue by contradiction. Replacing $a$ and $b$ by
+  $-a$ and $-b$ if necessary, we may take $b > 0$. By well-ordering
+  (\cref{ax:well-ordering}), choose such a pair with $b$ as small as
+  possible. Then $a^2 = 2b^2$ is even, so $a$ is even by
+  \cref{thm:square-parity}. Write $a = 2c$. Then $4c^2 = 2b^2$, so
+  $b^2 = 2c^2$ is even, and $b = 2d$ is even too. Now $(c/d)^2 = 2$ with
+  $0 < d < b$, which contradicts the choice of $b$.
+\end{proof}

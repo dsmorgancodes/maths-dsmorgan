@@ -1,0 +1,42 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Structure of the Galilean group]\label{thm:galilean-decomposition}
+  Every Galilean transformation $g$ of $\R \times \R^3$ can be written
+  uniquely as
+  \[
+    g = g_1 \circ g_2 \circ g_3,
+  \]
+  where $g_1$ is a uniform motion, $g_2$ a translation and $g_3$ a rotation
+  (\cref{ex:galilean-examples}).
+  \thmsource{\cite[ch.~1]{arnold}}
+\end{theorem}
+
+\begin{proof}
+  A Galilean transformation is affine, so $g(t, \mathbf x) = L(t, \mathbf x) + (s, \mathbf s)$
+  for a linear map $L$ and a fixed $(s, \mathbf s) \in \R \times \R^3$.
+
+  \emph{Time.} $g$ preserves time intervals, so the time component of
+  $L(\tau, \boldsymbol\xi)$ is $\tau$.
+
+  \emph{Space.} Hence $L$ sends a simultaneous displacement
+  $(0, \boldsymbol\xi)$ to a simultaneous displacement $(0, G\boldsymbol\xi)$
+  for some linear $G : \R^3 \to \R^3$. Distances between simultaneous events
+  are preserved, so $\abs{G\boldsymbol\xi} = \abs{\boldsymbol\xi}$, and $G$ is
+  orthogonal.
+
+  \emph{Velocity.} Write $L(1, \mathbf 0) = (1, \mathbf v)$. By linearity
+  $L(\tau, \boldsymbol\xi) = (\tau, \mathbf v\tau + G\boldsymbol\xi)$, so
+  \[
+    g(t, \mathbf x) = (t + s,\; G\mathbf x + \mathbf v t + \mathbf s).
+  \]
+  \emph{Factorisation.} For $g_1(t, \mathbf x) = (t, \mathbf x + \mathbf v t)$,
+  $g_2(t, \mathbf x) = (t + s, \mathbf x + \mathbf u)$ and
+  $g_3(t, \mathbf x) = (t, G\mathbf x)$,
+  \[
+    g_1 g_2 g_3 (t, \mathbf x) = \bigl(t + s,\; G\mathbf x + \mathbf u + \mathbf v(t + s)\bigr).
+  \]
+  This equals $g$ exactly when $\mathbf u = \mathbf s - \mathbf v s$.
+
+  \emph{Uniqueness.} The composite determines $s$ (its time shift), $G$
+  (its action on $\mathbf x$), $\mathbf v$ (its coefficient of $t$) and then
+  $\mathbf u$. So two factorisations of the same $g$ coincide.
+\end{proof}

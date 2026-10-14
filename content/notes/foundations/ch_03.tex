@@ -1,0 +1,67 @@
+%! TEX root = master.tex
+\chapter{3}{Rational and Irrational Numbers}
+
+The rationals are closed under arithmetic, and a little parity is enough to
+prove that $\sqrt2$ is not among them. Once one irrational number is known,
+many more follow, including the golden ratio.
+
+\section{Arithmetic of the rationals}\label{sec:rational-arithmetic}
+
+\input{theorems/rational-closure}
+
+\section{The irrationality of \texorpdfstring{$\sqrt2$}{sqrt 2}}\label{sec:sqrt2}
+
+\input{theorems/sqrt2-irrational}
+
+\begin{remark}
+  The proof is a contradiction (\cref{sec:methods}). The well-ordering axiom
+  lets us start from the smallest possible denominator. The parity argument
+  then produces a smaller one. Without well-ordering, the same argument would
+  only show that any such pair can be halved forever.
+\end{remark}
+
+\input{theorems/rational-plus-irrational}
+
+\begin{exercise}\label{ex:three-plus-root2}
+  Show that $3 + \sqrt2$ and $\frac{\sqrt2}{2}$ are irrational.
+\end{exercise}
+
+\begin{solution}
+  $3$ and $\frac12$ are nonzero rationals and $\sqrt2$ is irrational
+  (\cref{thm:sqrt2-irrational}). By \cref{thm:rational-plus-irrational}, so
+  are $3 + \sqrt2$ and $\frac12\sqrt2$.
+\end{solution}
+
+\section{The golden ratio}\label{sec:golden-ratio}
+
+\begin{exercise}\label{ex:sqrt5}
+  Prove that $\sqrt5$ is irrational, and hence that the golden ratio
+  $\varphi = \frac{1 + \sqrt5}{2}$ is irrational.
+\end{exercise}
+
+\begin{proof}
+  \emph{Step 1: if $5 \mid a^2$ then $5 \mid a$.} Divide $a$ by $5$, so that
+  $a = 5q + r$ with $r \in \set{0, 1, 2, 3, 4}$. Then
+  $a^2 = 5(5q^2 + 2qr) + r^2$, and $r^2 \in \set{0, 1, 4, 9, 16}$ leaves
+  remainder $0, 1, 4, 4, 1$ on division by $5$. So $5 \mid a^2$ only when
+  $r = 0$.
+
+  \emph{Step 2: $\sqrt5$ is irrational.} Copy the proof of
+  \cref{thm:sqrt2-irrational}. Suppose $a^2 = 5b^2$ with $b > 0$ as small as
+  possible. Step 1 gives $a = 5c$. Then $b^2 = 5c^2$, so $b = 5d$ with
+  $0 < d < b$ and $(c/d)^2 = 5$, a contradiction.
+
+  \emph{Step 3: $\varphi$ is irrational.} $\frac{\sqrt5}{2}$ is irrational,
+  and so is $\varphi = \frac12 + \frac{\sqrt5}{2}$, by two applications of
+  \cref{thm:rational-plus-irrational}.
+\end{proof}
+
+\begin{remark}
+  An irrational number may still be the root of a polynomial with integer
+  coefficients. $\sqrt2$ is a root of $x^2 - 2$, and $\varphi$ is a root of
+  $x^2 - x - 1$. Such numbers are \emph{algebraic}. Numbers that are not
+  algebraic are \emph{transcendental}; $e$ (Hermite, 1873) and $\pi$
+  (Lindemann, 1882) are the classical examples. So $\varphi$ is irrational
+  but \emph{not} transcendental. Those two theorems are much deeper than
+  anything in this chapter.
+\end{remark}
