@@ -1,0 +1,10 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Cauchy's integral formula for derivatives]\label{thm:cif-derivatives}
+  Under the hypotheses of \cref{thm:cif}, $f$ has derivatives of every order
+  in $D$, each of them analytic in $D$, and for every $z_0$ inside $\Gamma$
+  \[
+    f^{(n)}(z_0) = \frac{n!}{2\pi i} \oint_\Gamma \frac{f(z)}{(z - z_0)^{n+1}} \dd z
+    \qquad (n = 0, 1, 2, \dots).
+  \]
+  \thmsource{\cite[ch.~4]{saff-snider}}
+\end{theorem}

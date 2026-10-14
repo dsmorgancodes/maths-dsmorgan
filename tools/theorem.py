@@ -97,7 +97,9 @@ def wrapper(name: str, course: str, number: str, slug: str, references: bool) ->
     )
 
 
-def latexmk(tex: Path, env: dict | None = None) -> None:
+def latexmk(tex: Path, outdir: Path, env: dict | None = None) -> None:
+    """Compile tex into outdir. Never writes beside the source, so an editor's
+    continuous build (VimTeX's latexmk -pvc) of the same file is untouched."""
     result = subprocess.run(
         [
             "latexmk",
@@ -105,6 +107,7 @@ def latexmk(tex: Path, env: dict | None = None) -> None:
             "-interaction=nonstopmode",
             "-halt-on-error",
             "-quiet",
+            f"-outdir={outdir}",
             tex.name,
         ],
         check=False,
@@ -114,12 +117,14 @@ def latexmk(tex: Path, env: dict | None = None) -> None:
         text=True,
     )
     if result.returncode != 0:
-        log = tex.with_suffix(".log")
-        tail = (
-            log.read_text(errors="replace")[-2000:] if log.exists() else result.stdout
-        )
-        raise RuntimeError(f"latexmk failed on {tex}:\n{tail}")
-    log = tex.with_suffix(".log").read_text(errors="replace")
+        log = outdir / f"{tex.stem}.log"
+        text = log.read_text(errors="replace") if log.exists() else result.stdout
+        errors = [
+            m.group(0) for m in re.finditer(r"^!.*(?:\n.*){0,3}", text, re.MULTILINE)
+        ]
+        detail = "\n".join(errors) or text[-2000:]
+        raise RuntimeError(f"latexmk failed on {tex}:\n{detail}")
+    log = (outdir / f"{tex.stem}.log").read_text(errors="replace")
     problems = sorted(set(LABEL_WARNING.findall(log)))
     if problems:
         raise RuntimeError(f"{tex.name}: " + "; ".join(problems))
@@ -145,27 +150,27 @@ def new(course: str, slug: str, name: str) -> Path:
 
 def build(course: str, slugs: list[str]) -> list[Path]:
     root = course_dir(course)
-    latexmk(root / "master.tex")
-    aux = (root / "master.aux").read_text()
     title = TITLE.search((root / "master.tex").read_text())
     course_title = title[1] if title else course
+    references = (root / "references.tex").exists()
     env = os.environ | {"TEXINPUTS": f"{root}//{os.pathsep}"}
     built = []
-    for slug in slugs:
-        name, label = parse_note((root / "theorems" / f"{slug}.tex").read_text())
-        number = label_number(aux, label)
-        with tempfile.TemporaryDirectory() as tmp:
-            tmp = Path(tmp)
-            (tmp / "external.aux").write_text(external_aux(aux, label))
-            tex = tmp / f"{slug}.tex"
+    with tempfile.TemporaryDirectory() as tmp:
+        tmp = Path(tmp)
+        latexmk(root / "master.tex", tmp / "master")
+        aux = (tmp / "master" / "master.aux").read_text()
+        for slug in slugs:
+            name, label = parse_note((root / "theorems" / f"{slug}.tex").read_text())
+            work = tmp / slug
+            work.mkdir()
+            (work / "external.aux").write_text(external_aux(aux, label))
+            tex = work / f"{slug}.tex"
             tex.write_text(
-                wrapper(
-                    name, course_title, number, slug, (root / "references.tex").exists()
-                )
+                wrapper(name, course_title, label_number(aux, label), slug, references)
             )
-            latexmk(tex, env)
+            latexmk(tex, work, env)
             out = root / "theorems" / f"{slug}.pdf"
-            shutil.copyfile(tmp / f"{slug}.pdf", out)
+            shutil.copyfile(work / f"{slug}.pdf", out)
             built.append(out)
     return built
 

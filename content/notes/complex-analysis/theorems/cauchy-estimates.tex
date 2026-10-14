@@ -1,0 +1,21 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Cauchy's estimates]\label{thm:cauchy-estimates}
+  Let $f$ be analytic inside and on the circle $C_R \colon \abs{z - z_0} = R$,
+  with $\abs{f(z)} \leq M$ on $C_R$. Then
+  \[
+    \abs{f^{(n)}(z_0)} \leq \frac{n! \, M}{R^n}
+    \qquad (n = 0, 1, 2, \dots).
+  \]
+  \thmsource{\cite[ch.~4]{saff-snider}}
+\end{theorem}
+
+\begin{proof}
+  On $C_R$ the integrand in \cref{thm:cif-derivatives} satisfies
+  $\abs{f(z) / (z - z_0)^{n+1}} \leq M / R^{n+1}$, and $C_R$ has length
+  $2\pi R$. By \cref{thm:ml-inequality},
+  \[
+    \abs{f^{(n)}(z_0)}
+    \leq \frac{n!}{2\pi} \cdot \frac{M}{R^{n+1}} \cdot 2\pi R
+    = \frac{n! \, M}{R^n}. \qedhere
+  \]
+\end{proof}

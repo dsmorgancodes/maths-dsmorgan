@@ -1,0 +1,218 @@
+%! TEX root = master.tex
+\chapter{1}{Cauchy's Integral Formula and Liouville's Theorem}
+
+An analytic function is pinned down by its values on a closed curve: Cauchy's
+integral formula recovers $f$ and all its derivatives inside from an integral
+around the edge. Bounding that integral gives Cauchy's estimates, and from
+them Liouville's theorem and the polynomial growth results.
+
+\section{Cauchy's theorem}\label{sec:cauchy-theorem}
+
+\input{theorems/ml-inequality}
+\input{theorems/cauchy-theorem}
+\input{theorems/deformation}
+
+\section{Cauchy's integral formula}\label{sec:cif}
+
+\input{theorems/cauchy-integral-formula}
+\input{theorems/cif-derivatives}
+
+\begin{exercise}\label{ex:cos-over-square}
+  Let $f(z) = \dfrac{\cos z}{(z^2 + 1)^2}$.
+  \begin{enumerate}[label=(\alph*)]
+    \item Find the singularities of $f$.
+    \item Show that the integral of $f$ around $\abs{z} = 3$ is the sum of
+      its integrals around small circles centred at the singularities.
+    \item Evaluate $\oint_{\abs{z} = 3} f(z) \dd z$.
+  \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+  \emph{Singularities.} $\cos z = \frac12(e^{iz} + e^{-iz})$ is entire and
+  $(z^2 + 1)^2$ is a polynomial, so $f$ is analytic except where
+  $(z^2 + 1)^2 = 0$, that is, at $z = \pm i$.
+
+  \emph{Decomposition.} Let $C_1$ and $C_2$ be the positively oriented
+  circles $\abs{z - i} = \frac12$ and $\abs{z + i} = \frac12$. They lie inside
+  $\abs{z} = 3$, their interiors are disjoint, and $f$ is analytic everywhere
+  else. By \cref{thm:deformation},
+  \[
+    \oint_{\abs{z} = 3} f(z) \dd z
+    = \oint_{C_1} f(z) \dd z + \oint_{C_2} f(z) \dd z.
+  \]
+
+  \emph{Around $i$.} Write $f(z) = g_1(z) / (z - i)^2$ with
+  $g_1(z) = \cos z / (z + i)^2$, which is analytic on and inside $C_1$. By
+  \cref{thm:cif-derivatives} with $n = 1$, the integral is $2\pi i \, g_1'(i)$.
+  Now
+  \[
+    g_1'(z) = \frac{-(z + i) \sin z - 2\cos z}{(z + i)^3},
+  \]
+  and $\sin i = i \sinh 1$, $\cos i = \cosh 1$, so
+  \[
+    g_1'(i)
+    = \frac{-2i \cdot i \sinh 1 - 2\cosh 1}{(2i)^3}
+    = \frac{2(\sinh 1 - \cosh 1)}{-8i}
+    = \frac{-2e^{-1}}{-8i}
+    = \frac{1}{4ie}.
+  \]
+  Hence $\oint_{C_1} f(z) \dd z = 2\pi i \cdot \frac{1}{4ie} = \frac{\pi}{2e}$.
+
+  \emph{Around $-i$.} Likewise, with $g_2(z) = \cos z / (z - i)^2$,
+  \[
+    g_2'(-i)
+    = \frac{-(-2i)(-i \sinh 1) - 2\cosh 1}{(-2i)^3}
+    = \frac{2(\sinh 1 - \cosh 1)}{8i}
+    = -\frac{1}{4ie},
+  \]
+  so $\oint_{C_2} f(z) \dd z = -\frac{\pi}{2e}$.
+
+  \emph{Total.}
+  \[
+    \oint_{\abs{z} = 3} \frac{\cos z}{(z^2 + 1)^2} \dd z
+    = \frac{\pi}{2e} - \frac{\pi}{2e} = 0. \qedhere
+  \]
+\end{solution}
+
+\begin{remark}
+  The answer $0$ can be predicted without computing. $f$ is even, and the
+  substitution $z = -w$ maps the circle $\abs{z} = 3$ onto itself with the
+  same orientation, so
+  $\oint f(z) \dd z = \oint f(-w)(-\dd w) = -\oint f(w) \dd w$.
+\end{remark}
+
+\begin{exercise}\label{ex:two-integrals}
+  Let $\Gamma$ be a simple closed positively oriented contour, and let $f$ be
+  analytic inside and on $\Gamma$. For $z_0$ not on $\Gamma$:
+  \begin{enumerate}[label=(\alph*)]
+    \item evaluate $\oint_\Gamma \frac{f'(z)}{z - z_0} \dd z$ by Cauchy's
+      integral formula;
+    \item evaluate $\oint_\Gamma \frac{f(z)}{(z - z_0)^2} \dd z$ by the
+      formula for derivatives;
+    \item compare the two;
+    \item say what goes wrong when $z_0$ lies on $\Gamma$.
+  \end{enumerate}
+\end{exercise}
+
+\begin{solution}
+  By \cref{thm:cif-derivatives}, $f'$ is analytic wherever $f$ is.
+
+  \emph{$z_0$ inside $\Gamma$.} \Cref{thm:cif} applied to $f'$, and
+  \cref{thm:cif-derivatives} with $n = 1$ applied to $f$, give
+  \[
+    \oint_\Gamma \frac{f'(z)}{z - z_0} \dd z = 2\pi i f'(z_0)
+    = \oint_\Gamma \frac{f(z)}{(z - z_0)^2} \dd z.
+  \]
+
+  \emph{$z_0$ outside $\Gamma$.} Both integrands are analytic on a simply
+  connected domain containing $\Gamma$ and its inside but not $z_0$, so both
+  integrals are $0$ by \cref{thm:cauchy-theorem}.
+
+  \emph{Comparison.} In either case the two integrals are equal.
+
+  \emph{$z_0$ on $\Gamma$.} Both integrands are unbounded near $z_0$, so they
+  are not continuous on $\Gamma$. Neither formula applies, and the integrals
+  are not even defined as ordinary contour integrals; they would have to be
+  treated as improper integrals.
+\end{solution}
+
+\begin{remark}
+  The equality has a one-line explanation. Off $z_0$,
+  \[
+    \frac{\dd}{\dd z} \frac{f(z)}{z - z_0}
+    = \frac{f'(z)}{z - z_0} - \frac{f(z)}{(z - z_0)^2},
+  \]
+  and the integral of a derivative around a closed contour is $0$.
+\end{remark}
+
+\section{Cauchy's estimates and Liouville's theorem}\label{sec:liouville}
+
+\input{theorems/cauchy-estimates}
+\input{theorems/liouville}
+
+\begin{exercise}\label{ex:bounded-imaginary-part}
+  Let $f$ be entire with $A \leq \operatorname{Im} f(z) \leq B$ for all $z$.
+  Show that $e^{if}$ is bounded and entire, and deduce that $f$ is constant.
+\end{exercise}
+
+\begin{proof}
+  Write $f = u + iv$, so $if = -v + iu$ and
+  \[
+    \abs{e^{if}} = \abs{e^{-v} e^{iu}} = e^{-v}.
+  \]
+  Since $A \leq v \leq B$, this gives $e^{-B} \leq \abs{e^{if}} \leq e^{-A}$,
+  so $e^{if}$ is bounded. It is entire because it is a composition of the
+  entire functions $if$ and $\exp$, with
+  $\frac{\dd}{\dd z} e^{if} = if' e^{if}$ by the chain rule.
+
+  By \cref{thm:liouville}, $e^{if} \equiv c$ for some constant $c$, and
+  $c \neq 0$ because the exponential never vanishes. Differentiating,
+  $if'(z) e^{if(z)} = 0$, so $f' \equiv 0$ and $f$ is constant.
+\end{proof}
+
+\begin{exercise}\label{ex:bounded-seventh-derivative}
+  Let $f$ be entire with $f^{(7)}$ bounded on $\C$. What kind of function is
+  $f$? Generalise, and decide whether the same holds for real functions.
+\end{exercise}
+
+\begin{solution}
+  By \cref{thm:cif-derivatives}, $f^{(7)}$ is entire, and it is bounded, so it
+  is a constant $c$ by \cref{thm:liouville}. Hence $f^{(n)} \equiv 0$ for
+  $n \geq 8$. By Taylor's theorem (\cref{thm:taylor}) the series of $f$ about
+  $0$ converges to $f$ on all of $\C$, and its coefficients
+  $f^{(n)}(0) / n!$ vanish for $n \geq 8$. So
+  \[
+    f(z) = \sum_{n=0}^{7} \frac{f^{(n)}(0)}{n!} z^n,
+  \]
+  a polynomial of degree at most $7$, and exactly $7$ when $c \neq 0$.
+
+  \emph{Generalisation.} The same argument shows that if $f$ is entire and
+  $f^{(k)}$ is bounded, then $f$ is a polynomial of degree at most $k$.
+
+  \emph{Real functions.} This fails on $\R$. For $g(x) = \sin x$, every
+  derivative is $\pm \sin x$ or $\pm \cos x$, so $g^{(7)}(x) = -\cos x$ is
+  bounded, yet $\sin x$ is not a polynomial.
+\end{solution}
+
+\begin{remark}
+  Applying \cref{thm:cauchy-estimates} directly to $g = f^{(7)}$ gives
+  $\abs{f^{(8)}(z_0)} \leq M / R$ for every $R$, which is the same argument
+  that proves Liouville's theorem.
+\end{remark}
+
+\section{The maximum modulus principle}\label{sec:maximum-modulus}
+
+\input{theorems/maximum-modulus}
+
+\begin{exercise}\label{ex:max-on-disc}
+  Let $f(z) = \left(z - \frac12\right)\left(z - \frac14\right)$ on the closed
+  unit disc. Explain why $\max_{\abs{z} \leq 1} \abs{f(z)}$ is attained on
+  $\abs{z} = 1$, compute $\abs{f}$ there, and find the maximum.
+\end{exercise}
+
+\begin{solution}
+  \emph{Where.} $f$ is a polynomial, so it is analytic on the open unit disc
+  and continuous on its closure. By \cref{thm:maximum-modulus}, the maximum of
+  $\abs{f}$ is attained on $\abs{z} = 1$.
+
+  \emph{On the circle.} Write $z = e^{i\theta}$ and $a = \cos\theta$. For real
+  $c$, $\abs{z - c}^2 = (z - c)(\bar z - c) = 1 - 2ca + c^2$, so
+  \[
+    \abs{f(z)}^2
+    = \left(\tfrac54 - a\right)\left(\tfrac{17}{16} - \tfrac12 a\right)
+    = \tfrac12 a^2 - \tfrac{27}{16} a + \tfrac{85}{64}.
+  \]
+
+  \emph{Maximum.} The derivative in $a$ is $a - \frac{27}{16} < 0$ on
+  $[-1, 1]$, so $\abs{f}^2$ is largest at $a = -1$, that is, at $z = -1$, where
+  it equals $\frac{225}{64}$. Hence
+  \[
+    \max_{\abs{z} \leq 1} \abs{f(z)} = \frac{15}{8}. \qedhere
+  \]
+\end{solution}
+
+\begin{remark}
+  The triangle inequality gets there faster: for $\abs{z} \leq 1$,
+  $\abs{f(z)} \leq \left(1 + \frac12\right)\left(1 + \frac14\right) = \frac{15}{8}$,
+  with equality at $z = -1$.
+\end{remark}

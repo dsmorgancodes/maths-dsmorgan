@@ -1,0 +1,12 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Liouville's theorem]\label{thm:liouville}
+  A bounded entire function is constant.
+  \thmsource{\cite[ch.~4]{saff-snider}}
+\end{theorem}
+
+\begin{proof}
+  Suppose $\abs{f} \leq M$ on $\C$. Fix $z_0$. For every $R > 0$,
+  \cref{thm:cauchy-estimates} with $n = 1$ gives
+  $\abs{f'(z_0)} \leq M / R$. Letting $R \to \infty$ gives $f'(z_0) = 0$.
+  So $f' \equiv 0$ on the connected set $\C$, and $f$ is constant.
+\end{proof}

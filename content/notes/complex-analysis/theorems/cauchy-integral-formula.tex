@@ -1,0 +1,33 @@
+%! TEX root = ../master.tex
+\begin{theorem}[Cauchy's integral formula]\label{thm:cif}
+  Let $f$ be analytic in a simply connected domain $D$, and let $\Gamma$ be a
+  simple closed positively oriented contour in $D$. For every $z_0$ inside
+  $\Gamma$,
+  \[
+    f(z_0) = \frac{1}{2\pi i} \oint_\Gamma \frac{f(z)}{z - z_0} \dd z.
+  \]
+  \thmsource{\cite[ch.~4]{saff-snider}}
+\end{theorem}
+
+\begin{proof}
+  Let $C_r$ be the circle $\abs{z - z_0} = r$, with $r$ small enough that
+  $C_r$ lies inside $\Gamma$. The integrand is analytic everywhere except at
+  $z_0$, so by \cref{thm:deformation}
+  \[
+    \oint_\Gamma \frac{f(z)}{z - z_0} \dd z
+    = \oint_{C_r} \frac{f(z)}{z - z_0} \dd z
+    = f(z_0) \oint_{C_r} \frac{\dd z}{z - z_0}
+      + \oint_{C_r} \frac{f(z) - f(z_0)}{z - z_0} \dd z.
+  \]
+  Parametrising $z = z_0 + re^{it}$, $0 \leq t \leq 2\pi$, the first integral
+  is $\int_0^{2\pi} i \dd t = 2\pi i$. Let $E_r$ be the second. On $C_r$ its
+  integrand is at most $\max_{C_r} \abs{f(z) - f(z_0)} / r$ in modulus, so by
+  \cref{thm:ml-inequality}
+  \[
+    \abs{E_r} \leq 2\pi \max_{\abs{z - z_0} = r} \abs{f(z) - f(z_0)}
+    \longrightarrow 0
+    \quad \text{as } r \to 0,
+  \]
+  by continuity of $f$ at $z_0$. But $E_r = \oint_\Gamma \frac{f(z)}{z - z_0}
+  \dd z - 2\pi i f(z_0)$ does not depend on $r$, so $E_r = 0$.
+\end{proof}
