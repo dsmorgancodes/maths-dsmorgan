@@ -16,6 +16,7 @@ SUBJECTS = {
     "data-science": "Data Science",
     "linear-algebra": "Linear Algebra",
     "real-analysis": "Real Analysis",
+    "calculus": "Calculus",
     "graph-theory": "Graph Theory",
     "topology": "Topology",
 }

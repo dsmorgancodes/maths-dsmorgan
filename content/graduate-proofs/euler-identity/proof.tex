@@ -1,0 +1,122 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{dsmorgan}
+
+\title{Euler's Identity}
+\subtitle{A proof from power series}
+\author{Drew M. Schaffner}
+\date{08/05/2026}
+
+\begin{document}
+\maketitle
+
+\section{Statement}
+
+\begin{theorem}[Euler's identity]\label{thm:euler}
+  \[
+    e^{i\pi} + 1 = 0.
+  \]
+\end{theorem}
+
+\section{Setting}
+
+Everything is built from power series, so no geometric intuition about angles
+is assumed. I have, however, offered an additional version of this proof utilizing Group Theory. 
+
+\begin{definition}[Exponential, sine and cosine]\label{def:exp}
+  For $z \in \C$, define
+  \begin{equation}\label{eq:series}
+    \exp(z) = \sum_{n=0}^{\infty} \frac{z^n}{n!}, \qquad
+    \cos(z) = \sum_{n=0}^{\infty} \frac{(-1)^n z^{2n}}{(2n)!}, \qquad
+    \sin(z) = \sum_{n=0}^{\infty} \frac{(-1)^n z^{2n+1}}{(2n+1)!},
+  \end{equation}
+  and write $e^{z} = \exp(z)$.
+\end{definition}
+
+\begin{definition}[The number $\pi$]\label{def:pi}
+  $\pi$ is twice the smallest positive real zero of $\cos$.
+\end{definition}
+
+\section{Idea of the proof}
+
+Substitute $i\theta$ into the series for $\exp$. The powers of $i$ cycle through
+$1, i, -1, -i$, so the even terms rebuild $\cos\theta$ and the odd terms rebuild
+$i \sin\theta$. Then evaluate at $\theta = \pi$.
+
+\section{Proof}
+
+\begin{lemma}[Absolute convergence]\label{lem:converge}
+  Each series in \eqref{eq:series} converges absolutely for every $z \in \C$.
+\end{lemma}
+
+\begin{proof}
+  For $\exp$, the ratio of consecutive terms of $\sum \abs{z}^n / n!$ is
+  $\abs{z} / (n+1) \to 0$, so the series converges by the ratio test. The
+  series for $\cos$ and $\sin$ are bounded term by term by this one.
+\end{proof}
+
+\begin{lemma}[Euler's formula]\label{lem:formula}
+  For every $\theta \in \R$, $e^{i\theta} = \cos\theta + i \sin\theta$.
+\end{lemma}
+
+\begin{proof}
+  Since $i^{2k} = (-1)^k$ and $i^{2k+1} = (-1)^k i$, by \cref{lem:converge} we
+  may split the series into even and odd terms:
+  \begin{align*}
+    e^{i\theta}
+    &= \sum_{k=0}^{\infty} \frac{(i\theta)^{2k}}{(2k)!}
+     + \sum_{k=0}^{\infty} \frac{(i\theta)^{2k+1}}{(2k+1)!} \\
+    &= \sum_{k=0}^{\infty} \frac{(-1)^k \theta^{2k}}{(2k)!}
+     + i \sum_{k=0}^{\infty} \frac{(-1)^k \theta^{2k+1}}{(2k+1)!}
+     = \cos\theta + i \sin\theta. \qedhere
+  \end{align*}
+\end{proof}
+
+\begin{lemma}[Values at $\pi$]\label{lem:values}
+  $\cos\pi = -1$ and $\sin\pi = 0$.
+\end{lemma}
+
+\begin{proof}
+  Differentiating \eqref{eq:series} term by term gives $\sin' = \cos$ and
+  $\cos' = -\sin$, so $\frac{\dd}{\dd x}(\sin^2 x + \cos^2 x) = 0$ and
+  $\sin^2 + \cos^2 = 1$.
+
+  By \cref{def:pi}, $\cos(\pi/2) = 0$, so $\sin(\pi/2) = \pm 1$. Since
+  $\sin' = \cos > 0$ on $[0, \pi/2)$ and $\sin 0 = 0$, $\sin(\pi/2) = 1$. The
+  addition formulas, which follow from $e^{a+b} = e^a e^b$ and
+  \cref{lem:formula}, then give
+  \[
+    \cos\pi = \cos^2\tfrac{\pi}{2} - \sin^2\tfrac{\pi}{2} = -1, \qquad
+    \sin\pi = 2 \sin\tfrac{\pi}{2} \cos\tfrac{\pi}{2} = 0. \qedhere
+  \]
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:euler}]
+  By \cref{lem:formula,lem:values},
+  \[
+    e^{i\pi} = \cos\pi + i \sin\pi = -1,
+  \]
+  so $e^{i\pi} + 1 = 0$.
+\end{proof}
+
+\section{Remarks}
+
+\begin{remark}
+  The identity links five constants ($0$, $1$, $e$, $i$, $\pi$) using
+  addition, multiplication and exponentiation exactly once each. The proof
+  shows it is less mysterious than it looks: it is \cref{lem:formula} at a
+  single point.
+\end{remark}
+
+\begin{remark}
+  Two facts are used without proof here: that power series can be
+  differentiated term by term inside their radius of convergence, and that
+  $\cos$ has a positive zero (true since $\cos 0 = 1$ and $\cos 2 < 0$ from
+  the alternating series).
+\end{remark}
+
+\begin{thebibliography}{9}
+  \bibitem{rudin} W.~Rudin, \emph{Principles of Mathematical Analysis},
+    3rd ed., McGraw--Hill, 1976, ch.~8.
+\end{thebibliography}
+
+\end{document}

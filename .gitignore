@@ -22,6 +22,17 @@ __pycache__/
 *.synctex.gz
 *.toc
 *.out
+*.bbl
+*.bcf
+*.blg
+*.run.xml
+*.synctex(busy)
+*.thm
+
+# Compiled documents (built from source; figures are kept)
+/content/**/*.pdf
+!/content/**/figures/*.pdf
+/shared/templates/**/*.pdf
 
 # macOS
 .DS_Store

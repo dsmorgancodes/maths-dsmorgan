@@ -36,7 +36,29 @@ published = false
 Only `title` is required. Entries stay off the site until
 `published = true`. Subjects must be one of: `artificial-intelligence`,
 `group-theory`, `data-science`, `linear-algebra`, `real-analysis`,
-`graph-theory`, `topology` (defined in `app/catalog.py`).
+`calculus`, `graph-theory`, `topology` (defined in `app/catalog.py`).
+
+## Writing
+
+Proofs, papers, and course notes are LaTeX; projects with code are Quarto.
+Every LaTeX document loads the house style with `\usepackage{dsmorgan}`
+(`shared/latex/dsmorgan.sty`: EB Garamond, A4, boxed theorems, `\cref`,
+`\lecture`). Make it visible to TeX once per machine:
+
+```sh
+mkdir -p ~/Library/texmf/tex/latex
+ln -s "$PWD/shared/latex" ~/Library/texmf/tex/latex/dsmorgan
+```
+
+Start an entry from a template in `shared/templates`:
+
+```sh
+uv run tools/new.py proof cauchy-schwarz "The Cauchy-Schwarz Inequality" -s linear-algebra
+uv run tools/new.py course calculus "Calculus" -s calculus
+```
+
+A course is one entry: `master.tex` inputs one `lec_NN.tex` per lecture.
+Compiled PDFs and LaTeX build files are ignored by git.
 
 Validate every entry, including drafts, before publishing:
 

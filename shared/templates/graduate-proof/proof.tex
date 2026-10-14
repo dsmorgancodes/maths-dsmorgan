@@ -1,0 +1,60 @@
+% Graduate proof template. Copy the whole folder:
+%   cp -r shared/templates/graduate-proof content/graduate-proofs/<slug>
+% Label prefixes:  def:  lem:  thm:  cor:  prop:  eq:
+% Refer with \cref{lem:first} ("Lemma 4.1") or \eqref{eq:name} ("(2.1)").
+% Environments: theorem lemma proposition corollary definition example remark exercise proof
+% Delete any section you don't need.
+\documentclass[11pt,a4paper]{article}
+\usepackage{dsmorgan}
+
+\title{Theorem name}
+\subtitle{One-line description}
+\author{Drew M. Schaffner}
+\date{Draft, \today}
+
+\begin{document}
+\maketitle
+
+\section{Statement}
+
+\begin{theorem}[Theorem name]\label{thm:main}
+  State the result precisely, with every hypothesis.
+\end{theorem}
+
+\section{Setting}
+
+What we assume, and the definitions the proof depends on.
+
+\begin{definition}[Term]\label{def:first}
+  Definition.
+\end{definition}
+
+\section{Idea of the proof}
+
+Two or three sentences a reader can hold in their head before the details.
+
+\section{Proof}
+
+\begin{lemma}[Supporting fact]\label{lem:first}
+  Statement.
+\end{lemma}
+
+\begin{proof}
+  Proof of \cref{lem:first}.
+\end{proof}
+
+\begin{proof}[Proof of \cref{thm:main}]
+  Citing \cref{def:first} and \cref{lem:first}.
+\end{proof}
+
+\section{Remarks}
+
+\begin{remark}
+  Consequences, generalisations, or where the hypotheses are really needed.
+\end{remark}
+
+\begin{thebibliography}{9}
+  \bibitem{key} A.~Author, \emph{Title}, Publisher, Year.
+\end{thebibliography}
+
+\end{document}

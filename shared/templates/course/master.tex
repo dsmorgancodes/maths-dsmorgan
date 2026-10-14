@@ -1,0 +1,21 @@
+% Course notes (Castel style). Each lecture is its own file, lec_NN.tex.
+% In Neovim, <leader>ml creates the next lecture and adds it below.
+% Compile this file, or any lecture: the "TEX root" line points them here.
+% Label prefixes:  def:  lem:  thm:  cor:  prop:  eq:  ex:
+\documentclass[11pt,a4paper]{article}
+\usepackage{dsmorgan}
+
+\title{Course name}
+\subtitle{Lecture notes}
+\author{Drew M. Schaffner}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+% start lectures
+\input{lec_01.tex}
+% end lectures
+
+\end{document}

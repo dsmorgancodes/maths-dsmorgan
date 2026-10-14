@@ -1,0 +1,157 @@
+% dsmorgan.sty: house style for every LaTeX document on maths.dsmorgan.com.
+% Load with \usepackage{dsmorgan} after \documentclass[11pt,a4paper]{article}.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{dsmorgan}[2026/10/13 maths.dsmorgan.com house style]
+
+% ---------------------------------------------------------------- page
+\RequirePackage[a4paper,margin=2.6cm,marginparwidth=2cm,headheight=14pt]{geometry}
+\RequirePackage{fancyhdr}
+\RequirePackage{titlesec}
+\RequirePackage{enumitem}
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{0.25em}
+\linespread{1.06}
+
+% ---------------------------------------------------------------- colours
+% Matches app/static/css/tokens.css.
+\RequirePackage{xcolor}
+\definecolor{dsink}{HTML}{2A1F18}
+\definecolor{dsinksoft}{HTML}{6A5A4E}
+\definecolor{dsaccent}{HTML}{6B1927}
+\definecolor{dsrule}{HTML}{D2C4B2}
+\definecolor{dsshade}{HTML}{F7F1E6}
+
+% ---------------------------------------------------------------- fonts
+\RequirePackage[T1]{fontenc}
+\RequirePackage{amsmath,amssymb,amsthm,mathtools}
+\RequirePackage{ebgaramond}
+\RequirePackage[cmintegrals,cmbraces]{newtxmath}
+\RequirePackage{ebgaramond-maths}
+\RequirePackage{microtype}
+\numberwithin{equation}{section}
+
+% ---------------------------------------------------------------- headings
+\titleformat{\section}
+  {\normalfont\Large\scshape}{\color{dsaccent}\thesection}{0.8em}{}
+\titleformat{\subsection}
+  {\normalfont\large\itshape}{\color{dsaccent}\thesubsection}{0.7em}{}
+\titlespacing*{\section}{0pt}{2.2ex plus .5ex}{1.2ex}
+\titlespacing*{\subsection}{0pt}{1.8ex plus .4ex}{0.8ex}
+
+% ---------------------------------------------------------------- running head
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{{\color{dsrule}\hrule width\headwidth height\headrulewidth}}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
+\fancyhead[L]{\small\scshape\color{dsinksoft}\@title}
+\fancyhead[R]{\small\scshape\color{dsinksoft}\nouppercase{\leftmark}}
+\fancyfoot[C]{\small\thepage}
+\fancypagestyle{plain}{\fancyhf{}\renewcommand{\headrulewidth}{0pt}%
+  \fancyfoot[C]{\small\thepage}}
+
+% ---------------------------------------------------------------- title block
+\newcommand{\@subtitle}{}
+\newcommand{\subtitle}[1]{\renewcommand{\@subtitle}{#1}}
+% Keep \@title available for the running head after \maketitle.
+\renewcommand{\maketitle}{%
+  \thispagestyle{plain}%
+  \begin{center}
+    {\LARGE\scshape\@title\par}
+    \ifx\@subtitle\@empty\else\vspace{0.4em}{\large\itshape\@subtitle\par}\fi
+    \vspace{0.8em}
+    {\color{dsaccent}\rule{4em}{0.6pt}\par}
+    \vspace{0.6em}
+    {\normalsize\@author\par}
+    {\small\color{dsinksoft}\@date\par}
+  \end{center}
+  \vspace{1.5em}}
+\AtBeginDocument{\color{dsink}}
+
+% ---------------------------------------------------------------- links and refs
+\RequirePackage{hyperref}
+\hypersetup{colorlinks, linkcolor=dsaccent, citecolor=dsaccent,
+  urlcolor=dsaccent, pdfauthor={Drew M. Schaffner}}
+\RequirePackage[capitalise,nameinlink,noabbrev]{cleveref}
+
+% ---------------------------------------------------------------- theorems
+% Write \begin{theorem}[Name]\label{thm:x} ... \end{theorem}; refer with \cref{thm:x}.
+\RequirePackage{thmtools}
+\RequirePackage[most]{tcolorbox}
+
+\declaretheoremstyle[headfont=\normalfont\scshape\color{dsaccent},
+  notefont=\normalfont\itshape, notebraces={(}{)},
+  bodyfont=\normalfont\itshape, headpunct={.}, spaceabove=0pt, spacebelow=0pt]{dsplain}
+\declaretheoremstyle[headfont=\normalfont\scshape\color{dsaccent},
+  notefont=\normalfont\itshape, notebraces={(}{)},
+  bodyfont=\normalfont, headpunct={.}, spaceabove=0pt, spacebelow=0pt]{dsdefinition}
+\declaretheoremstyle[headfont=\normalfont\itshape,
+  notefont=\normalfont, notebraces={(}{)},
+  bodyfont=\normalfont, headpunct={.}, spaceabove=6pt, spacebelow=6pt]{dsremark}
+
+\declaretheorem[style=dsplain, name=Theorem, numberwithin=section]{theorem}
+\declaretheorem[style=dsplain, name=Lemma, sibling=theorem]{lemma}
+\declaretheorem[style=dsplain, name=Proposition, sibling=theorem]{proposition}
+\declaretheorem[style=dsplain, name=Corollary, sibling=theorem]{corollary}
+\declaretheorem[style=dsdefinition, name=Definition, sibling=theorem]{definition}
+\declaretheorem[style=dsremark, name=Example, sibling=theorem]{example}
+\declaretheorem[style=dsremark, name=Exercise, sibling=theorem]{exercise}
+\declaretheorem[style=dsremark, name=Remark, sibling=theorem]{remark}
+
+% Results: shaded box with an accent rule on the left.
+\tcbset{dsresult/.style={enhanced, breakable, sharp corners, boxrule=0pt,
+  frame hidden, colback=dsshade, borderline west={1.6pt}{0pt}{dsaccent},
+  left=9pt, right=9pt, top=6pt, bottom=6pt, before skip=10pt, after skip=10pt}}
+% Definitions: thin outline, no fill.
+\tcbset{dsdef/.style={enhanced, breakable, sharp corners, boxrule=0.6pt,
+  colframe=dsrule, colback=white,
+  left=9pt, right=9pt, top=6pt, bottom=6pt, before skip=10pt, after skip=10pt}}
+
+\tcolorboxenvironment{theorem}{dsresult}
+\tcolorboxenvironment{lemma}{dsresult}
+\tcolorboxenvironment{proposition}{dsresult}
+\tcolorboxenvironment{corollary}{dsresult}
+\tcolorboxenvironment{definition}{dsdef}
+
+% ---------------------------------------------------------------- lectures
+% Course notes: \lecture{3}{Tue 13 Oct 2026}{Limits}. Leave the title empty if
+% there isn't one. The date goes in the margin; the lecture goes in the contents.
+\RequirePackage{marginnote}
+\renewcommand*{\raggedrightmarginnote}{\raggedright}
+\newcommand*{\toclevel@lecture}{0}
+\newcommand*{\l@lecture}[2]{%
+  \addpenalty{-\@highpenalty}\vskip 0.9em plus 2pt
+  \noindent{\scshape\color{dsaccent}#1}\nobreak\hfill\nobreak#2\par\nopagebreak}
+% Contents: sections sit under their lecture, with dot leaders.
+\renewcommand*{\l@section}{\@dottedtocline{1}{1.2em}{1.8em}}
+\renewcommand*{\l@subsection}{\@dottedtocline{2}{3em}{2.6em}}
+\newcommand{\lecture}[3]{%
+  \par\addvspace{4.5ex plus 1ex}%
+  % One box, so the rule, heading and contents entry never split across pages.
+  \vbox{%
+    \noindent{\color{dsrule}\rule{\linewidth}{0.6pt}}\par
+    \vspace{0.8ex}%
+    \noindent\phantomsection
+    \addcontentsline{toc}{lecture}{Lecture #1\if\relax\detokenize{#3}\relax\else: #3\fi}%
+    {\large\scshape\color{dsaccent}Lecture #1}%
+    \if\relax\detokenize{#3}\relax\else{\large\scshape: #3}\fi
+    \marginnote{\footnotesize\itshape\color{dsinksoft}#2}\par}%
+  \nopagebreak\vspace{1.2ex}\@afterheading}
+
+% Proofs: small-caps head and a filled tombstone.
+\renewcommand{\proofname}{\textsc{Proof}}
+\renewcommand{\qedsymbol}{\ensuremath{\blacksquare}}
+
+% ---------------------------------------------------------------- macros
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclarePairedDelimiter{\set}{\{}{\}}
+\DeclarePairedDelimiter{\ip}{\langle}{\rangle}
+\newcommand{\dd}{\mathop{}\!\mathrm{d}}
+
+\endinput
