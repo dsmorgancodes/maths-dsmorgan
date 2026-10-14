@@ -6,8 +6,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
-    PATH="/srv/.venv/bin:$PATH" \
-    FLASK_CONTENT_DIR=/srv/build
+    PATH="/srv/.venv/bin:$PATH"
 
 WORKDIR /srv
 

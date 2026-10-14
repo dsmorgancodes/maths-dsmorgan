@@ -10,8 +10,8 @@ from app.catalog import METADATA_FILE, CatalogError, read_entry
 @click.command("check-content")
 @with_appcontext
 def check_content():
-    """Validate every entry.toml, including drafts."""
-    content_dir = Path(current_app.config["CONTENT_DIR"])
+    """Validate every entry.toml in content/, including drafts."""
+    content_dir = Path(current_app.config["SOURCE_DIR"])
     errors = []
     counts = {"published": 0, "draft": 0}
     for metadata in sorted(content_dir.glob(f"*/*/{METADATA_FILE}")):

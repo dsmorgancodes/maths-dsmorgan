@@ -1,5 +1,6 @@
 import json
 from datetime import date
+from pathlib import Path
 
 import pytest
 
@@ -218,3 +219,10 @@ def test_drafts_are_hidden_unless_previewing(content):
 def test_health(client):
     response = client.get("/health")
     assert response.status_code == 200 and response.json == {"status": "ok"}
+
+
+def test_serves_build_and_checks_content_by_default():
+    app = create_app()
+    root = Path(app.root_path).parent
+    assert app.config["CONTENT_DIR"] == root / "build"
+    assert app.config["SOURCE_DIR"] == root / "content"

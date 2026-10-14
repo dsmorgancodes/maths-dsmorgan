@@ -11,14 +11,17 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SITE_URL="https://maths.dsmorgan.com",
         MAIN_SITE_URL="https://dsmorgan.com",
-        CONTENT_DIR=Path(app.root_path).parent / "content",
+        # The site serves what tools/publish.py built; content/ is the source.
+        CONTENT_DIR=Path(app.root_path).parent / "build",
+        SOURCE_DIR=Path(app.root_path).parent / "content",
         # Local preview only: list and serve unpublished entries too.
         SHOW_DRAFTS=False,
     )
     app.config.from_prefixed_env()
     if test_config is not None:
         app.config.update(test_config)
-    app.config["CONTENT_DIR"] = Path(app.config["CONTENT_DIR"]).resolve()
+    for key in ("CONTENT_DIR", "SOURCE_DIR"):
+        app.config[key] = Path(app.config[key]).resolve()
 
     app.register_blueprint(pages)
     app.cli.add_command(check_content)

@@ -14,7 +14,7 @@ templates wrap. Each course theorem note also gets its own page and PDF.
 
 Preview the result with:
 
-    FLASK_CONTENT_DIR=build FLASK_SHOW_DRAFTS=1 uv run flask --app app run --debug
+    FLASK_SHOW_DRAFTS=1 uv run flask --app app run --debug
 """
 
 import argparse

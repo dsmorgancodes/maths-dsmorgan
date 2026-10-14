@@ -20,7 +20,9 @@ def content(tmp_path):
 
 @pytest.fixture
 def app(content):
-    return create_app({"TESTING": True, "CONTENT_DIR": content.root})
+    return create_app(
+        {"TESTING": True, "CONTENT_DIR": content.root, "SOURCE_DIR": content.root}
+    )
 
 
 @pytest.fixture

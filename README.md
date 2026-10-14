@@ -103,7 +103,7 @@ uv run tools/publish.py notes/foundations    # rebuild one entry
 Preview the built site, drafts included:
 
 ```sh
-FLASK_CONTENT_DIR=build FLASK_SHOW_DRAFTS=1 uv run flask --app app run --debug --port 5001
+FLASK_SHOW_DRAFTS=1 uv run flask --app app run --debug --port 5001
 ```
 
 A full build empties `build/` first, so a draft never ships by accident; the
@@ -160,5 +160,6 @@ uv run pytest
 uv run ruff check . && uv run ruff format --check .
 ```
 
-Set `FLASK_CONTENT_DIR` to serve content from another directory. The debug
+The site serves `build/`, so run `tools/publish.py` first or pages show only
+their title and summary. Set `FLASK_CONTENT_DIR` to serve another directory. The debug
 server is for local development only.
