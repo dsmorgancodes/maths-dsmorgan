@@ -109,6 +109,22 @@ FLASK_CONTENT_DIR=build FLASK_SHOW_DRAFTS=1 uv run flask --app app run --debug -
 A full build empties `build/` first, so a draft never ships by accident; the
 site also hides unpublished entries unless `SHOW_DRAFTS` is set.
 
+## Deploying
+
+Cloud Run service `maths-dsmorgan` in project `dsmorgan-site`, region
+`us-central1`, alongside dsmorgan.com. The image holds the app and `build/`
+only (no LaTeX sources), served by gunicorn. One command builds the published
+entries from scratch, runs the checks, and deploys:
+
+```sh
+tools/deploy.sh
+```
+
+`.gcloudignore` makes sure `build/` is uploaded even though git ignores it.
+Cloud Run reserves paths ending in `z`, so the health check is `/health`.
+CI (GitHub Actions) runs ruff and pytest and builds the image, but cannot
+build documents: it has no TeX.
+
 ## Branches
 
 - `working` - everyday writing and experiments.

@@ -1,0 +1,17 @@
+# Uploaded by `gcloud run deploy --source .`. Without this file gcloud would
+# use .gitignore and leave out build/, which is the whole site.
+.gcloudignore
+.git
+.github
+.venv
+.env
+.env.*
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+content/
+shared/
+tools/
+tests/
