@@ -2,6 +2,6 @@ title = "Foundations"
 summary = "Statements and proof, the number systems, parity, and the irrationality of the square root of two."
 # Keys from SUBJECTS in app/catalog.py.
 subjects = ["foundations"]
-# Uncomment when finished (TOML date, no quotes).
+# Optional: shown on the site only if set (TOML date, no quotes).
 # written = 2026-01-01
 published = true

@@ -10,11 +10,14 @@
     <header class="entry-head">
       <p class="breadcrumb"><a href="{{ url_for('pages.' ~ section.endpoint) }}">{{ section.title }}</a></p>
       <h1 id="page-heading">{{ entry.title }}</h1>
-      <p class="entry-meta">
-        {{ written_date(entry.written) }}
-        {%- if document.pdf %} &middot; <a href="{{ url_for('pages.' ~ section.endpoint ~ '_files', slug=entry.slug, filename=document.pdf) }}">PDF</a>{% endif %}
-        {%- if not entry.published %} &middot; <strong>Draft</strong>{% endif %}
-      </p>
+      {% set pdf_url = url_for('pages.' ~ section.endpoint ~ '_files', slug=entry.slug, filename=document.pdf) if document.pdf %}
+      {% if entry.written or pdf_url or not entry.published %}
+        <p class="entry-meta">
+          {%- if entry.written %}{{ written_date(entry.written) }}{% endif %}
+          {%- if pdf_url %}{% if entry.written %} &middot; {% endif %}<a href="{{ pdf_url }}">PDF</a>{% endif %}
+          {%- if not entry.published %}{% if entry.written or pdf_url %} &middot; {% endif %}<strong>Draft</strong>{% endif %}
+        </p>
+      {% endif %}
       {{ subject_tags(entry, section) }}
     </header>
     {% if entry.summary %}

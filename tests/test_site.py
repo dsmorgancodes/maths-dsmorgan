@@ -226,3 +226,13 @@ def test_serves_build_and_checks_content_by_default():
     root = Path(app.root_path).parent
     assert app.config["CONTENT_DIR"] == root / "build"
     assert app.config["SOURCE_DIR"] == root / "content"
+
+
+def test_dates_are_optional(client, content):
+    content("notes", "eigenvectors", EIGEN)
+    content("notes", "timeless", 'title = "Timeless"\npublished = true\n')
+    assert b"Undated" not in client.get("/notes").data
+    page = client.get("/notes/timeless").data
+    assert b"Undated" not in page and b"<time" not in page
+    assert b'class="entry-meta"' not in page
+    assert b"October 1, 2026" in client.get("/notes/eigenvectors").data

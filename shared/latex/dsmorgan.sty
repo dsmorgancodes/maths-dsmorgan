@@ -60,6 +60,8 @@
 % ---------------------------------------------------------------- title block
 \newcommand{\@subtitle}{}
 \newcommand{\subtitle}[1]{\renewcommand{\@subtitle}{#1}}
+% No date unless the document sets one with \date{...}.
+\date{}
 % Keep \@title available for the running head after \maketitle.
 \renewcommand{\maketitle}{%
   \thispagestyle{plain}%
@@ -70,7 +72,7 @@
     {\color{dsaccent}\rule{4em}{0.6pt}\par}
     \vspace{0.6em}
     {\normalsize\@author\par}
-    {\small\color{dsinksoft}\@date\par}
+    \ifx\@date\@empty\else{\small\color{dsinksoft}\@date\par}\fi
   \end{center}
   \vspace{1.5em}}
 \AtBeginDocument{\color{dsink}}

@@ -8,8 +8,6 @@
 {% macro written_date(value) %}
   {%- if value -%}
     <time datetime="{{ value.isoformat() }}">{{ value.strftime('%B') }} {{ value.day }}, {{ value.year }}</time>
-  {%- else -%}
-    <span>Undated</span>
   {%- endif -%}
 {% endmacro %}
 
@@ -32,7 +30,7 @@
 {% macro entry_row(section, entry) %}
   <li class="entry-row">
     <h3><a href="{{ url_for('pages.' ~ section.endpoint ~ '_entry', slug=entry.slug) }}">{{ entry.title }}</a></h3>
-    <p class="entry-meta">{{ written_date(entry.written) }}</p>
+    {% if entry.written %}<p class="entry-meta">{{ written_date(entry.written) }}</p>{% endif %}
     {% if entry.summary %}<p class="entry-summary">{{ entry.summary }}</p>{% endif %}
     {{ subject_tags(entry, section) }}
   </li>
